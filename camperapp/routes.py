@@ -1,7 +1,7 @@
 """Routes for Camper+ app."""
 
 from camperapp import app
-
+from flask import render_template
 
 @app.route('/', methods=['GET'])
 def index():
@@ -11,4 +11,4 @@ def index():
 @app.route('/schedule', methods=['GET','POST'])
 def schedule():
     """View displays the schedule-making page"""
-    return "<h1>placeholder</h1>"
+    return render_template("schedule.html")
