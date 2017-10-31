@@ -6,9 +6,6 @@
 			line-height: 0;
 		}
 
-		.sched-row {
-			margin-bottom: 0;
-		}
 		.sched-nav {
 			background-color: #ba68c8;
 			position: absolute;
@@ -26,6 +23,37 @@
 			right: 0;
 			bottom: 0px;
 		}
+
+		.group1 {
+			background-color: rgba(213,0,0,1);
+			color: rgba(255,255,255,0.8);
+			border: 0;
+			border-radius: 1em;
+			font-size: 1.5em;
+			font-weight: bold;
+			padding: 0.2em 1em 0.2em 1em;
+			margin: 0.25em auto auto 0.5em;
+		}
+		.group2 {
+			background-color: rgba(0,213,0,1);
+			color: rgba(255,255,255,0.8);
+			border: 0;
+			border-radius: 1em;
+			font-size: 1.5em;
+			font-weight: bold;
+			padding: 0.2em 1em 0.2em 1em;
+			margin: 0.25em auto auto 0.5em;
+		}
+		.group3 {
+			background-color: rgba(0,0,213,1);
+			color: rgba(255,255,255,0.8);
+			border: 0;
+			border-radius: 1em;
+			font-size: 1.5em;
+			font-weight: bold;
+			padding: 0.2em 1em 0.2em 1em;
+			margin: 0.25em auto auto 0.5em;
+		}
 	</style>
 {% endblock headcontent %}
 
@@ -35,9 +63,15 @@
 {% endblock navbar_right %}
 
 {% block bodycontent %}
-		<div class="sched-nav z-depth-5">
+	<div class="sched-nav z-depth-5">
+		<div class="container center-align">
+			<h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
+			<i class="material-icons">create</i><button class="group1">Group 1</button><br>
+			<i class="material-icons">create</i><button class="group2">Group 2</button><br>
+			<i class="material-icons">create</i><button class="group3">Group 3</button><br>
 		</div>
+	</div>
 
-		<div class="sched-div">
-		</div>
+	<div class="sched-div">
+	</div>
 {% endblock bodycontent %}
