@@ -6,24 +6,26 @@
 			line-height: 0;
 		}
 
-html,
-body {
-	height: 100%;
-}
-
 		.sched-row {
 			margin-bottom: 0;
 		}
 		.sched-nav {
 			background-color: #ba68c8;
-			height: calc(100vh - 64px);
+			position: absolute;
+			top: 64px;
+			left: 0px;
+			width: 16vw;
+			bottom: 0px;
+			z-index: 1;
 		}
 		.sched-div {
 			background-color: #f3e5f5;
-			height: calc(100vh - 64px);
+			position: absolute;
+			top: 64px;
+			width: 84vw;
+			right: 0;
+			bottom: 0px;
 		}
-
-
 	</style>
 {% endblock headcontent %}
 
@@ -33,11 +35,9 @@ body {
 {% endblock navbar_right %}
 
 {% block bodycontent %}
-    <div class="row sched-row">
-		<div class="col s2 sched-nav">
+		<div class="sched-nav z-depth-5">
 		</div>
 
-		<div class="col s10 sched-div">
+		<div class="sched-div">
 		</div>
-    </div>
 {% endblock bodycontent %}
