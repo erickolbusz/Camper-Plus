@@ -1,66 +1,7 @@
 {% extends "base.html" %}
 
 {% block headcontent %}
-	<style>
-		header {
-			line-height: 0;
-		}
-
-		.sched-nav {
-			background-color: #ba68c8;
-			position: absolute;
-			top: 64px;
-			left: 0px;
-			width: 16vw;
-			bottom: 0px;
-			z-index: 1;
-		}
-		.sched-div {
-			background-color: #f3e5f5;
-			position: absolute;
-			top: 64px;
-			width: 84vw;
-			right: 0;
-			bottom: 0px;
-		}
-
-		.group1 {
-			background-color: rgba(213,0,0,1);
-			color: rgba(255,255,255,0.8);
-			border: 0;
-			border-radius: 1em;
-			font-size: 1.5em;
-			font-weight: bold;
-			padding: 0.2em 1em 0.2em 1em;
-			margin: 0.4em auto auto 0.25em;
-			position: relative;
-			top: -0.25em;
-		}
-		.group2 {
-			background-color: rgba(0,213,0,1);
-			color: rgba(255,255,255,0.8);
-			border: 0;
-			border-radius: 1em;
-			font-size: 1.5em;
-			font-weight: bold;
-			padding: 0.2em 1em 0.2em 1em;
-			margin: 0.4em auto auto 0.25em;
-			position: relative;
-			top: -0.25em;
-		}
-		.group3 {
-			background-color: rgba(0,0,213,1);
-			color: rgba(255,255,255,0.8);
-			border: 0;
-			border-radius: 1em;
-			font-size: 1.5em;
-			font-weight: bold;
-			padding: 0.2em 1em 0.2em 1em;
-			margin: 0.4em auto auto 0.25em;
-			position: relative;
-			top: -0.25em;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sched-style.css')}}"></link>
 {% endblock headcontent %}
 
 {% block navbar_right %}
@@ -77,11 +18,10 @@
 			<i class="material-icons">create</i><button class="group3">Group 3</button><br>
 			<div class="" style="position: absolute; bottom: 1em">
 				<p style="font-size: 1.25em">
-					<a class="btn-floating green"><i class="material-icons">add</i></a> Add New Group
-					</p>
+					<a class="btn-floating light-green darken-4"><i class="material-icons">add</i></a> Add New Group
+				</p>
 			</div>
 		</div>
-
 	</div>
 
 	<div class="sched-div">
