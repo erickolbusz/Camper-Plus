@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block headcontent %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sched-style.css')}}"></link>
+{% endblock headcontent %}
+
+{% block navbar_right %}
+	{% include "schedule_link_active.html" %}
+	{% include "campers_link.html" %}
+{% endblock navbar_right %}
+
+{% block bodycontent %}
+	<div class="sched-nav z-depth-5">
+		<div class="container center-align">
+			<h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
+			<i class="material-icons">create</i><button class="group1">Group 1</button><br>
+			<i class="material-icons">create</i><button class="group2">Group 2</button><br>
+			<i class="material-icons">create</i><button class="group3">Group 3</button><br>
+			<div class="" style="position: absolute; bottom: 1em">
+				<p style="font-size: 1.25em">
+					<a class="btn-floating light-green darken-4"><i class="material-icons">add</i></a> Add New Group
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="sched-div">
+	</div>
+{% endblock bodycontent %}

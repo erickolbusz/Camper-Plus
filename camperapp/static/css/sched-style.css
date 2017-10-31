@@ -1,0 +1,58 @@
+header {
+	line-height: 0;
+}
+
+.sched-nav {
+	background-color: #aed581;
+	position: absolute;
+	top: 64px;
+	left: 0px;
+	width: 16vw;
+	bottom: 0px;
+	z-index: 1;
+}
+.sched-div {
+	background-color: #f1f8e9;
+	position: absolute;
+	top: 64px;
+	width: 84vw;
+	right: 0;
+	bottom: 0px;
+}
+
+.group1 {
+	background-color: rgba(213,0,0,1);
+	color: rgba(255,255,255,0.8);
+	border: 0;
+	border-radius: 1em;
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 0.2em 1em 0.2em 1em;
+	margin: 0.4em auto auto 0.25em;
+	position: relative;
+	top: -0.25em;
+}
+.group2 {
+	background-color: rgba(0,213,0,1);
+	color: rgba(255,255,255,0.8);
+	border: 0;
+	border-radius: 1em;
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 0.2em 1em 0.2em 1em;
+	margin: 0.4em auto auto 0.25em;
+	position: relative;
+	top: -0.25em;
+}
+.group3 {
+	background-color: rgba(0,0,213,1);
+	color: rgba(255,255,255,0.8);
+	border: 0;
+	border-radius: 1em;
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 0.2em 1em 0.2em 1em;
+	margin: 0.4em auto auto 0.25em;
+	position: relative;
+	top: -0.25em;
+}
