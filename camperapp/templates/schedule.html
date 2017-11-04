@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block headcontent %}
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sched-style.css')}}"></link>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sched-style.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.print.min.css') }}" media='print' />
+    <link rel="stylesheet" type="text/css" href='https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css' />
+    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/moment.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/jquery.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/fullcalendar.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/calendar.js') }}" ></script>
 {% endblock headcontent %}
 
 {% block navbar_right %}
@@ -24,8 +31,6 @@
 		</div>
 	</div>
 
-	<div class="sched-div">
-        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=9dn2cvujfk9rsfnlvdmn2rchg0%40group.calendar.google.com&amp;color=%2323164E&amp;ctz=America%2FNew_York"
-        style="border-width:0"  width="100%" height="99%" frameborder="0" scrolling="no"></iframe>
-	</div>
+	<div id="calendar" class="sched-div"></div>
+
 {% endblock bodycontent %}
