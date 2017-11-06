@@ -1,0 +1,39 @@
+<!--<!DOCTYPE html>-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/materialize.min.css')}}"></link>
+		{% block headcontent %}
+		{% endblock headcontent %}
+		{% block title %}
+			<title>Camper+</title>
+		{% endblock title %}
+	</head>
+
+	<body>
+		<header>
+			<div class="navbar-fixed">
+				<nav>
+					<div class="nav-wrapper light-green darken-4">
+						{% block navbar_left %}
+							<a href="/" class="brand-logo left">&nbsp;&nbsp;Camper+</a>
+						{% endblock navbar_left %}
+						<ul class="right hide-on-med-and-down">
+							{% block navbar_right %}
+							{% endblock navbar_right %}
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<br>
+		</header>
+
+		{% block bodycontent %}
+		{% endblock bodycontent %}
+
+		{% block scripts %}
+		{% endblock scripts %}
+
+	</body>
+</html>
