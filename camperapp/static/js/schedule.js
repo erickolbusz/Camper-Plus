@@ -11,4 +11,11 @@ var	addNewGroup = function(name, color, members) {
 }
 
 var editGroup = function(name, newColor, newMembers) {
+	for (var i=0; i<groups.length; i++) {
+		var group = groups[i];
+		if (group.name == name) {
+			group.color = newColor;
+			group.members = newMembers;
+		}
+	}
 }
