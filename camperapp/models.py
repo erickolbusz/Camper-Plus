@@ -3,22 +3,22 @@
 api_key = "AIzaSyDfnLfxNeG45N_tBtUutrB9K6-GYCtD7_I"
 
 
-#from flask.ext.sqlalchemy import SQLAlchemy
-#from werkzeug import generate_password_hash, check_password_hash
+from flask.ext.sqlalchemy import SQLAlchemy
+from werkzeug import generate_password_hash, check_password_hash
+"""
+will be lodified
+db = SQLAlchemy()
 
-#db = SQLAlchemy()
-
-#class User(db.Model):
-  __tablename__ = 'Events'
-  Event_id = db.Column(db.Integer, primary_key = True)
-  Event_title = db.Column(db.String(100))
-  Event_start = db.Column(db.String(100))
-  Event_end = db.Column(db.String(100))
+class Parent(db.Model):
+  __tablename__ = 'Parent'
+  uid = db.Column(db.Integer, primary_key = True)
   GroupName = db.Column(db.String(100))
-  GroupColor = db.Column(db.String(100))
+  GroupName = db.Column(db.String(100))
+  lastname = db.Column(db.String(100))
+  email = db.Column(db.String(120), unique=True)
+  pwdhash = db.Column(db.String(54))
 
-
- # def __init__(self, firstname, lastname, email, password):
+  def __init__(self, firstname, lastname, email, password):
     self.firstname = firstname.title()
     self.lastname = lastname.title()
     self.email = email.lower()
@@ -28,5 +28,6 @@ api_key = "AIzaSyDfnLfxNeG45N_tBtUutrB9K6-GYCtD7_I"
     self.pwdhash = generate_password_hash(password)
 
   def check_password(self, password):
-    return check_password_hash(self.pwdhash, password) '''
+    return check_password_hash(self.pwdhash, password)
+"""
 
