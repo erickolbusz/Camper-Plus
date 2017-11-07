@@ -1,10 +1,13 @@
 from flask_wtf import Form
 from wtforms import StringField, PasswordField, SubmitField
-#does not function yet
+
+
+# does not function yet
 class LoginForm(Form):
     email = StringField('Email')
     password = PasswordField('Password')
     submit = SubmitField('Login')
+
 
 class SignupForm(Form):
     first_name = StringField('First name')
@@ -12,5 +15,5 @@ class SignupForm(Form):
     email = StringField('Email')
     password = PasswordField('Password')
     # change this later to specify the possible roles the user can be
-    role = StringField('Role') 
+    role = StringField('Role')
     submit = SubmitField('Sign up')
