@@ -49,15 +49,13 @@
 
   <!-- Modal Content to Add New Event, edit event or Delete Event -->
   <div class="modal" id="eventModal">
-    <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">New Event</h4>
-        </div>
+        <div class="modal-header"><h4 class="modal-title">Event</h4></div>
+
         <div class="modal-body">
-              <input type="text" id="eventTitle" placeholder="Event Title" />
+            <input type="text" id="eventTitle" placeholder="Event Title"/>
+
             <div class="row">
               <div class="col s2 "><p>Start Time: </p></div>
               <div class="col s5 "><input id="eventStartDate" type="date" /></div>
@@ -68,14 +66,29 @@
               <div class="col s5 "><input id="eventEndDate" type="date" /></div>
               <div class="col s5 "><input id="eventEndTime" type="time" /></div>
             </div>
+
+            <div class="row">
+
+              <div class="input-field col s6">
+                <select multiple required>
+                  <option value="" disabled selected>Select Groups</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+                  <option value="4">Option 4</option>
+                  <option value="5">Option 5</option>
+                  <option value="6">Option 6</option>
+                </select>
+              </div>
+            </div>
         </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn waves-effect waves-light modal-action modal-close">Save</button>
-          <button type="button" class="btn waves-effect red waves-light modal-action modal-close">Cancel</button>
+          <button class="btn waves-effect waves-light modal-action modal-close">Save</button>
+          <button class="btn waves-effect red waves-light modal-action modal-close">Cancel</button>
         </div>
       </div>
 
-    </div>
   </div>
 
 
