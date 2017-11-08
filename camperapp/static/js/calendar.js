@@ -22,6 +22,7 @@ $(document).ready(function() {
                     window.console.log(calEvent)
                     $('#eventModal').modal('open');
                     $("#eventTitle").val(calEvent.title);
+                    $('#deleteEvent').removeClass("disabled")
                     $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'))
                     $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'))
                     $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'))
@@ -40,6 +41,7 @@ $(document).ready(function() {
                 {
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
+                    $('#deleteEvent').addClass("disabled")
                     $("#eventStartDate").val(start.format('YYYY-MM-DD'))
                     $("#eventStartTime").val(start.format('HH:mm:ss'))
                     $('#eventEndDate').val(end.format('YYYY-MM-DD'))
