@@ -1,3 +1,4 @@
+
 header {
 	line-height: 0;
 }
@@ -11,14 +12,25 @@ header {
 	bottom: 0px;
 	z-index: 1;
 }
+
 .sched-div {
 	background-color: #f1f8e9;
 	position: absolute;
-	top: 64px;
+	top: 66px;
 	width: 84vw;
 	right: 0;
 	bottom: 0px;
 }
+
+#calendar {
+	font-size: 12px;
+    margin: 0 auto;
+}
+
+#calendar h2 {
+    font-size: 30px !important;
+}
+
 
 .group1 {
 	background-color: rgba(213,0,0,1);
@@ -32,6 +44,7 @@ header {
 	position: relative;
 	top: -0.25em;
 }
+
 .group2 {
 	background-color: rgba(0,213,0,1);
 	color: rgba(255,255,255,0.8);
@@ -44,6 +57,7 @@ header {
 	position: relative;
 	top: -0.25em;
 }
+
 .group3 {
 	background-color: rgba(0,0,213,1);
 	color: rgba(255,255,255,0.8);
