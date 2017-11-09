@@ -67,6 +67,17 @@ $(document).ready(function() {
 				    // $('#calendar').fullCalendar('unselect');
                 },
 
+                //Move an Event Around
+                    eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
+                        if (confirm("Confirm move?")) {
+                            UpdateEvent(event.id, event.start);
+                        }
+                        else {
+                            revertFunc();
+                        }
+                    }
+
+                //events: '/GetCampEvents', -> end point to supply calendar with events
 				events: [
 					{
 						title: 'All Day Event',
@@ -134,3 +145,19 @@ $(document).ready(function() {
 
         $('select').material_select();
 	});
+
+//Update event and update the back-end when an event is moved
+function UpdateEvent(EventID, EventStart, EventEnd) {
+    var dataRow = {
+        'ID': EventID,
+        'NewEventStart': EventStart,
+        'NewEventEnd': EventEnd
+    }
+    $.ajax({
+        type: 'POST',
+        url: "/UpdateEvent",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(dataRow)
+    });
+}
