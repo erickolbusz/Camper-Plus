@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	$('#calendar').fullCalendar({
         header: {
 					left: 'prev,next today',
@@ -11,12 +12,11 @@ $(document).ready(function() {
 				navLinks: true, // can click day/week names to navigate views
 				editable: true,
 				eventLimit: true, // allow "more" link when too many events
-
+                height: $(window).height()*0.915,
                 selectable: true,
                 selectHelper: true,
 
                 //Click on Existing Event
-
                 eventClick: function(calEvent, jsEvent, view)
                 {
                     window.console.log(calEvent)
@@ -36,6 +36,7 @@ $(document).ready(function() {
                     //$(this).css('border-color', 'red');
 
                 },
+
                 //Create New Event
                 select: function(start, end)
                 {
@@ -49,21 +50,21 @@ $(document).ready(function() {
 
 
                     //var title = prompt("Enter event title")
-				    var eventData;
-				    if (title)
-                    {
-
-                    //event data produced here should be stored in database
-					    eventData = {
-						    title: title,
-						    start: start,
-						    end: end
-					        };
-
-					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				    }
-
-				    $('#calendar').fullCalendar('unselect');
+				    // var eventData;
+				    // if (title)
+                    // {
+                    //
+                    // //event data produced here should be stored in database
+					//     eventData = {
+					// 	    title: title,
+					// 	    start: start,
+					// 	    end: end
+					//         };
+                    //
+					// $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				    // }
+                    //
+				    // $('#calendar').fullCalendar('unselect');
                 },
 
 				events: [
@@ -124,5 +125,12 @@ $(document).ready(function() {
 				]
 		});
 
-    $('select').material_select();
+        if(calendar) {
+          $(window).resize(function() {
+            var calHeight = $(window).height()*0.915;
+            $('#calendar').fullCalendar('option', 'height', calHeight);
+          });
+        };
+
+        $('select').material_select();
 	});
