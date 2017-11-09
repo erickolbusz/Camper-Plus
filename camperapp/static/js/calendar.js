@@ -38,7 +38,7 @@ $(document).ready(function() {
                 },
 
                 //Create New Event
-                select: function(start, end)
+                select: function (start, end)
                 {
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
@@ -68,14 +68,27 @@ $(document).ready(function() {
                 },
 
                 //Move an Event Around
-                    eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
-                        if (confirm("Confirm move?")) {
-                            UpdateEvent(event.id, event.start);
-                        }
-                        else {
-                            revertFunc();
-                        }
+                eventDrop: function (event, delta, revertFunc, jsEvent, ui, view)
+                {
+                    if (confirm("Confirm move?")) {
+                        //UpdateEvent(event.id, event.start);
                     }
+                    else {
+                        revertFunc();
+                    }
+                },
+
+                //Resive an event
+                eventResize: function (event, delta, revertFunc, jsEvent, ui, view)
+                {
+                    if (confirm("Confirm change event length?"))
+                    {
+                        //UpdateEvent(event.id, event.start, event.end);
+                    }
+                    else {
+                        revertFunc();
+                    }
+                },
 
                 //events: '/GetCampEvents', -> end point to supply calendar with events
 				events: [
