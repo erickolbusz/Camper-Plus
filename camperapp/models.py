@@ -7,18 +7,26 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug import generate_password_hash, check_password_hash
 
 
+db = SQLAlchemy()
+
+class CampEvent(db.Model):
+    __tablename__='Events'
+    Event_id = db.Column(db.Integer, primary_key = True)
+    Event_title = db.Column(db.String)
+    Event_start = db.Column(db.String)
+    Events_end = db.Column(db.String)
+    Group_id = db.Column(db.Integer)
 
 
-class CampEvent(object):
     """Camp Event class representing an event on the calendar"""
 
-    def __init__(self):
-        self.id = int()
-        self.title = str()
-        self.start_date = str()
-        self.end_date = str()
-        self.color = str()
-        self.groups = str()
+    def __init__(self, Event_title,Event_start,Events_end,Group_id):
+        self.Event_title = Event_title.title()
+        self.Event_start = Event_start.title()
+        self.Event_end = Event_end.title()
+        self.Group_id = Group_id.title()
+
+        """ it is not final """
 
     def load_all_appointments_in_range(cls, start, end):
         """
