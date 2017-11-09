@@ -174,3 +174,31 @@ function UpdateEvent(EventID, EventStart, EventEnd) {
         data: JSON.stringify(dataRow)
     });
 }
+
+//Add New events to Calendar by clicking the Save button
+// $('#saveEvent').click(function () {
+//
+//     var dataRow = {
+//         'Title':$('#eventTitle').val(),
+//         'NewEventDate': $('#eventDate').val(),
+//         'NewEventTime': $('#eventTime').val(),
+//         'NewEventDuration': $('#eventDuration').val()
+//     }
+//
+//     //ClearPopupFormValues();
+//
+//     $.ajax({
+//         type: 'POST',
+//         url: "/SaveEvent",
+//         data: dataRow,
+//         success: function (response) {
+//             if (response == 'True') {
+//                 $('#calendar').fullCalendar('refetchEvents');
+//                 alert('New event saved!');
+//             }
+//             else {
+//                 alert('Error, could not save event!');
+//             }
+//         }
+//     });
+// });
