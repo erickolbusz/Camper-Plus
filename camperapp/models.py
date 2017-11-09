@@ -42,7 +42,7 @@ class CampEvent(object):
         return calendar_events
 
     # TODO
-    def get_camp_events(start, end):
+    def get_camp_events(cls, start, end):
         """
         Returns all events between start date and end date as a json
         param start: start date as a unix time string
@@ -56,7 +56,7 @@ class CampEvent(object):
         return None
 
     # TODO
-    def update_camp_event(id, new_event_start, new_event_end):
+    def update_camp_event(cls, id, new_event_start, new_event_end):
         """Update an existing event"""
         # EventStart comes ISO 8601 format, eg:  "2000-01-10T10:00:00Z"
         # - need to convert to DateTime
