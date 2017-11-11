@@ -12,6 +12,6 @@ def index():
 def schedule():
     """View displays the schedule-making page"""
     #sample data, replace with db query
-    groups = [{"name":"Cool Group", "color": "#4286f4"},
-              {"name":"Annoying Kids", "color": "#af2313"}]
+    groups = [{"name":"Cool Group", "color": "#4286f4", "groupid": 1},
+              {"name":"Annoying Kids", "color": "#af2313", "groupid": 2}]
     return render_template("schedule.html",groups=groups)

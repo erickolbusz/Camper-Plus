@@ -18,7 +18,7 @@
 			<h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
       <div id="groups">
         {% for group in groups %}
-          <button class="group" style="background-color: {{ group["color"] }};">{{ group["name"] }}</button><br>
+          <button class="group" id="group{{ group["groupid"] }}" style="background-color: {{ group["color"] }};">{{ group["name"] }}</button><br>
         {% endfor %}
       </div>
 		</div>
