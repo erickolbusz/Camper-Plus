@@ -15,38 +15,14 @@
 {% block bodycontent %}
 	<div class="sched-nav z-depth-5">
 		<div class="container center-align">
-			<h4 style="margin-bottom: 0;">Groups</h4><hr size="" tyle="border: 1px solid black;">
+			<h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
       <div id="groups">
+        {% for group in groups %}
+          <button class="group" style="background-color: {{ group["color"] }};">{{ group["name"] }}</button><br>
+        {% endfor %}
       </div>
-			<div class="" style="position: absolute; bottom: 1em">
-				<p style="font-size: 1.25em">
-					<a class="modal-trigger btn-floating light-green darken-4" href="#addGroup"><i class="material-icons">add</i></a> Add New Group
-				</p>
-
-			</div>
 		</div>
 	</div>
-
-  <div id="editGroup" class="modal">
-    <div class="modal-content">
-      <h4>Edit Group</h4>
-      <p>change</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close btn-flat ">Edit</a>
-    </div>
-  </div>
-
-  <div id="addGroup" class="modal">
-    <div class="modal-content">
-      <h4>New Group</h4>
-      <p>add</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close btn-flat ">Add</a>
-    </div>
-  </div>
-
 
   <!-- Modal Content to Add New Event, edit event or Delete Event -->
   <div class="modal modal-fixed-footer" id="eventModal">
