@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(document).ready(function()
+{
 
 	$('#calendar').fullCalendar({
         header: {
@@ -19,7 +20,8 @@ $(document).ready(function() {
                 //Click on Existing Event
                 eventClick: function(calEvent, jsEvent, view)
                 {
-                    window.console.log(calEvent)
+                    ClearPopupFormValues()
+
                     $('#eventModal').modal('open');
                     $("#eventTitle").val(calEvent.title);
                     $('#deleteEvent').removeClass("disabled")
@@ -40,6 +42,8 @@ $(document).ready(function() {
                 //Create New Event
                 select: function (start, end)
                 {
+                    ClearPopupFormValues()
+
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
                     $('#deleteEvent').addClass("disabled")
@@ -149,7 +153,8 @@ $(document).ready(function() {
 				]
 		});
 
-        if(calendar) {
+        if(calendar)
+        {
           $(window).resize(function() {
             var calHeight = $(window).height()*0.915;
             $('#calendar').fullCalendar('option', 'height', calHeight);
@@ -157,10 +162,11 @@ $(document).ready(function() {
         };
 
         $('select').material_select();
-	});
+});
 
 //Update event and update the back-end when an event is moved
-function UpdateEvent(EventID, EventStart, EventEnd) {
+function UpdateEvent(EventID, EventStart, EventEnd)
+{
     var dataRow = {
         'ID': EventID,
         'NewEventStart': EventStart,
@@ -175,30 +181,47 @@ function UpdateEvent(EventID, EventStart, EventEnd) {
     });
 }
 
+//Clear the Values of the Pop Up Form
+function ClearPopupFormValues()
+{
+    $('#eventTitle').val("")
+    $("#eventStartDate").val("")
+    $("#eventStartTime").val("")
+    $('#eventEndDate').val("")
+    $('#eventEndTime').val("")
+    //$('#sched-groups').val("")
+}
+
 //Add New events to Calendar by clicking the Save button
-// $('#saveEvent').click(function () {
-//
-//     var dataRow = {
-//         'Title':$('#eventTitle').val(),
-//         'NewEventDate': $('#eventDate').val(),
-//         'NewEventTime': $('#eventTime').val(),
-//         'NewEventDuration': $('#eventDuration').val()
-//     }
-//
-//     //ClearPopupFormValues();
-//
-//     $.ajax({
-//         type: 'POST',
-//         url: "/SaveEvent",
-//         data: dataRow,
-//         success: function (response) {
-//             if (response == 'True') {
-//                 $('#calendar').fullCalendar('refetchEvents');
-//                 alert('New event saved!');
-//             }
-//             else {
-//                 alert('Error, could not save event!');
-//             }
-//         }
-//     });
-// });
+$('#saveEvent').click(function () {
+
+    var dataRow = {
+        'Title':$('#eventTitle').val(),
+        'EventStartDate': $('#eventStartDate').val(),
+        'EventStartTime': $('#eventStartTime').val(),
+        'EventEndDate': $('#eventStartDate').val(),
+        'EventEndTime': $('#eventStartTime').val(),
+        'Groups': $('#sched-groups').val()
+    }
+
+    console.log(dataRow)
+
+    //render on calendar
+
+    //ClearPopupFormValues();
+    //
+    // $.ajax({
+    //     type: 'POST',
+    //     url: "/SaveEvent",
+    //     data: dataRow,
+    //     success: function (response) {
+    //         if (response == 'True') {
+    //             $('#calendar').fullCalendar('refetchEvents');
+    //             alert('New event saved!');
+    //         }
+    //         else {
+    //             alert('Error, could not save event!');
+    //         }
+    //     }
+    // });
+});
