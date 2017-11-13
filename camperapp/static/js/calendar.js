@@ -24,6 +24,8 @@ $(document).ready(function()
                     $('#eventModal').modal('open');
 
                     ClearPopupFormValues()
+                    $('#event-form').attr('action', 'javascript:updateScheduleForm()');
+                    console.log(calEvent)
 
                     $("#eventTitle").val(calEvent.title);
                     $('#deleteEvent').removeClass("disabled")
@@ -31,7 +33,7 @@ $(document).ready(function()
                     $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'))
                     $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'))
                     $('#eventEndTime').val(calEvent.end.format('HH:mm:ss'))
-                    $('#sched-groups').val(calEvent.groups)
+                    $('#sched-groups').val(calEvent.group)
                     //var startTime = $.fullCalendar.moment(calEvent.start);
                     //alert('Event: ' + calEvent.title);
                     //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -46,6 +48,7 @@ $(document).ready(function()
                 select: function (start, end)
                 {
                     ClearPopupFormValues()
+                    $('#event-form').attr('action', 'javascript:submitScheduleForm()');
 
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
@@ -168,31 +171,33 @@ $(document).ready(function()
 });
 
 //Update event and update the back-end when an event is moved
-function UpdateEvent(EventID, EventStart, EventEnd)
+function updateScheduleForm()
 {
-    var dataRow = {
-        'ID': EventID,
-        'NewEventStart': EventStart,
-        'NewEventEnd': EventEnd
-    }
-    $.ajax({
-        type: 'POST',
-        url: "/UpdateEvent",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(dataRow)
-    });
+
+    console.log("Updating")
+    // var dataRow = {
+    //     'ID': EventID,
+    //     'NewEventStart': EventStart,
+    //     'NewEventEnd': EventEnd
+    // }
+    // $.ajax({
+    //     type: 'POST',
+    //     url: "/UpdateEvent",
+    //     dataType: "json",
+    //     contentType: "application/json",
+    //     data: JSON.stringify(dataRow)
+    // });
 }
 
 //Clear the Values of the Pop Up Form
 function ClearPopupFormValues()
 {
-    $('#eventTitle').val("")
-    $("#eventStartDate").val("")
-    $("#eventStartTime").val("")
-    $('#eventEndDate').val("")
-    $('#eventEndTime').val("")
-    $('#sched-groups').val(Array())
+    $('#eventTitle').val("");
+    $("#eventStartDate").val("");
+    $("#eventStartTime").val("");
+    $('#eventEndDate').val("");
+    $('#eventEndTime').val("");
+    $('#sched-groups').val("0");
 }
 
 
@@ -209,7 +214,7 @@ function submitScheduleForm()
         'eventStartTime': $('#eventStartTime').val(),
         'eventEndDate': $('#eventEndDate').val(),
         'eventEndTime': $('#eventEndTime').val(),
-        'groups': $('#sched-groups').val()
+        'group': $('#sched-groups').val()
     }
 
 
@@ -220,7 +225,7 @@ function submitScheduleForm()
         title: dataRow['title'],
         start: ISOStartDate,
         end: ISOEndDate,
-        groups: $('#sched-groups').val()
+        group: $('#sched-groups').val()
     };
 
     console.log(eventData)

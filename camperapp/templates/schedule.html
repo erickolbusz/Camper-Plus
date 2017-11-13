@@ -25,7 +25,7 @@
 	</div>
 
   <!-- Modal Content to Add New Event, edit event or Delete Event -->
-  <form action="javascript:submitScheduleForm()">
+  <form id="event-form" action="javascript:submitScheduleForm()">
   <div class="modal modal-fixed-footer" id="eventModal">
     <div class="modal-content">
       <h4>Event</h4>
@@ -46,8 +46,8 @@
       <div class="row">
 
         <div class="input-field col s6">
-          <select id="sched-groups" multiple required>
-            <option value="" disabled selected>Select Groups</option>
+          <select id="sched-groups" required>
+            <option value="0" disabled selected>Select Group</option>
             {% for group in groups %}
                 <option value="{{group["groupid"]}}">{{ group["name"] }}</option>
             {% endfor %}
