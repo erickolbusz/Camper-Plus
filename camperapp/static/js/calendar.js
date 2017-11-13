@@ -45,7 +45,7 @@ $(document).ready(function()
                 select: function (start, end)
                 {
                     ClearPopupFormValues()
-                    
+
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
                     $('#deleteEvent').addClass("disabled")
@@ -194,13 +194,13 @@ function ClearPopupFormValues()
     $('#sched-groups').val(Array())
 }
 
-function convertDateTimetoISO()
-{
-
-}
 
 //Add New events to Calendar by clicking the Save button
-$('#saveEvent').click(function () {
+function submitScheduleForm()
+{
+
+    console.log("running")
+    $('#eventModal').modal('close')
 
     var dataRow = {
         'title':$('#eventTitle').val(),
@@ -254,4 +254,4 @@ $('#saveEvent').click(function () {
     //         }
     //     }
     // });
-});
+}
