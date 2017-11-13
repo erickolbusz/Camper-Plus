@@ -34,13 +34,13 @@
 
       <div class="row">
         <div class="col s2 "><p>Start Time: </p></div>
-        <div class="col s5 "><input id="eventStartDate" type="date" /></div>
-        <div class="col s5 "><input id="eventStartTime" type="time" /></div>
+        <div class="col s5 "><input id="eventStartDate" type="date" required/></div>
+        <div class="col s5 "><input id="eventStartTime" type="time" required/></div>
       </div>
       <div class="row">
         <div class="col s2 "><p>End Time: </p></div>
-        <div class="col s5 "><input id="eventEndDate" type="date" /></div>
-        <div class="col s5 "><input id="eventEndTime" type="time" /></div>
+        <div class="col s5 "><input id="eventEndDate" type="date" required/></div>
+        <div class="col s5 "><input id="eventEndTime" type="time" required/></div>
       </div>
 
       <div class="row">
@@ -58,8 +58,8 @@
 
     <div class="modal-footer">
       <button class="btn waves-effect red waves-light modal-action modal-close" id="deleteEvent">Delete Event</button>
-      <button class="btn waves-effect waves-light modal-action" type="Submit" id="saveEvent">Save</button>
-      <button class="btn waves-effect waves-light modal-action modal-close">Cancel</button>
+      <button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>
+      <button class="btn waves-effect waves-light modal-action modal-close" type="reset" value="Cancel">Cancel</button>
     </div>
   </div>
 </form>

@@ -31,6 +31,7 @@ $(document).ready(function()
                     $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'))
                     $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'))
                     $('#eventEndTime').val(calEvent.end.format('HH:mm:ss'))
+                    $('#sched-groups').val(calEvent.groups)
                     //var startTime = $.fullCalendar.moment(calEvent.start);
                     //alert('Event: ' + calEvent.title);
                     //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -218,8 +219,11 @@ function submitScheduleForm()
     eventData = {
         title: dataRow['title'],
         start: ISOStartDate,
-        end: ISOEndDate
+        end: ISOEndDate,
+        groups: $('#sched-groups').val()
     };
+
+    console.log(eventData)
 
     $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
     $('#calendar').fullCalendar('unselect');
