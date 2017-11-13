@@ -20,9 +20,11 @@ $(document).ready(function()
                 //Click on Existing Event
                 eventClick: function(calEvent, jsEvent, view)
                 {
-                    ClearPopupFormValues()
 
                     $('#eventModal').modal('open');
+
+                    ClearPopupFormValues()
+
                     $("#eventTitle").val(calEvent.title);
                     $('#deleteEvent').removeClass("disabled")
                     $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'))
@@ -43,7 +45,7 @@ $(document).ready(function()
                 select: function (start, end)
                 {
                     ClearPopupFormValues()
-
+                    
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
                     $('#deleteEvent').addClass("disabled")
@@ -189,22 +191,50 @@ function ClearPopupFormValues()
     $("#eventStartTime").val("")
     $('#eventEndDate').val("")
     $('#eventEndTime').val("")
-    //$('#sched-groups').val("")
+    $('#sched-groups').val(Array())
+}
+
+function convertDateTimetoISO()
+{
+
 }
 
 //Add New events to Calendar by clicking the Save button
 $('#saveEvent').click(function () {
 
     var dataRow = {
-        'Title':$('#eventTitle').val(),
-        'EventStartDate': $('#eventStartDate').val(),
-        'EventStartTime': $('#eventStartTime').val(),
-        'EventEndDate': $('#eventStartDate').val(),
-        'EventEndTime': $('#eventStartTime').val(),
-        'Groups': $('#sched-groups').val()
+        'title':$('#eventTitle').val(),
+        'eventStartDate': $('#eventStartDate').val(),
+        'eventStartTime': $('#eventStartTime').val(),
+        'eventEndDate': $('#eventEndDate').val(),
+        'eventEndTime': $('#eventEndTime').val(),
+        'groups': $('#sched-groups').val()
     }
 
-    console.log(dataRow)
+
+    var ISOStartDate = dataRow['eventStartDate'] + 'T' + dataRow['eventStartTime']
+    var ISOEndDate = dataRow['eventEndDate'] + 'T' + dataRow['eventEndTime']
+
+    eventData = {
+        title: dataRow['title'],
+        start: ISOStartDate,
+        end: ISOEndDate
+    };
+
+    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+    $('#calendar').fullCalendar('unselect');
+
+    // //event data produced here should be stored in database
+	//     eventData = {
+	// 	    title: title,
+	// 	    start: start,
+	// 	    end: end
+	//         };
+    //
+	// $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+    // }
+    //
+    // $('#calendar').fullCalendar('unselect');
 
     //render on calendar
 
