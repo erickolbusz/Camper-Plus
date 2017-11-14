@@ -1,6 +1,5 @@
 $(document).ready(function()
 {
-
 	$('#calendar').fullCalendar({
         header: {
 					left: 'prev,next today',
@@ -228,37 +227,32 @@ function submitScheduleForm()
 
     console.log(eventData)
 
-    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-    $('#calendar').fullCalendar('unselect');
+    $.ajax({
+        url: "/saveEvent",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(eventData),
+        dataType: "json",
+    })
 
-    // //event data produced here should be stored in database
-	//     eventData = {
-	// 	    title: title,
-	// 	    start: start,
-	// 	    end: end
-	//         };
-    //
-	// $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-    // }
-    //
-    // $('#calendar').fullCalendar('unselect');
+    .done( function (response) {
 
-    //render on calendar
+        if (response)
+        {
+            color = response['color']
+            eventData['color'] = color
+            $('#calendar').fullCalendar('renderEvent', eventData, true);
+        }
 
-    //ClearPopupFormValues();
-    //
-    // $.ajax({
-    //     type: 'POST',
-    //     url: "/SaveEvent",
-    //     data: dataRow,
-    //     success: function (response) {
-    //         if (response == 'True') {
-    //             $('#calendar').fullCalendar('refetchEvents');
-    //             alert('New event saved!');
-    //         }
-    //         else {
-    //             alert('Error, could not save event!');
-    //         }
-    //     }
-    // });
+     })
+
+     .fail ( function() {
+        Materialize.toast('Error: Check Your Internet Connection', 4000)
+     })
+
+     .always (function() {
+
+        $('#calendar').fullCalendar('unselect');
+     })
+
 }
