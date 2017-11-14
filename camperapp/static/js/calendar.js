@@ -20,13 +20,9 @@ $(document).ready(function()
                 //Click on Existing Event
                 eventClick: function(calEvent, jsEvent, view)
                 {
-
-                    $('#eventModal').modal('open');
-
                     ClearPopupFormValues()
+                    $('#eventModal').modal('open');
                     $('#event-form').attr('action', 'javascript:updateScheduleForm()');
-                    console.log(calEvent)
-
                     $("#eventTitle").val(calEvent.title);
                     $('#deleteEvent').removeClass("disabled")
                     $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'))
@@ -34,6 +30,7 @@ $(document).ready(function()
                     $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'))
                     $('#eventEndTime').val(calEvent.end.format('HH:mm:ss'))
                     $('#sched-groups').val(calEvent.group)
+                    $('select').material_select()
                     //var startTime = $.fullCalendar.moment(calEvent.start);
                     //alert('Event: ' + calEvent.title);
                     //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -192,12 +189,13 @@ function updateScheduleForm()
 //Clear the Values of the Pop Up Form
 function ClearPopupFormValues()
 {
-    $('#eventTitle').val("");
-    $("#eventStartDate").val("");
-    $("#eventStartTime").val("");
-    $('#eventEndDate').val("");
-    $('#eventEndTime').val("");
-    $('#sched-groups').val("0");
+    $('#eventTitle').val("")
+    $("#eventStartDate").val("")
+    $("#eventStartTime").val("")
+    $('#eventEndDate').val("")
+    $('#eventEndTime').val("")
+    $('#sched-groups').val("")
+    $('select').material_select()
 }
 
 

@@ -47,7 +47,7 @@
 
         <div class="input-field col s6">
           <select id="sched-groups" required>
-            <option value="0" disabled selected>Select Group</option>
+            <option value="" disabled selected>Select Group</option>
             {% for group in groups %}
                 <option value="{{group["groupid"]}}">{{ group["name"] }}</option>
             {% endfor %}
