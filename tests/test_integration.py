@@ -38,9 +38,9 @@ class TestUrls(unittest.TestCase):
              # session['username'] = None
             
              #makes sure we are rendering a template on the login route
-    #         self.assertTrue(render_template.called)
-    #         call_args = render_template.call_args
-    #         file_name = call_args[0][0]
+             self.assertTrue(render_template.called)
+             call_args = render_template.call_args
+             file_name = call_args[0][0]
     #         #makes sure we are rendering the correct template on the login route
     #         self.assertEqual(file_name, "login.html")
 
