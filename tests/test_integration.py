@@ -2,17 +2,18 @@
 
 import unittest
 import camperapp
-from bs4 import BeautifulSoup
 
 
-class TestCamperAppInt(unittest.TestCase):
-
+class TestUrls(unittest.TestCase):
     def setUp(self):
         self.app = camperapp.app.test_client()
 
-    def test_schedule_calendar(self):
+    def test_home(self):
+        """Test that home can be accessed"""
+        response = self.app.get("/")
+        self.assertTrue(response.status_code, 200)
 
-        rv = self.app.get('/schedule')
-        soup = BeautifulSoup(rv.data, 'html.parser')
-        schedule = soup.find('div', {'class': 'sched-div'})
-        self.assertTrue('calender' == schedule.get('id'))
+    def test_calendar(self):
+        """Test that the Calendar Page can be accessed"""
+        response = self.app.get("/schedule")
+        self.assertTrue(response.status_code, 200)
