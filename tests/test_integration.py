@@ -2,19 +2,31 @@
 
 import unittest
 import camperapp
-from bs4 import BeautifulSoup
+import json
 
 
-class TestCamperAppInt(unittest.TestCase):
-
+class TestUrls(unittest.TestCase):
     def setUp(self):
         self.app = camperapp.app.test_client()
 
-    def test_schedule_calendar(self):
-        calendar_url = "https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;\
-        src=9dn2cvujfk9rsfnlvdmn2rchg0%40group.calendar.google.com&amp;color=%2323164E&amp;ctz=America%2FNew_York"
-        rv = self.app.get('/schedule')
-        soup = BeautifulSoup(rv.data, 'html.parser')
-        schedule = soup.find('div', {'class': 'sched-div'})
-        cal = schedule.find('iframe')
-        self.assertEqual(cal.get('src'), calendar_url)
+    def test_home(self):
+        """Test that home can be accessed"""
+        response = self.app.get("/")
+        self.assertTrue(response.status_code, 200)
+
+    def test_calendar(self):
+        """Test that the Calendar Page can be accessed"""
+        response = self.app.get("/schedule")
+        self.assertTrue(response.status_code, 200)
+
+    def test_groups_on_schedule_page(self):
+        """Test that the groups passed to the schedule page are all displayed"""
+        json_data = {
+            'title': 'Test Event',
+            'start': '2017-8-8T12:00:00',
+            'end': '2017-8-8T12:00:00',
+            'group': '3'
+        }
+
+        response = self.app.post("/saveEvent", data=json.dumps(json_data), content_type='application/json')
+        self.assertTrue(response.status_code, 200)

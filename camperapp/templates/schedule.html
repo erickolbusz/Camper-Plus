@@ -5,12 +5,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.print.min.css') }}" media='print' />
     <link rel="stylesheet" type="text/css" href='https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css' />
-    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/moment.min.js') }}" ></script>
-    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/jquery.min.js') }}" ></script>
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/fullcalendar.min.js') }}" ></script>
-    <script src="{{ url_for('static', filename='js/calendar.js') }}" ></script>
 {% endblock headcontent %}
 
 {% block navbar_right %}
@@ -22,50 +16,63 @@
 	<div class="sched-nav z-depth-5">
 		<div class="container center-align">
 			<h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
-			<i class="material-icons">create</i><button class="group1">Group 1</button><br>
-			<i class="material-icons">create</i><button class="group2">Group 2</button><br>
-			<i class="material-icons">create</i><button class="group3">Group 3</button><br>
-			<div class="" style="position: absolute; bottom: 1em">
-				<p style="font-size: 1.25em">
-					<a class="btn-floating light-green darken-4"><i class="material-icons">add</i></a> Add New Group
-				</p>
-			</div>
+      <div id="groups">
+        {% for group in groups %}
+          <button class="group" id="group{{ group["groupid"] }}" style="background-color: {{ group["color"] }};">{{ group["name"] }}</button><br>
+        {% endfor %}
+      </div>
 		</div>
 	</div>
 
+  <!-- Modal Content to Add New Event, edit event or Delete Event -->
+  <form id="event-form" action="javascript:submitScheduleForm()">
+  <div class="modal modal-fixed-footer" id="eventModal">
+    <div class="modal-content">
+      <h4>Event</h4>
 
-  <!-- Modal -->
-  <!--requires bootstrap which seeems incompatible with the current code-->
-  <div class="modal fade" id="eventModal" role="dialog">
-    <div class="modal-dialog">
+      <input type="text" id="eventTitle" placeholder="Event Title" required/>
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-              <p>Event Name: </p>
-              <input type="text" placeholder="Title" /><br />
-              <p>Start Time: </p>
-              <input type="date" />
-              <input type="time" />
-
-              <br />
-              <p>End Time: </p>
-              <input type="date" />
-              <input type="time" />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-        </div>
+      <div class="row">
+        <div class="col s2 "><p>Start Time: </p></div>
+        <div class="col s5 "><input id="eventStartDate" type="date" required/></div>
+        <div class="col s5 "><input id="eventStartTime" type="time" required/></div>
+      </div>
+      <div class="row">
+        <div class="col s2 "><p>End Time: </p></div>
+        <div class="col s5 "><input id="eventEndDate" type="date" required/></div>
+        <div class="col s5 "><input id="eventEndTime" type="time" required/></div>
       </div>
 
+      <div class="row">
+
+        <div class="input-field col s6">
+          <select id="sched-groups" required>
+            <option value="" disabled selected>Select Group</option>
+            {% for group in groups %}
+                <option value="{{group["groupid"]}}">{{ group["name"] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn waves-effect red waves-light modal-action modal-close" id="deleteEvent">Delete Event</button>
+      <button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>
+      <button class="btn waves-effect waves-light modal-action modal-close" type="reset" value="Cancel">Cancel</button>
     </div>
   </div>
+</form>
 
+
+<!--Full Calendar calendar-->
 <div id="calendar" class="sched-div"></div>
 
 {% endblock bodycontent %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/moment.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/fullcalendar.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/calendar.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/schedule.js') }}" ></script>
+{% endblock scripts %}
