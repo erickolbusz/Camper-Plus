@@ -12,13 +12,25 @@
 <a class="btn modal-trigger" href="#groupModal">Test</a>
 
 <div id="groupModal" class="modal">
+  <form>
   <div class="modal-content">
     <h4 style="display: inline;">New Group</h4>
-    <p style="display: inline; float: right;">test</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close btn">Create</a>
-  </div>
+    <a href="#!" style="display: inline; float: right;" class="modal-action modal-close btn">Create</a>
+    <div class="row" style="margin-top: 1em">
+      <div class="input-field col s4">
+        <input placeholder="Group1" id="groupName" type="text">
+        <label for="groupName">Group Name</label>
+      </div>
+      <div class="input-field col s3">
+        temp
+        <label for="groupName">Group Color</label>
+      </div>
+      <div class="input-field col s5">
+        <input placeholder="Search" id="search" type="text">
+        <label for="search">Search Campers</label>
+      </div>
+    </div>
+  </form>
 </div>
 {% endblock bodycontent %}
 
