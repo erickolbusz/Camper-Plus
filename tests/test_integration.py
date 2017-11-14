@@ -42,7 +42,7 @@ class TestUrls(unittest.TestCase):
              call_args = render_template.call_args
              file_name = call_args[0][0]
              #makes sure we are rendering the correct template on the login route
-    #         self.assertEqual(file_name, "login.html")
+             self.assertEqual(file_name, "login.html")
 
         response = self.app.post("/saveEvent", data=json.dumps(json_data), content_type='application/json')
         self.assertTrue(response.status_code, 200)
