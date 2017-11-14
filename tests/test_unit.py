@@ -28,3 +28,14 @@ class TestApp(unittest.TestCase):
             call_args = render_template.call_args
             template_name = call_args[0][0]
             self.assertEqual(template_name, "campers.html")
+
+    def test_login_gets_login_template(self):
+        """Test that the login route exists"""
+        with patch.multiple("camperapp.routes", render_template=DEFAULT) as \
+                mock_functions:
+            camperapp.routes.login()
+            render_template = mock_functions["render_template"]
+            self.assertTrue(render_template.called)
+            call_args = render_template.call_args
+            file_name = call_args[0][0]
+            self.assertEqual(file_name, "login.html")

@@ -32,6 +32,12 @@ def campers():
     return render_template("campers.html")
 
 
+@app.route('/login', methods=['GET'])
+def login():
+    """View displays the login page"""
+    return render_template("login.html")
+
+
 @app.route('/saveEvent', methods=['POST'])
 def submit_handler():
     # a = request.get_json(force=True)
