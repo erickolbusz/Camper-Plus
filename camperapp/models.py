@@ -1,6 +1,6 @@
 """Models in Camper APP"""
 
-api_key = "AIzaSyDfnLfxNeG45N_tBtUutrB9K6-GYCtD7_I"
+
 
 
 from camperapp import app
@@ -41,11 +41,8 @@ class Group(db.Model):
     color = db.Column(db.String())
     quantity = db.Column(db.Integer())
     camperevents = db.relationship('CampEvent', backref = 'group',lazy = 'dynamic')
-    camper1_id = db.Column(db.Integer(), db.ForeignKey('camper.id', nullable=False)
-    camper2_id = db.Column(db.Integer(), db.ForeignKey('camper.id', nullable=False)
-    camper3_id = db.Column(db.Integer(), db.ForeignKey('camper.id', nullable=False)
-    camper4_id = db.Column(db.Integer(), db.ForeignKey('camper.id', nullable=False)
-    camper5_id = db.Column(db.Integer(), db.ForeignKey('camper.id', nullable=False)
+    camper_id = db.Column(db.Integer(), db.ForeignKey('camper.id', nullable=False)
+    campers = db.relationship('Camper',backref = 'group',lazy = 'dynamic')
 
     def __repr__(self):
         return '<Group {}>'.format(self.name)
@@ -85,8 +82,14 @@ class Camper(db.Model):
     password = db.Column(db.String())
     age = db.Column(db.Integer())
     parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=True)
     groups = db.relationship('Groups',backref = 'camper',lazy = 'dynamic')
     parents = db.relationship('Parent',backref = 'camper',lazy = 'dynamic')
+
+    def get_id(self):
+        return self.id
+
+
     def __repr__(self):
         return '<Camper {}>'.format(self.name)
 

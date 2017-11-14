@@ -30,8 +30,10 @@ class ParentLoginForm(Form):
             return False
 
         return True
+"""
 class ParentSignupForm(Form):
-    
+    """
+
 
 '''class group(Form):
     group_name = StringField('Group name')
