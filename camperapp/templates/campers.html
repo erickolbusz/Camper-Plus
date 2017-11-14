@@ -9,7 +9,19 @@
 {% endblock navbar_right %}
 
 {% block bodycontent %}
+<a class="btn modal-trigger" href="#groupModal">Test</a>
+
+<div id="groupModal" class="modal">
+  <div class="modal-content">
+    <h4>New Group</h4>
+    <p>test</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
 {% endblock bodycontent %}
 
 {% block scripts %}
+  <script src="{{ url_for('static', filename='js/campers.js') }}" ></script>
 {% endblock scripts %}
