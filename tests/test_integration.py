@@ -28,7 +28,7 @@ class TestUrls(unittest.TestCase):
             'group': '3'
         }
     def test_login_gets_login_template(self):
-        """Checks if the login route exists. The test passes if it does."""
+        """Test that the login route exists"""
         with patch.multiple("camperapp.routes",
                              request=DEFAULT,
                              render_template=DEFAULT) as mock_functions:
