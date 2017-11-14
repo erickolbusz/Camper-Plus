@@ -25,6 +25,10 @@ def schedule():
     """View displays the schedule-making page"""
     return render_template("schedule.html", groups=groups)
 
+@app.route('/campers', methods=['GET'])
+def campers():
+    """View displays the camper organization page"""
+    return render_template("campers.html")
 
 @app.route('/saveEvent', methods=['POST'])
 def submit_handler():
