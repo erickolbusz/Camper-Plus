@@ -35,7 +35,7 @@ class TestUrls(unittest.TestCase):
              camperapp.routes.login()
              render_template = mock_functions["render_template"]
 
-             # session['username'] = None
+             #  session['username'] = None
             
              #makes sure we are rendering a template on the login route
              self.assertTrue(render_template.called)
