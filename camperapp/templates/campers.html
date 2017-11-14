@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block headcontent %}
+<link rel='stylesheet' href="{{ url_for('static', filename='css/spectrum.css') }}" />
 {% endblock headcontent %}
 
 {% block navbar_right %}
@@ -22,8 +23,8 @@
         <label for="groupName">Group Name</label>
       </div>
       <div class="input-field col s3">
-        temp
-        <label for="groupName">Group Color</label>
+        <input type='text' id="custom" />
+        <label for="custom">Group Color</label>
       </div>
       <div class="input-field col s5">
         <input placeholder="Search" id="search" type="text">
@@ -36,4 +37,5 @@
 
 {% block scripts %}
   <script src="{{ url_for('static', filename='js/campers.js') }}" ></script>
+  <script src="{{ url_for('static', filename='js/spectrum.js') }}" ></script>
 {% endblock scripts %}

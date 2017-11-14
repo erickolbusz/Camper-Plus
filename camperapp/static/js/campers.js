@@ -1,5 +1,8 @@
 $(document).ready(function() {
   $('.modal').modal();
   $('.trigger-modal').modal();
-  console.log("e");
+  
+  $("#custom").spectrum({
+    color: "#f00"
+	});
 });
