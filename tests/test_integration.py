@@ -33,5 +33,6 @@ class TestUrls(unittest.TestCase):
             'group': '3'
         }
 
-        response = self.app.post("/saveEvent", data=json.dumps(json_data), content_type='application/json')
+        response = self.app.post("/saveEvent", data=json.dumps(json_data),
+                    content_type='application/json')
         self.assertTrue(response.status_code, 200)
