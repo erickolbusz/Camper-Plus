@@ -27,6 +27,22 @@ class TestUrls(unittest.TestCase):
             'end': '2017-8-8T12:00:00',
             'group': '3'
         }
+    def test_login_gets_login_template(self):
+        """Test that the login route exists"""
+        with patch.multiple("camperapp.routes",
+                             request=DEFAULT,
+                             render_template=DEFAULT) as mock_functions:
+             camperapp.routes.login()
+             render_template = mock_functions["render_template"]
+
+             #  session['username'] = None
+            
+             #makes sure we are rendering a template on the login route
+             self.assertTrue(render_template.called)
+             call_args = render_template.call_args
+             file_name = call_args[0][0]
+             #makes sure we are rendering the correct template on the login route
+             self.assertEqual(file_name, "login.html")
 
         response = self.app.post("/saveEvent", data=json.dumps(json_data), content_type='application/json')
         self.assertTrue(response.status_code, 200)
