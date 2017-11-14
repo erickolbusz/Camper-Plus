@@ -9,7 +9,8 @@ class TestApp(unittest.TestCase):
 
     def test_schedule_gets_schedule_template(self):
         """Test that the Schedule endpoint calls the schedule Page"""
-        with patch.multiple('camperapp.routes', render_template=DEFAULT) as mock_funcs:
+        with patch.multiple('camperapp.routes', render_template=DEFAULT) as \
+                mock_funcs:
             camperapp.routes.schedule()
             render_template = mock_funcs['render_template']
             self.assertTrue(render_template.called)
