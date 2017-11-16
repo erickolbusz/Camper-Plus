@@ -1,10 +1,10 @@
 """Routes for Camper+ app."""
 
 from camperapp import app
+from camperapp.models import CampEvent
 from flask import render_template
 from flask import jsonify
 from flask import request
-
 
 # sample data, replace with db query
 groups = [{"name": "Tigers", "color": "#4286f4", "groupid": 1},
