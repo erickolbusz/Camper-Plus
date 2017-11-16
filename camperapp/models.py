@@ -1,6 +1,7 @@
 """Models in Camper APP"""
 # from camperapp import app
 from camperapp import db
+from datetime import datetime
 # from werkzeug import generate_password_hash, check_password_hash
 
 
@@ -12,6 +13,17 @@ class CampEvent(db.Model):
     start = db.Column(db.DateTime())
     end = db.Column(db.DateTime())
     group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
+
+    def __init__(self, title, start, end):
+        self.title = title
+        self.start = start
+        self.end = end
+
+    def convert_ISO_datetime_to_py_datetime(cls, ISO_datetime):
+        return datetime.strptime(ISO_datetime, '%Y-%m-%dT%H:%M:%S')
+
+    def convertDateTimetoISODateTime(cls, py_datetime):
+        return py_datetime.strftime('%Y-%m-%dT%H:%M:%S')
 
     def __repr__(self):
         return '<CampEvent {}>'.format(self.title)
@@ -25,6 +37,10 @@ class Camper(db.Model):
     age = db.Column(db.Integer())
     group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
 
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
     def __repr__(self):
         return '<Camper {}>'.format(self.name)
 
@@ -35,9 +51,12 @@ class CampGroup(db.Model):
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     name = db.Column(db.String())
     color = db.Column(db.String())
-    quantity = db.Column(db.Integer())
     campers = db.relationship('Camper', backref='campgroup', lazy='dynamic')
     events = db.relationship('CampEvent', backref='campgroup', lazy='dynamic')
+
+    def __init__(self, name, color):
+        self.name = name
+        self.color = color
 
     def __repr__(self):
         return '<Group {}>'.format(self.name)
