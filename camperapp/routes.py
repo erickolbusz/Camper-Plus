@@ -1,7 +1,7 @@
 """Routes for Camper+ app."""
 
 from camperapp import app
-from camperapp.models import CampEvent
+#from camperapp.models import CampEvent
 from flask import render_template
 from flask import jsonify
 from flask import request

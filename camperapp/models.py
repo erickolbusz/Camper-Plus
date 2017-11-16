@@ -69,8 +69,8 @@ class CampGroup(db.Model):
     """
 
 
-db.create_all()
-db.session.commit()
+#db.create_all()
+#db.session.commit()
 
 # class Group(db.Model):
 #     __tablename__='group'
