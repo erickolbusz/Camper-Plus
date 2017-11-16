@@ -2,7 +2,10 @@
 
 import unittest
 import camperapp
-from unittest.mock import patch, DEFAULT
+from camperapp.models import CampEvent
+import mock
+from unittest.mock import patch, DEFAULT, create_autospec
+from datetime import datetime
 
 
 class TestApp(unittest.TestCase):
@@ -40,8 +43,9 @@ class TestApp(unittest.TestCase):
             file_name = call_args[0][0]
             self.assertEqual(file_name, "login.html")
 
-    def test_CampEvent_convert_ISO_py_datetime(self):
-        pass
-
-    def test_CampEvent_convert_py_datetime_to_ISO(self):
-        pass
+    @mock.patch('camperapp.models.datetime')
+    def test_CampEvent_convert_ISO_py_datetime(self, mock_datetime):
+        ISO_datetime = "2017-10-10T12:25:27"
+        self.assertTrue(camperapp.models.datetime is mock_datetime)
+        CampEvent.convert_ISO_datetime_to_py_datetime(CampEvent, ISO_datetime)
+        mock_datetime.strptime.assert_called_once_with(ISO_datetime, '%Y-%m-%dT%H:%M:%S')

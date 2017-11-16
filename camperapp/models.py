@@ -22,7 +22,7 @@ class CampEvent(db.Model):
     def convert_ISO_datetime_to_py_datetime(cls, ISO_datetime):
         return datetime.strptime(ISO_datetime, '%Y-%m-%dT%H:%M:%S')
 
-    def convertDateTimetoISODateTime(cls, py_datetime):
+    def convert_py_datetime_to_ISO_datetime(cls, py_datetime):
         return py_datetime.strftime('%Y-%m-%dT%H:%M:%S')
 
     def __repr__(self):

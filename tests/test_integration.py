@@ -24,7 +24,7 @@ class TestUrls(unittest.TestCase):
         response = self.app.get("/campers")
         self.assertTrue(response.status_code, 200)
 
-    def test_groups_on_schedule_page(self):
+    def test_post_event_on_schedule_page(self):
         """Test that roups passed to the schedule page are all displayed"""
         json_data = {
             'title': 'Test Event',
@@ -34,5 +34,18 @@ class TestUrls(unittest.TestCase):
         }
 
         response = self.app.post("/saveEvent", data=json.dumps(json_data),
+                    content_type='application/json')
+        self.assertTrue(response.status_code, 200)
+
+    def test_put_event_on_schedule_page(self):
+        """Test that roups passed to the schedule page are all displayed"""
+        json_data = {
+            'title': 'Test Event',
+            'start': '2017-8-8T12:00:00',
+            'end': '2017-8-8T12:00:00',
+            'group': '3'
+        }
+
+        response = self.app.put("/saveEvent", data=json.dumps(json_data),
                     content_type='application/json')
         self.assertTrue(response.status_code, 200)
