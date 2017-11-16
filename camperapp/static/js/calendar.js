@@ -1,3 +1,7 @@
+//Some global Variables to process data
+
+//The current calendar event being manipulated
+currentCalEvent = undefined
 $(document).ready(function()
 {
 	$('#calendar').fullCalendar({
@@ -21,7 +25,7 @@ $(document).ready(function()
                 {
                     ClearPopupFormValues()
                     $('#eventModal').modal('open');
-                    $('#event-form').attr('action', 'javascript:updateScheduleForm()');
+                    $('#event-form').attr('action', 'javascript:updateEvent()');
                     $("#eventTitle").val(calEvent.title);
                     $('#deleteEvent').removeClass("disabled")
                     $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'))
@@ -30,6 +34,8 @@ $(document).ready(function()
                     $('#eventEndTime').val(calEvent.end.format('HH:mm:ss'))
                     $('#sched-groups').val(calEvent.group)
                     $('select').material_select()
+
+                    currentCalEvent = calEvent
                     //var startTime = $.fullCalendar.moment(calEvent.start);
                     //alert('Event: ' + calEvent.title);
                     //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -44,7 +50,7 @@ $(document).ready(function()
                 select: function (start, end)
                 {
                     ClearPopupFormValues()
-                    $('#event-form').attr('action', 'javascript:submitScheduleForm()');
+                    $('#event-form').attr('action', 'javascript:submitEvent()');
 
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
@@ -53,7 +59,6 @@ $(document).ready(function()
                     $("#eventStartTime").val(start.format('HH:mm:ss'))
                     $('#eventEndDate').val(end.format('YYYY-MM-DD'))
                     $('#eventEndTime').val(end.format('HH:mm:ss'))
-
 
                     //var title = prompt("Enter event title")
 				    // var eventData;
@@ -167,39 +172,75 @@ $(document).ready(function()
 });
 
 //Update event and update the back-end when an event is moved
-function updateScheduleForm()
+function deleteEvent()
+{
+    console.log("Deleting")
+    //I just need the event ID
+}
+
+function updateEvent()
 {
 
     console.log("Updating")
-    // var dataRow = {
-    //     'ID': EventID,
-    //     'NewEventStart': EventStart,
-    //     'NewEventEnd': EventEnd
-    // }
-    // $.ajax({
-    //     type: 'POST',
-    //     url: "/UpdateEvent",
-    //     dataType: "json",
-    //     contentType: "application/json",
-    //     data: JSON.stringify(dataRow)
-    // });
-}
+    console.log(currentCalEvent)
 
-//Clear the Values of the Pop Up Form
-function ClearPopupFormValues()
-{
-    $('#eventTitle').val("")
-    $("#eventStartDate").val("")
-    $("#eventStartTime").val("")
-    $('#eventEndDate').val("")
-    $('#eventEndTime').val("")
-    $('#sched-groups').val("")
-    $('select').material_select()
-}
+    $('#eventModal').modal('close')
 
+    var dataRow = {
+        'title':$('#eventTitle').val(),
+        'eventStartDate': $('#eventStartDate').val(),
+        'eventStartTime': $('#eventStartTime').val(),
+        'eventEndDate': $('#eventEndDate').val(),
+        'eventEndTime': $('#eventEndTime').val(),
+        'group': $('#sched-groups').val()
+    }
+
+
+    var ISOStartDate = dataRow['eventStartDate'] + 'T' + dataRow['eventStartTime']
+    var ISOEndDate = dataRow['eventEndDate'] + 'T' + dataRow['eventEndTime']
+
+    eventData = {
+        id: currentCalEvent['id'],
+        title: dataRow['title'],
+        start: ISOStartDate,
+        end: ISOEndDate,
+        group: $('#sched-groups').val()
+    };
+
+    console.log(eventData)
+
+    $.ajax({
+        url: "/saveEvent",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(eventData),
+        dataType: "json",
+    })
+
+    .done( function (response) {
+
+        if (response)
+        {
+            color = response['color']
+            eventData['color'] = color
+            //$('#calendar').fullCalendar('')
+            //$('#calendar').fullCalendar('renderEvent', eventData, true);
+        }
+
+     })
+
+     .fail ( function() {
+        Materialize.toast('Error: Check Your Internet Connection', 4000)
+     })
+
+     .always (function() {
+
+        $('#calendar').fullCalendar('unselect');
+     })
+}
 
 //Add New events to Calendar by clicking the Save button
-function submitScheduleForm()
+function submitEvent()
 {
 
     console.log("running")
@@ -240,8 +281,10 @@ function submitScheduleForm()
         if (response)
         {
             color = response['color']
+            eventId = response['id']
             eventData['color'] = color
-            $('#calendar').fullCalendar('renderEvent', eventData, true);
+            eventData['id'] = eventId
+            $('#calendar').fullCalendar('renderEvent', eventData, true)
         }
 
      })
@@ -255,4 +298,16 @@ function submitScheduleForm()
         $('#calendar').fullCalendar('unselect');
      })
 
+}
+
+//Clear the Values of the Pop Up Form
+function ClearPopupFormValues()
+{
+    $('#eventTitle').val("")
+    $("#eventStartDate").val("")
+    $("#eventStartTime").val("")
+    $('#eventEndDate').val("")
+    $('#eventEndTime').val("")
+    $('#sched-groups').val("")
+    $('select').material_select()
 }

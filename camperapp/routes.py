@@ -38,12 +38,19 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/saveEvent', methods=['POST'])
+@app.route('/saveEvent', methods=['POST', 'PUT'])
 def submit_handler():
     # a = request.get_json(force=True)
-    event_data = request.json
-    group_id = event_data['group']
-    group = next(item for item in groups if item["groupid"] == int(group_id))
-    color = group['color']
 
-    return jsonify({'msg': 'success', 'color': color})
+    if request.method == 'POST':
+        event_data = request.json
+        group_id = event_data['group']
+        group = next(item for item in groups if item["groupid"] == int(group_id))
+        color = group['color']
+        event_id = 99
+
+        return jsonify({'msg': 'success', 'color': color, 'id': event_id})
+
+    elif request.method == 'PUT':
+        print("Received a PUT request of event")
+        return jsonify({'msg': 'success'})
