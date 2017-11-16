@@ -2,6 +2,7 @@
 
 //The current calendar event being manipulated
 currentCalEvent = undefined
+
 $(document).ready(function()
 {
 	$('#calendar').fullCalendar({

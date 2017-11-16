@@ -39,3 +39,9 @@ class TestApp(unittest.TestCase):
             call_args = render_template.call_args
             file_name = call_args[0][0]
             self.assertEqual(file_name, "login.html")
+
+    def test_CampEvent_convert_ISO_py_datetime(self):
+        pass
+
+    def test_CampEvent_convert_py_datetime_to_ISO(self):
+        pass
