@@ -68,10 +68,6 @@ class CampGroup(db.Model):
     camper.group_id = Group.id
     """
 
-
-#db.create_all()
-#db.session.commit()
-
 # class Group(db.Model):
 #     __tablename__='group'
 #     id = db.Column(db.Integer(), primary_key = True)
