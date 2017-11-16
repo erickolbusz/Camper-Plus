@@ -160,6 +160,7 @@ $(document).ready(function()
 				]
 		});
 
+        // Resize calendar perfectly
         if(calendar)
         {
           $(window).resize(function() {
@@ -168,8 +169,61 @@ $(document).ready(function()
           });
         };
 
+        // Enable material select tags and modal tags
         $('select').material_select();
+        $('.modal').modal();
+        $('.trigger-modal').modal();
+
+        // Attach a run setup on each group
+        var groups = $("#groups")[0];
+        for (var i=0; i<groups.childElementCount; i++)
+        {
+          	if (groups.children[i].classList.contains("group"))
+            {
+          		var group = groups.children[i]
+        		setup(group);
+        	}
+        }
 });
+
+// Attach an onclick function to all groups
+var setup = function(group)
+{
+	group.onclick = function()
+    {
+        var groups = $("#groups")[0];
+        var isHighlighted = 0;
+        for (var i=0; i<groups.childElementCount; i++)
+        {
+
+          	if (groups.children[i].classList.contains("highlight-group") )
+            {
+                isHighlighted++
+            }
+            else groups.children[i].classList.add("dim-group")
+
+        }
+
+		console.log(group.id);
+        //perform some computation
+
+
+        if (group.classList.contains("highlight-group"))
+        {
+            group.classList.remove("highlight-group")
+            group.classList.add("dim-group")
+        }
+        else if (group.classList.contains("dim-group"))
+        {
+            group.classList.add("highlight-group")
+            group.classList.remove("dim-group")
+        }
+        else
+        {
+            group.classList.add("highlight-group")
+        }
+	}
+}
 
 //Update event and update the back-end when an event is moved
 function deleteEvent()

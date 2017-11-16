@@ -16,9 +16,9 @@
 	<div class="sched-nav z-depth-5">
 		<div class="container center-align">
 			<h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
-      <div id="groups">
+      <div id="groups" class="groups groups-section">
         {% for group in groups %}
-          <button class="group" id="group{{ group["groupid"] }}" style="background-color: {{ group["color"] }};">{{ group["name"] }}</button><br>
+          <button class="group groups-individual" id="group{{ group["groupid"] }}" style="background-color: {{ group["color"] }};">{{ group["name"] }}</button><br>
         {% endfor %}
       </div>
 		</div>
