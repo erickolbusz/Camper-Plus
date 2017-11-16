@@ -6,14 +6,48 @@ from camperapp import db
 
 class CampEvent(db.Model):
     """Camp Event class representing an event on the calendar"""
-    __tablename__ = 'event'
-    uid = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'campevent'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String())
     start = db.Column(db.DateTime())
     end = db.Column(db.DateTime())
+    group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
 
     def __repr__(self):
         return '<CampEvent {}>'.format(self.title)
+
+
+class Camper(db.Model):
+    """Camper class representing a Camper"""
+    __tablename__ = 'camper'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String())
+    age = db.Column(db.Integer())
+    group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
+
+    def __repr__(self):
+        return '<Camper {}>'.format(self.name)
+
+
+class CampGroup(db.Model):
+    """Group Class representing a Group"""
+    __tablename__ = 'campgroup'
+    id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    name = db.Column(db.String())
+    color = db.Column(db.String())
+    quantity = db.Column(db.Integer())
+    campers = db.relationship('Camper', backref='campgroup', lazy='dynamic')
+    events = db.relationship('CampEvent', backref='campgroup', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Group {}>'.format(self.name)
+
+    """
+    To add a camper to a group, we can do either of the following
+    camper.campgroup = Group
+    CampGroup.campers.append(camper)
+    camper.group_id = Group.id
+    """
 
 
 db.create_all()
@@ -60,24 +94,6 @@ db.session.commit()
 #         return '<Parent {}>'.format(self.name)
 #
 #
-# class Camper(db.Model):
-#     __tablename__='camper'
-#     id = db.Column(db.Integer, primary_key = True)
-#     name = db.Column(db.String())
-#     email = db.Column(db.String())
-#     password = db.Column(db.String())
-#     age = db.Column(db.Integer())
-#     parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'), nullable=False)
-#     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=True)
-#     groups = db.relationship('Groups',backref = 'camper',lazy = 'dynamic')
-#     parents = db.relationship('Parent',backref = 'camper',lazy = 'dynamic')
-#
-#     def get_id(self):
-#         return self.id
-#
-#
-#     def __repr__(self):
-#         return '<Camper {}>'.format(self.name)
 #
 #
 # class CampWorker(db.Model):
