@@ -2,13 +2,22 @@
 
 import unittest
 import camperapp
-from camperapp.models import CampEvent
+from camperapp.models import db, CampEvent, CampGroup, Camper
 import mock
-from unittest.mock import patch, DEFAULT, create_autospec
+from unittest.mock import patch, DEFAULT
 from datetime import datetime
 
 
 class TestApp(unittest.TestCase):
+    def setUp(self):
+        self.app = camperapp.app.test_client()
+        self.app.application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+        db.app = self.app.application
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
 
     def test_schedule_gets_schedule_template(self):
         """Test that the Schedule endpoint calls the schedule Page"""
@@ -49,3 +58,69 @@ class TestApp(unittest.TestCase):
         self.assertTrue(camperapp.models.datetime is mock_datetime)
         CampEvent.convert_ISO_datetime_to_py_datetime(CampEvent, ISO_datetime)
         mock_datetime.strptime.assert_called_once_with(ISO_datetime, '%Y-%m-%dT%H:%M:%S')
+
+    def test_camper_save(self):
+        name = 'daniel'
+        age = 12
+        camper = Camper(name, age)
+        db.session.add(camper)
+        db.session.commit()
+
+        queried_camper = Camper.query.filter_by(name=name).one()
+        self.assertTrue(queried_camper is not None)
+
+    def test_campevent_save(self):
+        title = "basketball"
+        start = datetime.now()
+        end = datetime.now()
+        campevent = CampEvent(title, start, end)
+        db.session.add(campevent)
+        db.session.commit()
+
+        queried_campevent = CampEvent.query.filter_by(title=title).one()
+        self.assertTrue(queried_campevent is not None)
+
+    def test_campgroup_save(self):
+        name = 'falcons'
+        color = 'yellow'
+
+        campgroup = CampGroup(name, color)
+        db.session.add(campgroup)
+        db.session.commit()
+
+        queried_campgroup = CampGroup.query.filter_by(name=name).one()
+        self.assertTrue(queried_campgroup is not None)
+
+    def test_campgroup_relationship(self):
+        group_name = 'falcons'
+        group_color = 'yellow'
+        camper_name = 'daniel'
+        camper_age = 12
+
+        campgroup = CampGroup(group_name, group_color)
+        camper = Camper(camper_name, camper_age)
+        campgroup.campers.append(camper)
+        db.session.add(campgroup)
+        db.session.add(camper)
+        db.session.commit()
+
+        queried_campgroup = Camper.query.filter_by(name=camper_name).one()\
+            .campgroup
+        self.assertEqual(queried_campgroup, campgroup)
+
+    def test_campevent_relationship(self):
+        group_name = 'falcons'
+        group_color = 'yellow'
+        event_title = "basketball"
+        event_start = datetime.now()
+        event_end = datetime.now()
+
+        campevent = CampEvent(event_title, event_start, event_end)
+        campgroup = CampGroup(group_name, group_color)
+        campgroup.events.append(campevent)
+        db.session.add(campevent)
+        db.session.add(campgroup)
+        db.session.commit()
+
+        queried_campgroup = CampEvent.query.filter_by(title=event_title).one().campgroup
+        self.assertEqual(queried_campgroup, campgroup)
