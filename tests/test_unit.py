@@ -107,6 +107,29 @@ class TestApp(unittest.TestCase):
         queried_campevent = CampEvent.query.filter_by(title=title).one()
         self.assertTrue(queried_campevent is not None)
 
+    def test_campevent_add_color(self):
+        group_name = 'falcons'
+        group_color = 'yellow'
+        event_title = "basketball"
+        event_start = datetime.now()
+        event_end = datetime.now()
+
+        campevent = CampEvent(event_title, event_start, event_end)
+        campgroup = CampGroup(group_name, group_color)
+        db.session.add(campevent)
+        db.session.add(campgroup)
+        db.session.commit()
+
+        # no group yet, should fail
+        campevent.add_color_attr()
+        self.assertFalse(hasattr(campevent, 'color'))
+
+        campgroup.events.append(campevent)
+        db.session.commit()
+
+        campevent.add_color_attr()
+        self.assertTrue(hasattr(campevent, 'color'))
+
     def test_campgroup_save(self):
         name = 'falcons'
         color = 'yellow'
