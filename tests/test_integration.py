@@ -2,12 +2,21 @@
 
 import unittest
 import camperapp
+from camperapp.models import db, CampEvent, CampGroup, Camper
 import json
+from datetime import datetime
 
 
 class TestUrls(unittest.TestCase):
     def setUp(self):
         self.app = camperapp.app.test_client()
+        self.app.application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+        db.app = self.app.application
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
 
     def test_home(self):
         """Test that home can be accessed"""
@@ -48,4 +57,15 @@ class TestUrls(unittest.TestCase):
 
         response = self.app.put("/saveEvent", data=json.dumps(json_data),
                     content_type='application/json')
+        self.assertTrue(response.status_code, 200)
+
+    def test_get_calendar_events_endpoint(self):
+        event = CampEvent('Basketball', datetime.now(), datetime.now())
+        group = CampGroup('falcons', 'green')
+        group.events.append(event)
+        db.session.add(group)
+        db.session.add(event)
+        db.session.commit()
+
+        response = self.app.get('/getCampEvents?start=2013-12-01&end=2014-01-12')
         self.assertTrue(response.status_code, 200)
