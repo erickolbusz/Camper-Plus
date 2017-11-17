@@ -65,7 +65,7 @@ class TestApp(unittest.TestCase):
             'title': 'basketball',
             'start': '2017-10-10T12:00:05',
             'end': '2017-10-10T13:00:00',
-            'group': '1'
+            'group_id': '1'
         }
 
         campevent = CampEvent.convert_calevent_to_campevent(full_cal_event)
@@ -77,14 +77,14 @@ class TestApp(unittest.TestCase):
             'title': 'basketball',
             'start': '2017-10-10T12:00:05',
             'end': '2017-10-10T13:00:00',
-            'group': '1'
+            'group_id': '1'
         }
 
         campevent = CampEvent.convert_calevent_to_campevent(full_cal_event)
         self.assertEqual(campevent.title, full_cal_event['title'])
         self.assertTrue(campevent.start is not None)
         self.assertTrue(campevent.end is not None)
-        self.assertEqual(campevent.group_id, int(full_cal_event['group']))
+        self.assertEqual(campevent.group_id, int(full_cal_event['group_id']))
 
     def test_camper_save(self):
         name = 'daniel'

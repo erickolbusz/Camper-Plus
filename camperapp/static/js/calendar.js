@@ -32,7 +32,8 @@ $(document).ready(function () {
                     $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'))
                     $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'))
                     $('#eventEndTime').val(calEvent.end.format('HH:mm:ss'))
-                    $('#sched-groups').val(calEvent.group)
+                    console.log(calEvent.group_id)
+                    $('#sched-groups').val(calEvent.group_id)
                     $('select').material_select()
 
                     currentCalEvent = calEvent
@@ -101,63 +102,7 @@ $(document).ready(function () {
                     }
                 },
 
-                //events: '/GetCampEvents', -> end point to supply calendar with events
-				events: [
-					{
-						title: 'All Day Event',
-						start: '2017-11-09'
-					},
-					{
-						title: 'Long Event',
-						start: '2017-10-07',
-						end: '2017-11-07',
-                        color: 'green'
-					},
-					{
-						id: 999,
-						title: 'Repeating Event',
-						start: '2017-10-09T16:00:00',
-                        color: 'orange'
-					},
-					{
-						id: 999,
-						title: 'Repeating Event',
-						start: '2017-10-16T16:00:00'
-					},
-					{
-						title: 'Conference',
-						start: '2017-10-11',
-						end: '2017-10-13'
-					},
-					{
-						title: 'Meeting',
-						start: '2017-10-12T10:30:00',
-						end: '2017-10-12T12:30:00',
-                        color: 'green'
-					},
-					{
-						title: 'Lunch',
-						start: '2017-11-6T12:00:00'
-					},
-					{
-						title: 'Meeting',
-						start: '2017-11-07T14:30:00'
-					},
-					{
-						title: 'Happy Hour',
-						start: '2017-11-10T17:30:00',
-                        color: 'green'
-					},
-					{
-						title: 'Dinner',
-						start: '2017-11-09T20:00:00'
-					},
-					{
-						title: 'Birthday Party',
-						start: '2017-11-07T07:00:00',
-                        color: 'brown'
-					}
-				]
+                events: '/getCampEvents'
 		});
 
         // Resize calendar perfectly
@@ -246,7 +191,7 @@ function updateEvent()
         'eventStartTime': $('#eventStartTime').val(),
         'eventEndDate': $('#eventEndDate').val(),
         'eventEndTime': $('#eventEndTime').val(),
-        'group': $('#sched-groups').val()
+        'group_id': $('#sched-groups').val()
     }
 
 
@@ -258,7 +203,7 @@ function updateEvent()
         title: dataRow['title'],
         start: ISOStartDate,
         end: ISOEndDate,
-        group: $('#sched-groups').val()
+        group_id: $('#sched-groups').val()
     };
 
     console.log(eventData)
@@ -306,7 +251,7 @@ function submitEvent()
         'eventStartTime': $('#eventStartTime').val(),
         'eventEndDate': $('#eventEndDate').val(),
         'eventEndTime': $('#eventEndTime').val(),
-        'group': $('#sched-groups').val()
+        'group_id': $('#sched-groups').val()
     }
 
 
@@ -317,7 +262,7 @@ function submitEvent()
         title: dataRow['title'],
         start: ISOStartDate,
         end: ISOEndDate,
-        group: $('#sched-groups').val()
+        group_id: $('#sched-groups').val()
     };
 
     console.log(eventData)

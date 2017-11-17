@@ -2,6 +2,8 @@
 # from camperapp import app
 from camperapp import db
 from datetime import datetime
+from collections import OrderedDict
+from marshmallow import Schema, fields
 # from werkzeug import generate_password_hash, check_password_hash
 
 
@@ -19,6 +21,10 @@ class CampEvent(db.Model):
         self.start = start
         self.end = end
 
+    def add_color_attr(self):
+        if self.group_id is None: return
+        self.color = self.campgroup.color
+
     @classmethod
     def convert_calevent_to_campevent(cls, calevent):
         """Converts a Full Calendar calendar event to a CampEvent"""
@@ -27,7 +33,7 @@ class CampEvent(db.Model):
             CampEvent.convert_ISO_datetime_to_py_datetime(calevent['start'])
         end_time =\
             CampEvent.convert_ISO_datetime_to_py_datetime(calevent['end'])
-        group_id = int(calevent['group'])
+        group_id = int(calevent['group_id'])
 
         camp_event = CampEvent(title, start_time, end_time)
         camp_event.group_id = group_id
@@ -45,6 +51,17 @@ class CampEvent(db.Model):
 
     def __repr__(self):
         return '<CampEvent {}>'.format(self.title)
+
+
+class CampEventSchema(Schema):
+    """Schema for camp event"""
+    id = fields.Int()
+    title = fields.Str()
+    start = fields.DateTime()
+    end = fields.DateTime()
+    group_id = fields.Str()
+    # this doesn't original exist in db, should be appended before serialization
+    color = fields.Str()
 
 
 class Camper(db.Model):

@@ -1,7 +1,7 @@
 """Routes for Camper+ app."""
 
 from camperapp import app
-from camperapp.models import db, CampEvent, CampGroup
+from camperapp.models import db, CampEvent, CampGroup, CampEventSchema
 from flask import render_template
 from flask import jsonify
 from flask import request
@@ -49,3 +49,19 @@ def submit_handler():
     elif request.method == 'PUT':
         print("Received a PUT request of event")
         return jsonify({'msg': 'success'})
+
+@app.route('/getCampEvents', methods=['GET'])
+def get_camp_events():
+    start = request.args.get('start')  # get events on/after start
+    end = request.args.get('end')    # get events before/on end
+    print(start, end)
+
+    event_schema = CampEventSchema(many=True)
+    events = CampEvent.query.all()   # get all data for now
+
+    for event in events:
+        event.add_color_attr()
+
+    result = event_schema.dump(events).data
+
+    return jsonify(result)
