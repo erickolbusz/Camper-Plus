@@ -56,8 +56,35 @@ class TestApp(unittest.TestCase):
     def test_CampEvent_convert_ISO_py_datetime(self, mock_datetime):
         ISO_datetime = "2017-10-10T12:25:27"
         self.assertTrue(camperapp.models.datetime is mock_datetime)
-        CampEvent.convert_ISO_datetime_to_py_datetime(CampEvent, ISO_datetime)
+        CampEvent.convert_ISO_datetime_to_py_datetime(ISO_datetime)
         mock_datetime.strptime.assert_called_once_with(ISO_datetime, '%Y-%m-%dT%H:%M:%S')
+
+    @patch.object(CampEvent, 'convert_ISO_datetime_to_py_datetime')
+    def test_CampEvent_convert_calevent_to_campevent_args(self, mock_parser):
+        full_cal_event = {
+            'title': 'basketball',
+            'start': '2017-10-10T12:00:05',
+            'end': '2017-10-10T13:00:00',
+            'group': '1'
+        }
+
+        campevent = CampEvent.convert_calevent_to_campevent(full_cal_event)
+        mock_parser.assert_any_call(full_cal_event['start'])
+        mock_parser.assert_any_call(full_cal_event['end'])
+
+    def test_CampEvent_convert_calevent_to_campevent(self):
+        full_cal_event = {
+            'title': 'basketball',
+            'start': '2017-10-10T12:00:05',
+            'end': '2017-10-10T13:00:00',
+            'group': '1'
+        }
+
+        campevent = CampEvent.convert_calevent_to_campevent(full_cal_event)
+        self.assertEqual(campevent.title, full_cal_event['title'])
+        self.assertTrue(campevent.start is not None)
+        self.assertTrue(campevent.end is not None)
+        self.assertEqual(campevent.group_id, int(full_cal_event['group']))
 
     def test_camper_save(self):
         name = 'daniel'
