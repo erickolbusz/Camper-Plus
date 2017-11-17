@@ -1,10 +1,9 @@
 //Some global Variables to process data
 
 //The current calendar event being manipulated
-currentCalEvent = undefined
+var currentCalEvent
 
-$(document).ready(function()
-{
+$(document).ready(function () {
 	$('#calendar').fullCalendar({
         header: {
 					left: 'prev,next today',
