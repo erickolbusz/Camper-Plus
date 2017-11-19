@@ -47,14 +47,25 @@ class TestUrls(unittest.TestCase):
                                  content_type='application/json')
         self.assertTrue(response.status_code, 200)
 
-    def test_put_event_on_schedule_page(self):
-        """Test that roups passed to the schedule page are all displayed"""
+    def test_put_event_on_calendar_endpoint(self):
+        """Tests whether put event endpoint is working fine"""
+        camp_group = CampGroup('falcons', 'yellow')
+
+        start = datetime.now()
+        end = datetime.now()
+        camp_event = CampEvent("basketball", start, end)
+        camp_group.events.append(camp_event)
+        db.session.add(camp_group)
+        db.session.add(camp_event)
+        db.session.commit()
+
+        new_title = 'soccer'
         json_data = {
-            'id': 1,
-            'title': 'Test Event',
-            'start': '2017-8-8T12:00:00',
-            'end': '2017-8-8T12:00:00',
-            'group': '3'
+            'id': CampEvent.query.filter_by(title="basketball").first().id,
+            'title': new_title,
+            'start':  CampEvent.convert_py_datetime_to_ISO_datetime(start),
+            'end': CampEvent.convert_py_datetime_to_ISO_datetime(end),
+            'group_id': CampEvent.query.filter_by(title="basketball").first().group_id
         }
 
         response = self.app.put("/saveEvent", data=json.dumps(json_data),
@@ -88,6 +99,33 @@ class TestUrls(unittest.TestCase):
         self.app.post("/saveEvent", data=json.dumps(json_data), content_type='application/json')
         events = CampEvent.query.all()
         self.assertEqual(len(events), 1)
+
+    def test_put_event_on_calendar_db(self):
+        """Tests whether event posted on calendar is saved into db"""
+        camp_group = CampGroup('falcons', 'yellow')
+
+        start = datetime.now()
+        end = datetime.now()
+        camp_event = CampEvent("basketball", start, end)
+        camp_group.events.append(camp_event)
+        db.session.add(camp_group)
+        db.session.add(camp_event)
+        db.session.commit()
+
+        new_title = 'soccer'
+        json_data = {
+            'id': CampEvent.query.filter_by(title="basketball").first().id,
+            'title': new_title,
+            'start':  CampEvent.convert_py_datetime_to_ISO_datetime(start),
+            'end': CampEvent.convert_py_datetime_to_ISO_datetime(end),
+            'group_id': CampEvent.query.filter_by(title="basketball").first().group_id
+        }
+
+        self.app.put("/saveEvent", data=json.dumps(json_data), content_type='application/json')
+        event = CampEvent.query.first()
+        self.assertEqual(event.title, new_title)
+
+
 
 
 
