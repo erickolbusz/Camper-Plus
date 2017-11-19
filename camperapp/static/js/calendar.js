@@ -119,6 +119,9 @@ $(document).ready(function () {
         $('.modal').modal();
         $('.trigger-modal').modal();
 
+        //attach some functions
+        $('#deleteEvent').click(deleteEvent);
+
         // Attach a run setup on each group
         var groups = $("#groups")[0];
         for (var i=0; i<groups.childElementCount; i++)
@@ -150,8 +153,6 @@ var setup = function(group)
         }
 
 		console.log(group.id);
-        //perform some computation
-
 
         if (group.classList.contains("highlight-group"))
         {
@@ -173,6 +174,8 @@ var setup = function(group)
 //Update event and update the back-end when an event is moved
 function deleteEvent()
 {
+    if (currentCalEvent === null) return;
+
     console.log("Updating");
     console.log(currentCalEvent);
 
@@ -210,8 +213,8 @@ function deleteEvent()
 
         if (response)
         {
+            $('#calendar').fullCalendar('refetchEvents');
             Materialize.toast('Event Was Deleted', 4000)
-            $('#calendar').fullCalendar('refetchEvents')
         }
 
      })
@@ -230,7 +233,7 @@ function deleteEvent()
 
 function updateEvent()
 {
-
+    if (currentCalEvent === null) return;
     console.log("Updating");
     console.log(currentCalEvent);
 
@@ -322,7 +325,7 @@ function submitEvent()
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(eventData),
-        dataType: "json",
+        dataType: "json"
     })
 
     .done( function (response) {

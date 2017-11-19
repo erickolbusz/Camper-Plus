@@ -70,7 +70,10 @@ def submit_handler():
         print('Received a Delete Request')
         event_data = request.json
         event_id = int(event_data['id'])
-        print(event_id)
+
+        event = CampEvent.query.filter_by(id=event_id).one()
+        db.session.delete(event)
+        db.session.commit()
 
         return jsonify({'msg': 'success'})
 
