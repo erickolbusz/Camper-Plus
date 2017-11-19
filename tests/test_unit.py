@@ -122,7 +122,7 @@ class TestApp(unittest.TestCase):
 
         # no group yet, should fail
         campevent.add_color_attr()
-        self.assertFalse(hasattr(campevent, 'color'))
+        self.assertTrue(campevent.color is None)
 
         campgroup.events.append(campevent)
         db.session.commit()

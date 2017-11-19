@@ -20,6 +20,7 @@ class CampEvent(db.Model):
         self.title = title
         self.start = start
         self.end = end
+        self.color = None
 
     def add_color_attr(self):
         if self.group_id is None:
