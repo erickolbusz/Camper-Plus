@@ -68,7 +68,7 @@ class TestApp(unittest.TestCase):
             'group_id': '1'
         }
 
-        campevent = CampEvent.convert_calevent_to_campevent(full_cal_event)
+        CampEvent.convert_calevent_to_campevent(full_cal_event)
         mock_parser.assert_any_call(full_cal_event['start'])
         mock_parser.assert_any_call(full_cal_event['end'])
 
@@ -100,12 +100,12 @@ class TestApp(unittest.TestCase):
         title = "basketball"
         start = datetime.now()
         end = datetime.now()
-        campevent = CampEvent(title, start, end)
-        db.session.add(campevent)
+        camp_event = CampEvent(title, start, end)
+        db.session.add(camp_event)
         db.session.commit()
 
-        queried_campevent = CampEvent.query.filter_by(title=title).one()
-        self.assertTrue(queried_campevent is not None)
+        queried_camp_event = CampEvent.query.filter_by(title=title).one()
+        self.assertTrue(queried_camp_event is not None)
 
     def test_campevent_add_color(self):
         group_name = 'falcons'
@@ -114,32 +114,32 @@ class TestApp(unittest.TestCase):
         event_start = datetime.now()
         event_end = datetime.now()
 
-        campevent = CampEvent(event_title, event_start, event_end)
-        campgroup = CampGroup(group_name, group_color)
-        db.session.add(campevent)
-        db.session.add(campgroup)
+        camp_event = CampEvent(event_title, event_start, event_end)
+        camp_group = CampGroup(group_name, group_color)
+        db.session.add(camp_event)
+        db.session.add(camp_group)
         db.session.commit()
 
         # no group yet, should fail
-        campevent.add_color_attr()
-        self.assertTrue(campevent.color is None)
+        camp_event.add_color_attr()
+        self.assertTrue(camp_event.color is None)
 
-        campgroup.events.append(campevent)
+        camp_group.events.append(camp_event)
         db.session.commit()
 
-        campevent.add_color_attr()
-        self.assertTrue(hasattr(campevent, 'color'))
+        camp_event.add_color_attr()
+        self.assertTrue(hasattr(camp_event, 'color'))
 
     def test_campgroup_save(self):
         name = 'falcons'
         color = 'yellow'
 
-        campgroup = CampGroup(name, color)
-        db.session.add(campgroup)
+        camp_group = CampGroup(name, color)
+        db.session.add(camp_group)
         db.session.commit()
 
-        queried_campgroup = CampGroup.query.filter_by(name=name).one()
-        self.assertTrue(queried_campgroup is not None)
+        queried_camp_group = CampGroup.query.filter_by(name=name).one()
+        self.assertTrue(queried_camp_group is not None)
 
     def test_campgroup_relationship(self):
         group_name = 'falcons'
@@ -147,16 +147,16 @@ class TestApp(unittest.TestCase):
         camper_name = 'daniel'
         camper_age = 12
 
-        campgroup = CampGroup(group_name, group_color)
+        camp_group = CampGroup(group_name, group_color)
         camper = Camper(camper_name, camper_age)
-        campgroup.campers.append(camper)
-        db.session.add(campgroup)
+        camp_group.campers.append(camper)
+        db.session.add(camp_group)
         db.session.add(camper)
         db.session.commit()
 
-        queried_campgroup = Camper.query.filter_by(name=camper_name).one()\
+        queried_camp_group = Camper.query.filter_by(name=camper_name).one()\
             .campgroup
-        self.assertEqual(queried_campgroup, campgroup)
+        self.assertEqual(queried_camp_group, camp_group)
 
     def test_campevent_relationship(self):
         group_name = 'falcons'
@@ -165,12 +165,12 @@ class TestApp(unittest.TestCase):
         event_start = datetime.now()
         event_end = datetime.now()
 
-        campevent = CampEvent(event_title, event_start, event_end)
-        campgroup = CampGroup(group_name, group_color)
-        campgroup.events.append(campevent)
-        db.session.add(campevent)
-        db.session.add(campgroup)
+        camp_event = CampEvent(event_title, event_start, event_end)
+        camp_group = CampGroup(group_name, group_color)
+        camp_group.events.append(camp_event)
+        db.session.add(camp_event)
+        db.session.add(camp_group)
         db.session.commit()
 
-        queried_campgroup = CampEvent.query.filter_by(title=event_title).one().campgroup
-        self.assertEqual(queried_campgroup, campgroup)
+        queried_camp_group = CampEvent.query.filter_by(title=event_title).one().campgroup
+        self.assertEqual(queried_camp_group, camp_group)

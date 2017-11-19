@@ -43,7 +43,7 @@ class TestUrls(unittest.TestCase):
         }
 
         response = self.app.post("/saveEvent", data=json.dumps(json_data),
-                    content_type='application/json')
+                                 content_type='application/json')
         self.assertTrue(response.status_code, 200)
 
     def test_put_event_on_schedule_page(self):
@@ -56,7 +56,7 @@ class TestUrls(unittest.TestCase):
         }
 
         response = self.app.put("/saveEvent", data=json.dumps(json_data),
-                    content_type='application/json')
+                                content_type='application/json')
         self.assertTrue(response.status_code, 200)
 
     def test_get_calendar_events_endpoint(self):
