@@ -83,6 +83,29 @@ class TestUrls(unittest.TestCase):
         response = self.app.get('/getCampEvents?start=2013-12-01&end=2014-01-12')
         self.assertTrue(response.status_code, 200)
 
+    def test_delete_event_on_calendar_endpoint(self):
+        """Tests whether event posted on calendar is saved into db"""
+        camp_group = CampGroup('falcons', 'yellow')
+
+        start = datetime.now()
+        end = datetime.now()
+        camp_event = CampEvent("basketball", start, end)
+        camp_group.events.append(camp_event)
+        db.session.add(camp_group)
+        db.session.add(camp_event)
+        db.session.commit()
+
+        json_data = {
+            'id': CampEvent.query.filter_by(title="basketball").first().id,
+            'title': 'basketball',
+            'start':  CampEvent.convert_py_datetime_to_ISO_datetime(start),
+            'end': CampEvent.convert_py_datetime_to_ISO_datetime(end),
+            'group_id': CampEvent.query.filter_by(title="basketball").first().group_id
+        }
+
+        response = self.app.delete("/saveEvent", data=json.dumps(json_data), content_type='application/json')
+        self.assertTrue(response.status_code, 200)
+
     def test_post_event_on_calendar_db(self):
         """Tests whether event posted on calendar is saved into db"""
         camp_group = CampGroup('falcons', 'yellow')
@@ -125,7 +148,37 @@ class TestUrls(unittest.TestCase):
         event = CampEvent.query.first()
         self.assertEqual(event.title, new_title)
 
+    def test_delete_event_on_calendar_db(self):
+        """Tests whether event posted on calendar is saved into db"""
+        camp_group = CampGroup('falcons', 'yellow')
 
+        start = datetime.now()
+        end = datetime.now()
+        camp_event = CampEvent("basketball", start, end)
+        camp_group.events.append(camp_event)
+        db.session.add(camp_group)
+        db.session.add(camp_event)
+        db.session.commit()
 
+        json_data = {
+            'id': CampEvent.query.filter_by(title="basketball").first().id,
+            'title': 'basketball',
+            'start':  CampEvent.convert_py_datetime_to_ISO_datetime(start),
+            'end': CampEvent.convert_py_datetime_to_ISO_datetime(end),
+            'group_id': CampEvent.query.filter_by(title="basketball").first().group_id
+        }
 
+        self.app.delete("/saveEvent", data=json.dumps(json_data), content_type='application/json')
+        events = CampEvent.query.all()
+        self.assertEqual(len(events), 0)
 
+    def test_get_calendar_events_gets_data(self):
+        event = CampEvent('Basketball', datetime.now(), datetime.now())
+        group = CampGroup('falcons', 'green')
+        group.events.append(event)
+        db.session.add(group)
+        db.session.add(event)
+        db.session.commit()
+
+        response = self.app.get('/getCampEvents?start=2013-12-01&end=2014-01-12')
+        self.assertTrue(response.data is not None)
