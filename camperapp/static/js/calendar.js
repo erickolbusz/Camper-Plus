@@ -1,7 +1,7 @@
 //Some global Variables to process data
 
 //The current calendar event being manipulated
-var currentCalEvent
+var currentCalEvent = null;
 
 $(document).ready(function () {
 	$('#calendar').fullCalendar({
@@ -23,18 +23,18 @@ $(document).ready(function () {
                 //Click on Existing Event
                 eventClick: function(calEvent, jsEvent, view)
                 {
-                    ClearPopupFormValues()
+                    ClearPopupFormValues();
                     $('#eventModal').modal('open');
                     $('#event-form').attr('action', 'javascript:updateEvent()');
                     $("#eventTitle").val(calEvent.title);
-                    $('#deleteEvent').removeClass("disabled")
-                    $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'))
-                    $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'))
-                    $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'))
-                    $('#eventEndTime').val(calEvent.end.format('HH:mm:ss'))
-                    console.log(calEvent.group_id)
-                    $('#sched-groups').val(calEvent.group_id)
-                    $('select').material_select()
+                    $('#deleteEvent').removeClass("disabled");
+                    $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'));
+                    $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'));
+                    $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'));
+                    $('#eventEndTime').val(calEvent.end.format('HH:mm:ss'));
+                    console.log(calEvent.group_id);
+                    $('#sched-groups').val(calEvent.group_id);
+                    $('select').material_select();
 
                     currentCalEvent = calEvent
                     //var startTime = $.fullCalendar.moment(calEvent.start);
@@ -50,15 +50,15 @@ $(document).ready(function () {
                 //Create New Event
                 select: function (start, end)
                 {
-                    ClearPopupFormValues()
+                    ClearPopupFormValues();
                     $('#event-form').attr('action', 'javascript:submitEvent()');
 
                     $('#eventModal').modal('open');
                     $("#eventTitle").val('');
-                    $('#deleteEvent').addClass("disabled")
-                    $("#eventStartDate").val(start.format('YYYY-MM-DD'))
-                    $("#eventStartTime").val(start.format('HH:mm:ss'))
-                    $('#eventEndDate').val(end.format('YYYY-MM-DD'))
+                    $('#deleteEvent').addClass("disabled");
+                    $("#eventStartDate").val(start.format('YYYY-MM-DD'));
+                    $("#eventStartTime").val(start.format('HH:mm:ss'));
+                    $('#eventEndDate').val(end.format('YYYY-MM-DD'));
                     $('#eventEndTime').val(end.format('HH:mm:ss'))
 
                     //var title = prompt("Enter event title")
@@ -112,7 +112,7 @@ $(document).ready(function () {
             var calHeight = $(window).height()*0.915;
             $('#calendar').fullCalendar('option', 'height', calHeight);
           });
-        };
+        }
 
         // Enable material select tags and modal tags
         $('select').material_select();
@@ -125,7 +125,7 @@ $(document).ready(function () {
         {
           	if (groups.children[i].classList.contains("group"))
             {
-          		var group = groups.children[i]
+          		var group = groups.children[i];
         		setup(group);
         	}
         }
@@ -155,12 +155,12 @@ var setup = function(group)
 
         if (group.classList.contains("highlight-group"))
         {
-            group.classList.remove("highlight-group")
+            group.classList.remove("highlight-group");
             group.classList.add("dim-group")
         }
         else if (group.classList.contains("dim-group"))
         {
-            group.classList.add("highlight-group")
+            group.classList.add("highlight-group");
             group.classList.remove("dim-group")
         }
         else
@@ -168,7 +168,7 @@ var setup = function(group)
             group.classList.add("highlight-group")
         }
 	}
-}
+};
 
 //Update event and update the back-end when an event is moved
 function deleteEvent()
@@ -180,10 +180,10 @@ function deleteEvent()
 function updateEvent()
 {
 
-    console.log("Updating")
-    console.log(currentCalEvent)
+    console.log("Updating");
+    console.log(currentCalEvent);
 
-    $('#eventModal').modal('close')
+    $('#eventModal').modal('close');
 
     var dataRow = {
         'title':$('#eventTitle').val(),
@@ -192,13 +192,13 @@ function updateEvent()
         'eventEndDate': $('#eventEndDate').val(),
         'eventEndTime': $('#eventEndTime').val(),
         'group_id': $('#sched-groups').val()
-    }
+    };
 
 
-    var ISOStartDate = dataRow['eventStartDate'] + 'T' + dataRow['eventStartTime']
-    var ISOEndDate = dataRow['eventEndDate'] + 'T' + dataRow['eventEndTime']
+    var ISOStartDate = dataRow['eventStartDate'] + 'T' + dataRow['eventStartTime'];
+    var ISOEndDate = dataRow['eventEndDate'] + 'T' + dataRow['eventEndTime'];
 
-    eventData = {
+    var eventData = {
         id: currentCalEvent['id'],
         title: dataRow['title'],
         start: ISOStartDate,
@@ -206,24 +206,21 @@ function updateEvent()
         group_id: $('#sched-groups').val()
     };
 
-    console.log(eventData)
+    console.log(eventData);
 
     $.ajax({
         url: "/saveEvent",
         type: "PUT",
         contentType: "application/json",
         data: JSON.stringify(eventData),
-        dataType: "json",
+        dataType: "json"
     })
 
     .done( function (response) {
 
         if (response)
         {
-            color = response['color']
-            eventData['color'] = color
-            //$('#calendar').fullCalendar('')
-            //$('#calendar').fullCalendar('renderEvent', eventData, true);
+            $('#calendar').fullCalendar('refetchEvents')
         }
 
      })
@@ -242,8 +239,8 @@ function updateEvent()
 function submitEvent()
 {
 
-    console.log("running")
-    $('#eventModal').modal('close')
+    console.log("running");
+    $('#eventModal').modal('close');
 
     var dataRow = {
         'title':$('#eventTitle').val(),
@@ -252,20 +249,20 @@ function submitEvent()
         'eventEndDate': $('#eventEndDate').val(),
         'eventEndTime': $('#eventEndTime').val(),
         'group_id': $('#sched-groups').val()
-    }
+    };
 
 
-    var ISOStartDate = dataRow['eventStartDate'] + 'T' + dataRow['eventStartTime']
-    var ISOEndDate = dataRow['eventEndDate'] + 'T' + dataRow['eventEndTime']
+    var ISOStartDate = dataRow['eventStartDate'] + 'T' + dataRow['eventStartTime'];
+    var ISOEndDate = dataRow['eventEndDate'] + 'T' + dataRow['eventEndTime'];
 
-    eventData = {
+    var eventData = {
         title: dataRow['title'],
         start: ISOStartDate,
         end: ISOEndDate,
         group_id: $('#sched-groups').val()
     };
 
-    console.log(eventData)
+    console.log(eventData);
 
     $.ajax({
         url: "/saveEvent",
@@ -279,10 +276,10 @@ function submitEvent()
 
         if (response)
         {
-            color = response['color']
-            eventId = response['id']
-            eventData['color'] = color
-            eventData['id'] = eventId
+            color = response['color'];
+            eventId = response['id'];
+            eventData['color'] = color;
+            eventData['id'] = eventId;
             $('#calendar').fullCalendar('renderEvent', eventData, true)
         }
 
@@ -302,11 +299,11 @@ function submitEvent()
 //Clear the Values of the Pop Up Form
 function ClearPopupFormValues()
 {
-    $('#eventTitle').val("")
-    $("#eventStartDate").val("")
-    $("#eventStartTime").val("")
-    $('#eventEndDate').val("")
-    $('#eventEndTime').val("")
-    $('#sched-groups').val("")
+    $('#eventTitle').val("");
+    $("#eventStartDate").val("");
+    $("#eventStartTime").val("");
+    $('#eventEndDate').val("");
+    $('#eventEndTime').val("");
+    $('#sched-groups').val("");
     $('select').material_select()
 }

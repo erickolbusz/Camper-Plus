@@ -1,9 +1,9 @@
 """Models in Camper APP"""
 # from camperapp import app
-from camperapp import db
-from datetime import datetime
-from collections import OrderedDict
 from marshmallow import Schema, fields
+from datetime import datetime
+from camperapp import db
+
 # from werkzeug import generate_password_hash, check_password_hash
 
 
@@ -22,7 +22,8 @@ class CampEvent(db.Model):
         self.end = end
 
     def add_color_attr(self):
-        if self.group_id is None: return
+        if self.group_id is None:
+            return
         self.color = self.campgroup.color
 
     @classmethod
