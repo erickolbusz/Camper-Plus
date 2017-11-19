@@ -32,7 +32,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/saveEvent', methods=['POST', 'PUT'])
+@app.route('/saveEvent', methods=['POST', 'PUT', 'DELETE'])
 def submit_handler():
     # a = request.get_json(force=True)
 
@@ -63,6 +63,14 @@ def submit_handler():
         CampEvent.query.filter_by(id=event_id).update({'title': new_title, 'start': new_start,
                                                        'end': new_end, 'group_id': new_group_id})
         db.session.commit()
+
+        return jsonify({'msg': 'success'})
+
+    elif request.method == 'DELETE':
+        print('Received a Delete Request')
+        event_data = request.json
+        event_id = int(event_data['id'])
+        print(event_id)
 
         return jsonify({'msg': 'success'})
 

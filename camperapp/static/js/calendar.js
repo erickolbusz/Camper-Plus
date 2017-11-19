@@ -27,7 +27,7 @@ $(document).ready(function () {
                     $('#eventModal').modal('open');
                     $('#event-form').attr('action', 'javascript:updateEvent()');
                     $("#eventTitle").val(calEvent.title);
-                    $('#deleteEvent').removeClass("disabled");
+                    $('#deleteEvent').removeClass("disabled").click(deleteEvent);
                     $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'));
                     $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'));
                     $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'));
@@ -173,8 +173,59 @@ var setup = function(group)
 //Update event and update the back-end when an event is moved
 function deleteEvent()
 {
-    console.log("Deleting")
-    //I just need the event ID
+    console.log("Updating");
+    console.log(currentCalEvent);
+
+    $('#eventModal').modal('close');
+
+    var dataRow = {
+        'title':$('#eventTitle').val(),
+        'eventStartDate': $('#eventStartDate').val(),
+        'eventStartTime': $('#eventStartTime').val(),
+        'eventEndDate': $('#eventEndDate').val(),
+        'eventEndTime': $('#eventEndTime').val(),
+        'group_id': $('#sched-groups').val()
+    };
+
+    var ISOStartDate = dataRow['eventStartDate'] + 'T' + dataRow['eventStartTime'];
+    var ISOEndDate = dataRow['eventEndDate'] + 'T' + dataRow['eventEndTime'];
+
+    var eventData = {
+        id: currentCalEvent['id'],
+        title: dataRow['title'],
+        start: ISOStartDate,
+        end: ISOEndDate,
+        group_id: $('#sched-groups').val()
+    };
+
+    $.ajax({
+        url: "/saveEvent",
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify(eventData),
+        dataType: "json"
+    })
+
+    .done( function (response) {
+
+        if (response)
+        {
+            Materialize.toast('Event Was Deleted', 4000)
+            $('#calendar').fullCalendar('refetchEvents')
+        }
+
+     })
+
+     .fail ( function() {
+        Materialize.toast('Error: Check Your Internet Connection', 4000)
+     })
+
+     .always (function() {
+
+        $('#calendar').fullCalendar('unselect');
+     })
+
+    currentCalEvent = null
 }
 
 function updateEvent()
@@ -233,6 +284,8 @@ function updateEvent()
 
         $('#calendar').fullCalendar('unselect');
      })
+
+    currentCalEvent = null
 }
 
 //Add New events to Calendar by clicking the Save button
