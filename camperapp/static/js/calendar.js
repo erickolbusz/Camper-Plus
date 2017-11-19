@@ -27,7 +27,7 @@ $(document).ready(function () {
                     $('#eventModal').modal('open');
                     $('#event-form').attr('action', 'javascript:updateEvent()');
                     $("#eventTitle").val(calEvent.title);
-                    $('#deleteEvent').removeClass("disabled").click(deleteEvent);
+                    $('#deleteEvent').removeClass("disabled");
                     $("#eventStartDate").val(calEvent.start.format('YYYY-MM-DD'));
                     $("#eventStartTime").val(calEvent.start.format('HH:mm:ss'));
                     $('#eventEndDate').val(calEvent.end.format('YYYY-MM-DD'));
