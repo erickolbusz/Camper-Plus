@@ -14,6 +14,7 @@ class TestApp(unittest.TestCase):
         self.app.application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         db.app = self.app.application
         db.create_all()
+        db.session.commit()
 
     def tearDown(self):
         db.session.remove()

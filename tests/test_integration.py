@@ -2,7 +2,7 @@
 
 import unittest
 import camperapp
-from camperapp.models import db, CampEvent, CampGroup, Camper
+from camperapp.models import db, CampEvent, CampGroup
 import json
 from datetime import datetime
 
@@ -13,6 +13,7 @@ class TestUrls(unittest.TestCase):
         self.app.application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         db.app = self.app.application
         db.create_all()
+        db.session.commit()
 
     def tearDown(self):
         db.session.remove()
@@ -49,6 +50,7 @@ class TestUrls(unittest.TestCase):
     def test_put_event_on_schedule_page(self):
         """Test that roups passed to the schedule page are all displayed"""
         json_data = {
+            'id': 1,
             'title': 'Test Event',
             'start': '2017-8-8T12:00:00',
             'end': '2017-8-8T12:00:00',
@@ -69,3 +71,23 @@ class TestUrls(unittest.TestCase):
 
         response = self.app.get('/getCampEvents?start=2013-12-01&end=2014-01-12')
         self.assertTrue(response.status_code, 200)
+
+    def test_post_event_on_calendar_db(self):
+        """Tests whether event posted on calendar is saved into db"""
+        camp_group = CampGroup('falcons', 'yellow')
+        db.session.add(camp_group)
+        db.session.commit()
+
+        json_data = {
+            'title': 'Test Event',
+            'start': '2017-8-8T12:00:00',
+            'end': '2017-8-8T12:00:00',
+            'group_id': '1'
+        }
+
+        self.app.post("/saveEvent", data=json.dumps(json_data), content_type='application/json')
+        events = CampEvent.query.all()
+        self.assertEqual(len(events), 1)
+
+
+
