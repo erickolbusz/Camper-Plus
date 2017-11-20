@@ -8,7 +8,7 @@ A wesbite to ease the work of camp administrators and the lives of parents
     python setup.py install
 
 ##### Run Application (debug Mode)
-    python main.py
+    python application.py
 
 ##### Live Application at
     https://camperapp.herokuapp.com
