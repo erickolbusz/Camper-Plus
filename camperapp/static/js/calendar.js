@@ -76,7 +76,6 @@ $(document).ready(function () {
 					// $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 				    // }
                     //
-				    // $('#calendar').fullCalendar('unselect');
                 },
 
                 //Move an Event Around
