@@ -3,8 +3,7 @@
 from marshmallow import Schema, fields
 from datetime import datetime
 from camperapp import db
-
-# from werkzeug import generate_password_hash, check_password_hash
+from werkzeug import generate_password_hash, check_password_hash
 
 
 class CampEvent(db.Model):
@@ -98,9 +97,10 @@ class CampGroup(db.Model):
     def __repr__(self):
         return '<Group {}>'.format(self.name)
 
+
 class Manager(db.Model):
     __tablename__ = 'manager'
-    id = db.Column(db.Integer(),primary_key=True,autoincrement=True)
+    id = db.Column(db.Integer(),primary_key=True, autoincrement=True)
     name = db.Column(db.String())
     email = db.Column(db.String(120), unique=True)
     pwdhash = db.Column(db.String(54))
