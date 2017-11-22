@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/materialize.min.css">
+
+        <title>Camper+</title>
+</head>
+
+<body>
+  <div class="navbar-fixed">
+      <nav class="top-nav">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Camper+</a>
+            <ul class="right hide-on-med-and-down">
+                <li id="enrollments_bar"><a href="#!"><i class="material-icons left">people</i>Enrollments</a></li>
+                <li id="forms_bar"><a href="#!"><i class="material-icons left">folder</i>Forms</a></li>
+                <li id="schedule_bar"><a href="#!"><i class="material-icons left">schedule</i>Schedule</a></li>
+                <li id="account_bar"><a href="#!"><i class="material-icons left">account_circle</i>Account</a></li>
+            </ul>
+            <!-- id is duplicated on purpose -->
+              <ul id='dropdown1' class='dropdown-content'>
+                <li id="enrollments_drop"><a href="#!"><i class="material-icons">people</i>Enrollments</a></li>
+                <li id="forms_drop"><a href="#!"><i class="material-icons">folder</i>Forms</a></li>
+                <li id="schedule_drop"><a href="#!"><i class="material-icons">schedule</i>Schedule</a></li>
+                <li id="account_drop"><a href="#!"><i class="material-icons">account_circle</i>Account</a></li>
+              </ul>
+            <a class='right dropdown-button hide-on-large-only' href='#' data-activates='dropdown1'><i class="large material-icons">expand_more</i></a>
+
+            <a href="#" data-activates="slide-out" class="button-collapse show-on-medium"><i class="large material-icons">menu</i></a>
+        </div>
+      </nav>
+  </div>
+
+  <div class="row">
+      <div style="margin-top: 10px;" class="col s6 offset-s3">
+       <div style="color: white; text-align: center;" class="card-panel teal lighten-2">Enrollments</div>
+      </div>
+  </div>
+  <div style="margin-top: 10px;" class="row">
+  <div class="col m6">
+    <div class="card horizontal">
+        <div class="card-image waves-effect waves-block waves-light">
+        <img style="border-radius: 100%; height: 80px; width: 80px; margin: 10px auto auto 10px" src="https://lorempixel.com/100/190/nature/6">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <span class="card-title">Jake Bill</span>
+          <p>I am a very simple card. I am good at containing small bits of information.</p>
+            <p>I am a very simple card. I am good at containing small bits of information.</p>
+        </div>
+          <div style="text-align: right" class="card-action">
+             <a href="#">Edit</a>
+           </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+  </div>
+
+
+
+  <script src="../static/js/jquery.min.js" ></script>
+  <script src="../static/js/materialize.min.js"></script>
+
+</body>
+</html>
