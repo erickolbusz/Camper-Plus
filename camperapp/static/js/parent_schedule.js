@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    console.log("Executing javascript")
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
