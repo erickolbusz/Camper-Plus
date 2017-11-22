@@ -26,6 +26,11 @@ def parent_schedule():
     return render_template("parent_schedule.html")
 
 
+@app.route('/parent/enrollments', methods=['GET'])
+def parent_enrollments():
+    return render_template("parent_enrollments.html")
+
+
 @app.route('/campers', methods=['GET'])
 def campers():
     """View displays the camper organization page"""

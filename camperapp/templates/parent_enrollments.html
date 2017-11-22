@@ -14,7 +14,7 @@
 {% block bodycontent %}
   <div class="row">
     <div class="col s6 offset-s3">
-      <div class="card-panel teal lighten-2 center">Enrollments</div>
+      <div class="card-panel lighten-2 center">ENROLLMENTS</div>
     </div>
   </div>
 
@@ -34,7 +34,7 @@
           <p><strong>Group:</strong> <span style="color: red;">Falcons</span></p>
           <p><strong>Status:</strong> <span style="color: limegreen;">Enrolled (Summer 2015)</span></p>
         </div>
-        <div style="text-align: right" class="card-action">
+        <div class="card-action">
           <a href="#">Edit</a>
         </div>
       </div>
@@ -43,7 +43,7 @@
   </div>
 
   <div class="fixed-action-btn horizontal">
-    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a>
   </div>
 {% endblock bodycontent %}
 
@@ -52,6 +52,16 @@
     $(document).ready(function () {
         $("#enrollments_drop").addClass("active");
         $("#enrollments_bar").addClass("active");
+        $('.dropdown-button').dropdown({
+          inDuration: 300,
+          outDuration: 225,
+          constrainWidth: false, // Does not change width of dropdown to that of the activator
+          hover: true, // Activate on hover
+          gutter: 0, // Spacing from edge
+          belowOrigin: false, // Displays dropdown below the button
+          alignment: 'left', // Displays dropdown with edge aligned to the left of button
+          stopPropagation: false // Stops event propagation
+        });
     });
     </script>
 {% endblock scripts %}
