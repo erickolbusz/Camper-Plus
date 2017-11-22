@@ -21,6 +21,11 @@ def schedule():
     return render_template("schedule.html", groups=groups)
 
 
+@app.route('/parent/schedule', methods=['GET'])
+def parent_schedule():
+    return render_template("parent_schedule.html")
+
+
 @app.route('/campers', methods=['GET'])
 def campers():
     """View displays the camper organization page"""
