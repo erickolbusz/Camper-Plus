@@ -25,4 +25,7 @@ $(document).ready(function () {
           alignment: 'left', // Displays dropdown with edge aligned to the left of button
           stopPropagation: false // Stops event propagation
     });
+
+    $("#schedule_drop").addClass("active");
+    $("#schedule_bar").addClass("active");
 });
