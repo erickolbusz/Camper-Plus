@@ -5,7 +5,7 @@ from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Manager
 from flask import render_template, session, redirect, url_for
 from flask import jsonify
 from flask import request
-from camperapp.forms import SignupFormManager, LoginForm
+from camperapp.forms import SignupFormManager, LoginForm, ChildEnrollmentForm
 
 
 @app.route('/', methods=['GET'])
@@ -29,6 +29,12 @@ def parent_schedule():
 @app.route('/parent/enrollments', methods=['GET'])
 def parent_enrollments():
     return render_template("parent_enrollments.html")
+
+
+@app.route('/parent/register', methods=['GET', 'POST'])
+def parent_register():
+    form = ChildEnrollmentForm()
+    return render_template("parent_register.html", form=form)
 
 
 @app.route('/campers', methods=['GET'])
