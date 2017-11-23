@@ -1,11 +1,11 @@
 """Routes for Camper+ app."""
 
 from camperapp import app
-from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Manager
+from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Admin
 from flask import render_template,session, redirect, url_for
 from flask import jsonify
 from flask import request
-from camperapp.forms import SignupFormManager,LoginForm
+from camperapp.forms import SignupFormAdmin,LoginForm
 
 
 @app.route('/', methods=['GET'])
@@ -95,18 +95,18 @@ def get_camp_events():
 
     return jsonify(result)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route("/login", methods=["GET","POST"])
 def login():
   form = LoginForm()
 
-  if request.method == 'POST':
+  if request.method == "POST":
     if form.validate() == False:
-      return render_template('login.html', form=form)
+      return render_template("login.html", form=form)
     else:
       email = form.email.data
       password = form.password.data
 
-      user = Manager.query.filter_by(email=email).first()
+      user = Admin.query.filter_by(email=email).first()
       if user is not None and user.check_password(password):
         session['email'] = form.email.data
         return redirect(url_for('home'))
@@ -117,15 +117,15 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/signupmanager', methods=['GET', 'POST'])
-def signupmanager():
-  form = SignupFormManager()
+@app.route('/signupAdmin', methods=['GET', 'POST'])
+def signupAdmin():
+  form = SignupFormAdmin()
 
-  if request.method == 'POST':
+  if request.method == "POST":
     if form.validate() == False:
-      return render_template('signupmanager.html', form=form)
+      return render_template('signupAdmin.html', form=form)
     else:
-      newuser = Manager(form.name.data, form.email.data, form.password.data)
+      newuser = Admin(form.name.data, form.email.data, form.password.data)
       db.session.add(newuser)
       db.session.commit()
 
@@ -133,4 +133,9 @@ def signupmanager():
       return redirect(url_for('home'))
 
   elif request.method == "GET":
-    return render_template('signupmanager.html', form=form)
+    return render_template('signupAdmin.html', form=form)
+
+@app.route("/logout")
+def logout():
+  session.pop('email', None)
+  return redirect(url_for('home'))
