@@ -13,21 +13,24 @@
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="brand-logo"> Camper +</a>
-    <form>
+    <form method="POST" action="/login">
       <ul id="nav-mobile" class="right">
           <li>
               <div id="username-field" class="input-field">
-              <input placeholder="Username" class="browser-default input-box-shadow" id="user_name" type="text">
+                {{ form.email(class="browser-default input-box-shadow", placeholder="Username") }}
+              <!--<input placeholder="Username" class="browser-default input-box-shadow" id="user_name" type="text">-->
               </div>
           </li>
           <li>
               <div class="input-field">
-              <input placeholder="Password" class="browser-default input-box-shadow" id="first_name" type="text">
+                  {{ form.password(class="browser-default input-box-shadow", placeholder="Password") }}
+              <!--<input placeholder="Password" class="browser-default input-box-shadow" id="first_name" type="text">-->
             </div>
           </li>
           <li>
             <div class="input-field submit-field">
-                 <button class="btn btn-sm waves-effect waves-light pink accent-3" type="submit" name="action">Submit</button>
+                {{ form.submit(class="btn btn-sm pink accent-3") }}
+                 <!--<button class="btn btn-sm waves-effect waves-light pink accent-3" type="submit" name="action">Submit</button>-->
             </div>
           </li>
         <li><a href="{{ url_for('login') }}"><i class="material-icons small help-home-icon">help</i></a></li>
@@ -59,7 +62,7 @@
               <img src="{{ url_for('static', filename='img/camp_admin_e.jpg') }}">
               <span class="card-title">Camp Administrators</span>
             </div>
-            <div class="card-content" style="min-height: 210px">
+            <div class="card-content">
               <p>
                   We empower camp administrators with scheduling and people management tools to easily and efficiently
                   enroll students and manage enrolled students and schedule activities for the various camp groups
@@ -74,7 +77,7 @@
               <img src="{{ url_for('static', filename='img/counselor_e.jpg') }}">
               <span class="card-title">Counselors</span>
             </div>
-            <div class="card-content" style="min-height: 210px">
+            <div class="card-content">
               <p>We empower camp counselors with group management tools such as automatic name-tag creators,
                   attendance taker, schedule viewer and many more.
               </p>
@@ -88,7 +91,7 @@
               <img src="{{ url_for('static', filename='img/parent_e.png') }}">
               <span class="card-title">Parents</span>
             </div>
-            <div class="card-content" style="min-height: 210px">
+            <div class="card-content">
               <p>Parents can use our platform to easily enroll their children for camp, monitor their children's
                   camp activities and communicate easily with camp administrators and counselors.
               </p>

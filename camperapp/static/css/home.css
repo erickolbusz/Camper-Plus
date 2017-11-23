@@ -97,4 +97,8 @@ nav .brand-logo {
     font-family: 'Josefin Slab', serif;
 }
 
+.card-content {
+    min-height: 210px;
+}
+
 

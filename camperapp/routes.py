@@ -12,7 +12,7 @@ from camperapp.forms import SignupFormManager, LoginForm, ChildEnrollmentForm
 def index():
     """View displays the homepage"""
     form = LoginForm()
-    return render_template("home.html")
+    return render_template("home.html", form=form)
 
 
 @app.route('/schedule', methods=['GET', 'POST'])
