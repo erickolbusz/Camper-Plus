@@ -46,7 +46,20 @@ nav ul.dropdown-content li a{
 }
 
 .card-content {
+    height: auto;
     padding: 10px 24px 10px 24px !important;
     border: 1px solid #f8f8f8;
+}
+
+.card {
+    margin-top: 20px;
+}
+
+.card-action {
+    text-align: right;
+}
+
+#hidden_par {
+    color: white;
 }
 
