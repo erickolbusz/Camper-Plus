@@ -1,0 +1,24 @@
+.section-content {
+  color: #3a3a3a;
+  float: left;
+  width: 340px;
+}
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
+.signup-section .section-content h2 {
+  font-size: 30px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.error-message {
+  color: #db4437;
+}
+h2 {
+
+  font-weight: 300;
+
+  letter-spacing: -1.2px;
+}
