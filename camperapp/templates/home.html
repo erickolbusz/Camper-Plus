@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <link href="{{ url_for('static', filename='css/materialize.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" type="text/css">
+    <title>Camper+</title>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"> Camper+</a>
+    <form>
+      <ul id="nav-mobile" class="right">
+          <li>
+              <div style="margin-right: 10px; color: black;" class="input-field">
+              <input style="padding: 9px 0 9px 3px; font-size: 14px; border-radius: 2px; box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14),0 1px 7px 0 rgba(0,0,0,0.12),0 3px 1px -1px rgba(0,0,0,0.2);" placeholder="Username" class="browser-default" id="first_name" type="text">
+            </div>
+          </li>
+          <li>
+              <div style="color: black;" class="input-field">
+              <input style="padding: 9px 0 9px 3px; font-size: 14px; border-radius: 2px; box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14),0 1px 7px 0 rgba(0,0,0,0.12),0 3px 1px -1px rgba(0,0,0,0.2);" placeholder="Password" class="browser-default" id="first_name" type="text">
+            </div>
+          </li>
+          <li>
+            <div style="margin-left: 10px; margin-right: 10px" class="input-field">
+                 <button class="btn btn-sm waves-effect waves-light pink accent-3" type="submit" name="action">Submit</button>
+            </div>
+          </li>
+        <!--
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s4">
+              <input id="first_name" type="text" class="validate">
+              <label for="first_name">Username</label>
+            </div>
+            <div class="input-field col s4">
+              <input id="last_name" type="text" class="validate">
+              <label for="last_name">Password</label>
+            </div>
+            <div class="input-field col s2">
+                 <button class="btn waves-effect waves-light pink accent-3" type="submit" name="action">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      -->
+      </ul>
+    </form>
+    </div>
+  </nav>
+
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="{{ url_for('static', filename='img/summer_camp_bg.jpg') }}"></div>
+  </div>
+  <div class="section white">
+    <div class="row container">
+      <h2 class="header">Camper+</h2>
+      <p class="grey-text text-darken-3 lighten-3">
+          Your ideal camp solution
+      </p>
+      <p class="grey-text text-darken-3 lighten-3">
+          Your ideal camp solution
+      </p>
+    </div>
+  </div>
+  <div class="parallax-container">
+    <div class="parallax"><img src="{{ url_for('static', filename='img/summer_camp2.jpg') }}"></div>
+  </div>
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">About Camper+</h5>
+            <p class="grey-text text-lighten-4">
+              Camper+ is a complete and easy-to-use software for manager campers in various settings
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Contact us</h5>
+              <p class="grey-text text-lighten-3">
+                  Camper+ <br>
+                  160 Convent Ave, <br>
+                  New York, NY 10031
+              </p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2017 Camper+ Inc. All rights reserved
+        <p class="grey-text text-lighten-4 right" href="#!"></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/materialize.min.js')}}"></script>
+    <script>
+      $(document).ready(function(){
+        $('.parallax').parallax();
+      });
+    </script>
+  </body>
+</html>
