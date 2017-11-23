@@ -39,6 +39,16 @@ def parent_register():
     return render_template("parent_register.html", form=form, camp_season=camp_season, parent_name=parent_name)
 
 
+@app.route('/parent/account', methods=['GET'])
+def parent_account():
+    return "Hello World"
+
+
+@app.route('/parent/forms', methods=['GET'])
+def parent_forms():
+    return "Hello World"
+
+
 @app.route('/campers', methods=['GET'])
 def campers():
     """View displays the camper organization page"""
