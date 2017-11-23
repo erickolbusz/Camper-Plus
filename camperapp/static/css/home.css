@@ -65,8 +65,12 @@ nav .brand-logo {
 
 .header {
     color: #f50057;
-    font-family:
+    font-family: 'Josefin Slab', serif;
 }
 
+.josefin {
+    font-size: 25px;
+    font-family: 'Josefin Slab', serif;
+}
 
 

@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/materialize.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" type="text/css">
-    <title>Camper+</title>
+    <title>Camper +</title>
 </head>
 
 <body>
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo"> Camper+</a>
+      <a href="#" class="brand-logo"> Camper +</a>
     <form>
       <ul id="nav-mobile" class="right">
           <li>
@@ -29,7 +30,7 @@
                  <button class="btn btn-sm waves-effect waves-light pink accent-3" type="submit" name="action">Submit</button>
             </div>
           </li>
-        <li><a href="#!"><i style="font-size: 30px;" class="material-icons small">help</i></a></li>
+        <li><a href="{{ url_for('login') }}"><i style="font-size: 30px;" class="material-icons small">help</i></a></li>
       </ul>
     </form>
     </div>
@@ -42,50 +43,55 @@
   <div class="section white">
     <div class="row container">
       <h2 class="header">Camper+</h2>
-      <p class="grey-text text-darken-3 lighten-3">
+      <p class="grey-text text-darken-3 lighten-3 josefin sub-header">
           Your ideal camp solution
       </p>
-      <p class="grey-text text-darken-3 lighten-3">
-          Your ideal camp solution
+      <p class="grey-text text-darken-3 lighten-3 josefin">
+          Camper+ strives to provide you and your customers with the necessary tools needed to turn the camp management
+          into a quick, easy and efficient experience
       </p>
     </div>
 
       <div class="row container">
-        <div class="col s4">
+        <div class="col m4">
           <div class="card">
             <div class="card-image">
               <img src="{{ url_for('static', filename='img/camp_admin_e.jpg') }}">
               <span class="card-title">Camp Administrators</span>
             </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+            <div class="card-content" style="min-height: 210px">
+              <p>
+                  We empower camp administrators with scheduling and people management tools to easily and efficiently
+                  enroll students and manage enrolled students and schedule activities for the various camp groups
+              </p>
             </div>
           </div>
         </div>
 
-        <div class="col s4">
+        <div class="col m4">
           <div class="card">
             <div class="card-image">
               <img src="{{ url_for('static', filename='img/counselor_e.jpg') }}">
               <span class="card-title">Counselors</span>
             </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+            <div class="card-content" style="min-height: 210px">
+              <p>We empower camp counselors with group management tools such as automatic name-tag creators,
+                  attendance taker, schedule viewer and many more.
+              </p>
             </div>
           </div>
         </div>
 
-        <div class="col s4">
+        <div class="col m4">
           <div class="card">
             <div class="card-image">
               <img src="{{ url_for('static', filename='img/parent_e.png') }}">
               <span class="card-title">Parents</span>
             </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
+            <div class="card-content" style="min-height: 210px">
+              <p>Parents can use our platform to easily enroll their children for camp, monitor their children's
+                  camp activities and communicate easily with camp administrators and counselors.
+              </p>
             </div>
           </div>
         </div>
