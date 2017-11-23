@@ -47,7 +47,7 @@ nav ul.dropdown-content li a{
 
 .card-content {
     height: auto;
-    padding: 10px 24px 10px 24px !important;
+    padding: 20px 24px 20px 24px !important;
     border: 1px solid #f8f8f8;
 }
 
@@ -63,3 +63,30 @@ nav ul.dropdown-content li a{
     color: white;
 }
 
+.theme-text-secondary {
+    color: #EA0599;
+}
+
+.btn {
+    background-color: #EA0599;
+}
+
+.register-cost {
+    font-weight: bold;
+    font-size: 50px !important;
+    text-align: center;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+#total_label {
+    font-size: 20px;
+    float: left !important;
+}
+
+#total_price {
+    font-size: 20px;
+    float: right !important;
+}

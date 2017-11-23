@@ -34,7 +34,9 @@ def parent_enrollments():
 @app.route('/parent/register', methods=['GET', 'POST'])
 def parent_register():
     form = ChildEnrollmentForm()
-    return render_template("parent_register.html", form=form)
+    camp_season = "Summer 2018"
+    parent_name = "Jane Armadillo"
+    return render_template("parent_register.html", form=form, camp_season=camp_season, parent_name=parent_name)
 
 
 @app.route('/campers', methods=['GET'])
