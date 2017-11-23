@@ -14,8 +14,8 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo"> Camper +</a>
     <form method="POST" action="/login">
-        {{ form.hidden_tag() }}
       <ul id="nav-mobile" class="right">
+          {{ form.hidden_tag() }}
           <li>
               <div id="username-field" class="input-field">
                 {{ form.email(class="browser-default input-box-shadow", placeholder="Username") }}
