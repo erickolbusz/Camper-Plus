@@ -1,3 +1,83 @@
+{% include "parent_base.html" %}
+
+{% block headcontent %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/parent_register.css') }}" >
+{% endblock headcontent %}
+
+{% block title %}
+    <title>Register</title>
+{% endblock title %}
+
+{% block sidenav_sandwich %}
+{% endblock sidenav_sandwich %}
+
+{% block bodycontent %}
+
+ <div class="row">
+    <div class="col m8">
+              <div class="card">
+            <div class="card-content black-text">
+              <span class="card-title">Card Title</span>
+            </div>
+
+            <div class="card-content black-text">
+              <span class="card-title">Jane Armadillo</span>
+            </div>
+
+              <div class="card-content black-text">
+              <h4>Form Information</h4>
+
+                  <h4> Child Information</h4>
+                  <p>Birthdate</p>
+                  <p>Grade</p>
+                  <p>Gender</p>
+                  <p>Medical Notes</p>
+                  <p>Address</p>
+                  <p>Birthdate</p>
+                  <p>Birthdate</p>
+
+                  <h4>Parent Information</h4>
+                  <p>Check box to use my Info</p>
+                  <p>Father Name or other primary legal guardian</p>
+                  <p>Father birthday</p>
+                  <p>Father email</p>
+                  <p>Father cell Phone</p>
+                  <p>Same for the child</p>
+
+
+            </div>
+
+            <div class="card-action">
+              <a href="#">Next</a>
+            </div>
+          </div>
+
+    </div>
+
+    <div class="col m4">
+
+        <div class="card">
+            <div class="card-content black-text">
+                <span class="card-title">Registration Cost</span>
+            </div>
+            <div class="card-content black-text" >
+                <span class="card-title">$15</span>
+            </div>
+            <div class="card-content black-text" >
+                <p>Jane Dorcy</p>
+                <p>Standard Child ........ $15</p>
+            </div>
+            <div class="card-content black-text">
+            <p>Total                      $15</p>
+            </div>
+          </div>
+
+    </div>
+  </div>
+
+{% endblock bodycontent %}
+
+<!--
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en-US">
 <head>
@@ -21,7 +101,6 @@
                 <li id="schedule_bar"><a href="#!"><i class="material-icons left">schedule</i>Schedule</a></li>
                 <li id="account_bar"><a href="#!"><i class="material-icons left">account_circle</i>Account</a></li>
             </ul>
-            <!-- id is duplicated on purpose -->
               <ul id='dropdown1' class='dropdown-content'>
                 <li id="enrollments_drop"><a href="#!"><i class="material-icons">people</i>Enrollments</a></li>
                 <li id="forms_drop"><a href="#!"><i class="material-icons">folder</i>Forms</a></li>
@@ -104,3 +183,5 @@
 
 </body>
 </html>
+
+-->
