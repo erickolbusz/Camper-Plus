@@ -14,6 +14,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo"> Camper +</a>
     <form method="POST" action="/login">
+        {{ form.hidden_tag() }}
       <ul id="nav-mobile" class="right">
           <li>
               <div id="username-field" class="input-field">
@@ -29,7 +30,7 @@
           </li>
           <li>
             <div class="input-field submit-field">
-                {{ form.submit(class="btn btn-sm pink accent-3") }}
+                {{ form.submit(class="btn btn-sm pink accent-3 submit-button") }}
                  <!--<button class="btn btn-sm waves-effect waves-light pink accent-3" type="submit" name="action">Submit</button>-->
             </div>
           </li>
