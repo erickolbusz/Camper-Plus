@@ -36,6 +36,7 @@ traitlets= "*"
 urllib3= "*"
 wcwidth= "*"
 Werkzeug= "*"
+WTForms= "*"
 
 [requires]
 python_version = "3.5"
