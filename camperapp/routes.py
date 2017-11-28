@@ -37,7 +37,20 @@ def parent_schedule():
 
 @app.route('/parent/enrollments', methods=['GET'])
 def parent_enrollments():
-    return render_template("parent_enrollments.html")
+    # Mock Children - to be replaced by real Campers
+    class Child:
+        def __init__(self, uid, name, age, grade, group, color, status):
+            self.id = uid
+            self.age = age
+            self.grade = grade
+            self.group = group
+            self.group_color = color
+            self.status = status
+            self.name = name
+
+    children = [Child(1, 'John Redcorn', 12, 6, 'Falcons','green','Enrolled'), Child(1, 'Bobby Hill', 13, 7,
+                                                                                     'Dodgers', 'brown', 'Enrolled')]
+    return render_template("parent_enrollments.html", children=children)
 
 
 @app.route('/parent/register', methods=['GET', 'POST'])
