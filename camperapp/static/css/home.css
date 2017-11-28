@@ -1,0 +1,108 @@
+.brand-logo {
+    margin-left: 2%;
+}
+
+.nav-wrapper {
+    background-color: #0268A6;
+}
+
+.page-body {
+    margin-top: 50%;
+}
+
+.page-footer {
+    background-color: #C0B283;
+}
+
+.footer-copyright {
+    background-color: darkslateblue;
+}
+
+nav {
+    height: 80px;
+    line-height: 80px;
+}
+
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+    height: 80px;
+    line-height: 80px;
+}
+
+nav .button-collapse i {
+    font-size: 30px;
+    height: 80px;
+    line-height: 80px;
+}
+
+nav .brand-logo {
+    font-size: 1.6rem;
+}
+
+.input-field {
+    color: black !important;
+}
+
+#username-field {
+    margin-right: 10px;
+ }
+
+.input-box-shadow {
+    padding: 9px 0 9px 10px !important;
+    font-size: 14px !important;
+    border-radius: 2px !important;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14),0 1px 7px 0 rgba(0,0,0,0.12),0 3px 1px -1px rgba(0,0,0,0.2) !important;
+}
+
+.help-home-icon {
+    font-size: 30px !important;
+}
+
+.submit-field {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+.submit-button {
+   font-size: 14px !important;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+ color: black !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+ border-bottom: 0 solid black !important;
+ box-shadow: 0 0 0 0 black !important;
+}
+/* valid color */
+.input-field input[type=text].valid {
+ border-bottom: 1px solid #000;
+ box-shadow: 0 1px 0 0 #000;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+ border-bottom: 1px solid #000;
+ box-shadow: 0 1px 0 0 #000;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+ color: #000;
+}
+
+.header {
+    color: #f50057;
+    font-family: 'Josefin Slab', serif;
+}
+
+.josefin {
+    font-size: 25px;
+    font-family: 'Josefin Slab', serif;
+}
+
+.card-content {
+    min-height: 220px;
+}
+
+

@@ -1,17 +1,141 @@
-{% extends "base.html" %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/materialize.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" type="text/css">
+    <title>Camper +</title>
+</head>
 
-{% block headcontent %}
-
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login_signup.css')}}" />
-
-{% endblock headcontent %}
-
-{% block bodycontent %}
-  <main class="hero-section">
-    <div class="container">
-
-    <h1>Home</h1>
-
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"> Camper +</a>
+    <form method="POST" action="/login">
+      <ul id="nav-mobile" class="right">
+          {{ form.hidden_tag() }}
+          <li>
+              <div id="username-field" class="input-field">
+                {{ form.email(class="browser-default input-box-shadow", placeholder="Username") }}
+              </div>
+          </li>
+          <li>
+            <div class="input-field">
+                  {{ form.password(class="browser-default input-box-shadow", placeholder="Password") }}
+            </div>
+          </li>
+          <li>
+            <div class="input-field submit-field">
+                {{ form.submit(class="btn btn-sm pink accent-3 submit-button") }}
+                 <!--<button class="btn btn-sm waves-effect waves-light pink accent-3" type="submit" name="action">Submit</button>-->
+            </div>
+          </li>
+        <li><a href="{{ url_for('login') }}"><i class="material-icons small help-home-icon">help</i></a></li>
+      </ul>
+    </form>
     </div>
-  </main>
-{% endblock bodycontent %}
+  </nav>
+
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="{{ url_for('static', filename='img/summer_camp_bg_e.jpg') }}"></div>
+  </div>
+  <div class="section white">
+    <div class="row container">
+      <h2 class="header">Camper+</h2>
+      <p class="grey-text text-darken-3 lighten-3 josefin sub-header">
+          Your ideal camp solution
+      </p>
+      <p class="grey-text text-darken-3 lighten-3 josefin">
+          Camper+ strives to provide you and your customers with the necessary tools needed to turn the camp management
+          into a quick, easy and efficient experience
+      </p>
+    </div>
+
+      <div class="row container">
+        <div class="col m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{ url_for('static', filename='img/camp_admin_e.jpg') }}">
+              <span class="card-title">Camp Administrators</span>
+            </div>
+            <div class="card-content">
+              <p>
+                  We empower camp administrators with scheduling and people management tools to easily and efficiently
+                  enroll students and manage enrolled students and schedule activities for the various camp groups
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{ url_for('static', filename='img/counselor_e.jpg') }}">
+              <span class="card-title">Counselors</span>
+            </div>
+            <div class="card-content">
+              <p>We empower camp counselors with group management tools such as automatic name-tag creators,
+                  attendance taker, schedule viewer and many more.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{ url_for('static', filename='img/parent_e.png') }}">
+              <span class="card-title">Parents</span>
+            </div>
+            <div class="card-content">
+              <p>Parents can use our platform to easily enroll their children for camp, monitor their children's
+                  camp activities and communicate easily with camp administrators and counselors.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="parallax-container">
+    <div class="parallax"><img src="{{ url_for('static', filename='img/summer_camp_e.jpg') }}"></div>
+  </div>
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">About Camper+</h5>
+            <p class="grey-text text-lighten-4">
+              Camper+ is a complete and easy-to-use software for manager campers in various settings
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Contact us</h5>
+              <p class="grey-text text-lighten-3">
+                  Camper+ <br>
+                  160 Convent Ave, <br>
+                  New York, NY 10031
+              </p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2017 Camper+ Inc. All rights reserved
+        <p class="grey-text text-lighten-4 right" href="#!"></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/materialize.min.js')}}"></script>
+    <script>
+      $(document).ready(function(){
+        $('.parallax').parallax();
+      });
+    </script>
+  </body>
+</html>
