@@ -117,13 +117,13 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/signupAdmin', methods=['GET', 'POST'])
+@app.route("/signupAdmin", methods=['GET', 'POST'])
 def signupAdmin():
   form = SignupFormAdmin()
 
   if request.method == "POST":
     if form.validate() == False:
-      return render_template('signupAdmin.html', form=form)
+      return render_template("signupAdmin.html", form=form)
     else:
       newuser = Admin(form.name.data, form.email.data, form.password.data)
       db.session.add(newuser)
