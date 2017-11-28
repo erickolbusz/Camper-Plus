@@ -1,10 +1,10 @@
 """Routes for Camper+ app."""
 
 from camperapp import app
+#from camperapp.models import CampEvent
 from flask import render_template
 from flask import jsonify
 from flask import request
-
 
 # sample data, replace with db query
 groups = [{"name": "Tigers", "color": "#4286f4", "groupid": 1},
@@ -26,12 +26,31 @@ def schedule():
     return render_template("schedule.html", groups=groups)
 
 
-@app.route('/saveEvent', methods=['POST'])
+@app.route('/campers', methods=['GET'])
+def campers():
+    """View displays the camper organization page"""
+    return render_template("campers.html")
+
+
+@app.route('/login', methods=['GET'])
+def login():
+    """View displays the login page"""
+    return render_template("login.html")
+
+
+@app.route('/saveEvent', methods=['POST', 'PUT'])
 def submit_handler():
     # a = request.get_json(force=True)
-    event_data = request.json
-    group_id = event_data['group']
-    group = next(item for item in groups if item["groupid"] == int(group_id))
-    color = group['color']
 
-    return jsonify({'msg': 'success', 'color': color})
+    if request.method == 'POST':
+        event_data = request.json
+        group_id = event_data['group']
+        group = next(item for item in groups if item["groupid"] == int(group_id))
+        color = group['color']
+        event_id = 99
+
+        return jsonify({'msg': 'success', 'color': color, 'id': event_id})
+
+    elif request.method == 'PUT':
+        print("Received a PUT request of event")
+        return jsonify({'msg': 'success'})
