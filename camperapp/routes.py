@@ -24,6 +24,7 @@ def schedule():
 
 @app.route('/parent/schedule', methods=['GET'])
 def parent_schedule():
+    """View displays the schedule of Parent's enrolled children"""
     # Mock Children - to be replaced by real Campers
     class Child:
         def __init__(self, uid, name, color):
@@ -37,6 +38,7 @@ def parent_schedule():
 
 @app.route('/parent/enrollments', methods=['GET'])
 def parent_enrollments():
+    """View displays the enrolled children of a parent"""
     # Mock Children - to be replaced by real Campers
     class Child:
         def __init__(self, uid, name, age, grade, group, color, status):
@@ -55,6 +57,7 @@ def parent_enrollments():
 
 @app.route('/parent/register', methods=['GET', 'POST'])
 def parent_register():
+    """View presents a registration form for enrolling a new child"""
     form = ChildEnrollmentForm()
     camp_season = "Summer 2018"
     parent_name = "Jane Armadillo"
@@ -63,11 +66,13 @@ def parent_register():
 
 @app.route('/parent/account', methods=['GET'])
 def parent_account():
+    """View displays the parent's account settings"""
     return "Hello World"
 
 
 @app.route('/parent/forms', methods=['GET'])
 def parent_forms():
+    """View displays the pending forms of the parent"""
     return "Hello World"
 
 
@@ -79,6 +84,7 @@ def campers():
 
 @app.route('/saveEvent', methods=['POST', 'PUT', 'DELETE'])
 def submit_handler():
+    """EndPoint for creating, updating and deleting Calendar Events"""
     # a = request.get_json(force=True)
 
     if request.method == 'POST':
@@ -125,6 +131,7 @@ def submit_handler():
 
 @app.route('/getCampEvents', methods=['GET'])
 def get_camp_events():
+    """Endpoint for retrieving saved CampEvents"""
     start = request.args.get('start')  # get events on/after start
     end = request.args.get('end')  # get events before/on end
     print(start, end)
@@ -142,6 +149,7 @@ def get_camp_events():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Camp Admin and Parent login endpoint"""
     form = LoginForm()
 
     if request.method == 'POST':
@@ -164,6 +172,7 @@ def login():
 
 @app.route('/signupmanager', methods=['GET', 'POST'])
 def signupmanager():
+    """Signup endpoint for Camp Administrators"""
     form = SignupFormManager()
 
     if request.method == 'POST':
