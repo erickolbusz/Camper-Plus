@@ -19,8 +19,8 @@
   </div>
 
   <div style="margin-top: 10px;" class="row">
-  {% for child in children %}
-  <!-- EACH ENROLLED STUDENTS NEEDS A COLUMN -->
+  {% if children %}
+    {% for child in children %}
     <div class="col l8 offset-l2">
       <div class="card horizontal">
         <div class="card-image waves-effect waves-block waves-light">
@@ -40,16 +40,35 @@
         </div>
       </div>
     </div>
-
-  {% endfor %}
+    {% endfor %}
+  {% else %}
+      <div class="tap-target" data-activates="menu">
+        <div class="tap-target-content">
+          <h5>Please Enroll a Student</h5>
+          <p>Click Here</p>
+        </div>
+      </div>
+    <!--
+      <div class="col l12 center" style="margin-top: 100px">
+        <h1>Please Enroll a Student</h1>
+      </div>
+      -->
+  {% endif %}
   </div>
 
   <div class="fixed-action-btn horizontal">
-    <a class="btn-floating btn-large waves-effect waves-light" href="{{ url_for('parent_register') }}"><i class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light" id="menu" href="{{ url_for('parent_register') }}"><i class="material-icons">add</i></a>
   </div>
 {% endblock bodycontent %}
 
 {% block scripts %}
+    {% if not children %}
+        <script>
+        $(document).ready(function () {
+            $('.tap-target').tapTarget('open');
+        });
+        </script>
+    {% endif %}
     <script>
     $(document).ready(function () {
         $("#enrollments_drop").addClass("active");
