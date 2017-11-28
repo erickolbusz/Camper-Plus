@@ -65,6 +65,19 @@ nav ul.dropdown-content li a{
     color: #0268A6 !important; /* no need for !important :) */
 }
 
+.child {
+	color: #D7E1EB;
+	border: 0;
+	border-radius: 2em;
+	font-size: 1.9em;
+	/*font-weight: bold;*/
+    font-family: 'Barlow Condensed', sans-serif;
+	padding: 0.2em 1em 0.2em 1em;
+	margin: 0.4em auto auto 0.25em;
+	position: relative;
+	top: -0.25em;
+}
+
 @media only screen and (min-width: 601px){
     nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
         height: 60px;

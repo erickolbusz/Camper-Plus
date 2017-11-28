@@ -24,7 +24,15 @@ def schedule():
 
 @app.route('/parent/schedule', methods=['GET'])
 def parent_schedule():
-    return render_template("parent_schedule.html")
+    # Mock Children - to be replaced by real Campers
+    class Child:
+        def __init__(self, uid, name, color):
+            self.id = uid
+            self.color = color
+            self.name = name
+
+    children = [Child(1, 'John Redcorn', 'green'), Child(2, 'Bobby Hill', 'brown')]
+    return render_template("parent_schedule.html", children=children)
 
 
 @app.route('/parent/enrollments', methods=['GET'])
