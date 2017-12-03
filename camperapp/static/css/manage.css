@@ -66,16 +66,18 @@ nav ul.dropdown-content li a{
     margin-right: 10%;
 }
 
-.buttonGroup
-{
+.content {
+    margin: 2% 10% auto 10%;
+}
+
+.buttonGroup {
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-pack:justify;
     -webkit-box-sizing: border-box;
 }
 
-.buttonGroup > li
-{
+.buttonGroup > li {
     display: block;
     -webkit-box-flex: 1;
     border: solid 1px #9a9a99;
@@ -87,21 +89,18 @@ nav ul.dropdown-content li a{
     padding: 10px;
 }
 
-.buttonGroup > li:first-child
-{
+.buttonGroup > li:first-child {
     border-left: solid 1px #9a9a99;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
 }
 
-.buttonGroup > li:last-child
-{
+.buttonGroup > li:last-child {
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
 }
 
-.buttonGroup > li.selected
-{
+.buttonGroup > li.selected {
     background-color: #0268A6;
     color: #fff;
     border-color: #193a7f;

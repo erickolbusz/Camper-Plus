@@ -15,10 +15,88 @@
 
   <div class="segment-control">
     <ul class="buttonGroup">
-        <li class="selected">Navigate</li>
-      <li>Points</li>
-      <li>Lines</li>
+        <li class="selected">Campers</li>
+      <li>Parents</li>
+      <li>Groups</li>
     </ul>
+  </div>
+
+  <div class="content">
+    <div class="campers">
+      <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Grade</th>
+              <th>Group</th>
+              <th>Parent</th>
+              <th>Status</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>John Redcorn</td>
+            <td>12</td>
+            <td>10</td>
+            <td>Falcons</td>
+            <td>Jayme Dienstag</td>
+            <td>
+              <div class="switch">
+                <label>
+                  <input type="checkbox">
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">edit</i></a>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="parents">
+      <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Grade</th>
+              <th>Group</th>
+              <th>Parent</th>
+              <th>Status</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>John Redcorn</td>
+            <td>12</td>
+            <td>10</td>
+            <td>Falcons</td>
+            <td>Jayme Dienstag</td>
+            <td>
+              <div class="switch">
+                <label>
+                  <input type="checkbox">
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">edit</i></a>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="tap-target" data-activates="menu">
@@ -37,7 +115,7 @@
 {% block scripts %}
     <script>
     $(document).ready(function () {
-        $('.tap-target').tapTarget('open');
+        //$('.tap-target').tapTarget('open');
         $("ul.buttonGroup").click(function (event) {
             $("li", this)
             .removeClass("selected")
