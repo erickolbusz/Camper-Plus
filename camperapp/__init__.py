@@ -10,5 +10,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = "0QZSIXW7U50133JZuZ6gpkwZ9yYCXY"
 heroku = Heroku(app)
 db = SQLAlchemy(app)
+app.secret_key = "0QZSIXW7U50133JZuZ6gpkwZ9yYCXY"
 
 import camperapp.routes

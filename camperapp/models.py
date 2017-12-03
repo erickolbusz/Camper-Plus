@@ -1,9 +1,14 @@
 """Models in Camper APP"""
-# from camperapp import app
+from camperapp import app
 from marshmallow import Schema, fields
 from datetime import datetime
 from camperapp import db
 from werkzeug import generate_password_hash, check_password_hash
+<<<<<<< HEAD
+
+# from werkzeug import generate_password_hash, check_password_hash
+=======
+>>>>>>> 3e956219e03aa18f70d76a37d44310d581b03107
 
 
 class CampEvent(db.Model):
@@ -97,13 +102,19 @@ class CampGroup(db.Model):
     def __repr__(self):
         return '<Group {}>'.format(self.name)
 
+<<<<<<< HEAD
+class Admin(db.Model):
+    __tablename__ = 'admin'
+    id = db.Column(db.Integer(),primary_key=True,autoincrement=True)
+=======
 
 class Manager(db.Model):
     __tablename__ = 'manager'
     id = db.Column(db.Integer(),primary_key=True, autoincrement=True)
+>>>>>>> 3e956219e03aa18f70d76a37d44310d581b03107
     name = db.Column(db.String())
-    email = db.Column(db.String(120), unique=True)
-    pwdhash = db.Column(db.String(54))
+    email = db.Column(db.String(), unique=True)
+    pwdhash = db.Column(db.String())
 
     def __init__(self, name, email, password):
         self.name = name

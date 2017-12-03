@@ -162,7 +162,7 @@ def login():
             user = Manager.query.filter_by(email=email).first()
             if user is not None and user.check_password(password):
                 session['email'] = form.email.data
-                return redirect(url_for('home'))
+                return redirect(url_for('campers'))
             else:
                 return redirect(url_for('login'))
 
@@ -170,21 +170,25 @@ def login():
         return render_template('login.html', form=form)
 
 
-@app.route('/signupmanager', methods=['GET', 'POST'])
-def signupmanager():
-    """Signup endpoint for Camp Administrators"""
-    form = SignupFormManager()
+@app.route("/signupAdmin", methods=['GET', 'POST'])
+def signupAdmin():
+  form = SignupFormAdmin()
 
-    if request.method == 'POST':
-        if not form.validate():
-            return render_template('signupmanager.html', form=form)
-        else:
-            new_user = Manager(form.name.data, form.email.data, form.password.data)
-            db.session.add(new_user)
-            db.session.commit()
+  if request.method == "POST":
+    if form.validate() == False:
+      return render_template("signupAdmin.html", form=form)
+    else:
+      newuser = Admin(form.name.data, form.email.data, form.password.data)
+      db.session.add(newuser)
+      db.session.commit()
 
-            session['email'] = new_user.email
-            return redirect(url_for('home'))
+      session['email'] = newuser.email
+      return redirect(url_for('home'))
 
-    elif request.method == "GET":
-        return render_template('signupmanager.html', form=form)
+  elif request.method == "GET":
+    return render_template('signupAdmin.html', form=form)
+
+@app.route("/logout")
+def logout():
+  session.pop('email', None)
+  return redirect(url_for('home'))
