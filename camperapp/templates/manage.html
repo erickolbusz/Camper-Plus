@@ -22,7 +22,7 @@
   </div>
 
   <div class="content">
-    <div class="campers">
+    <div id="campers">
       <table class="striped responsive-table">
         <thead>
           <tr>
@@ -60,34 +60,61 @@
       </table>
     </div>
 
-    <div class="parents">
+    <div id="parents">
       <table class="striped responsive-table">
         <thead>
           <tr>
               <th>Name</th>
-              <th>Age</th>
-              <th>Grade</th>
-              <th>Group</th>
-              <th>Parent</th>
-              <th>Status</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Enrollments</th>
               <th>Actions</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
-            <td>John Redcorn</td>
-            <td>12</td>
-            <td>10</td>
-            <td>Falcons</td>
             <td>Jayme Dienstag</td>
+            <td>jaime.dienstag@camper-plus.org</td>
+            <td>(646) 432 - 9909</td>
             <td>
-              <div class="switch">
-                <label>
-                  <input type="checkbox">
-                  <span class="lever"></span>
-                </label>
-              </div>
+              <ul>
+                <li>John Redcorn</li>
+                <li>Tony Pecan</li>
+              </ul>
+            </td>
+            <td>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">edit</i></a>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="groups">
+      <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Color</th>
+              <th>Campers</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Falcons</td>
+            <td class="color-patch"><div style="background-color: red; width: 100px; height: 30px" ></div></td>
+            <td>
+              <details class="browser-default">
+                <summary class="browser-default">Click to Expand/Collapse</summary>
+                <ul>
+                  <li>Billy Joe</li>
+                  <li>Jackie Poo</li>
+                </ul>
+              </details>
             </td>
             <td>
                 <a class="waves-effect waves-light btn-floating"><i class="material-icons">edit</i></a>
@@ -127,6 +154,7 @@
 
     <script>
     $(document).ready(function () {
+        $('.collapsible').collapsible();
         $("#enrollments_drop").addClass("active");
         $("#enrollments_bar").addClass("active");
         $('.dropdown-button').dropdown({

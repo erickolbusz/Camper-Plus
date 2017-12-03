@@ -105,3 +105,8 @@ nav ul.dropdown-content li a{
     color: #fff;
     border-color: #193a7f;
 }
+
+#parents li {
+    list-style-type: none;
+}
+
