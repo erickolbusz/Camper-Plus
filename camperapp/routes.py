@@ -171,7 +171,7 @@ def login():
 
 
 @app.route("/signupAdmin", methods=['GET', 'POST'])
-def signupAdmin():
+def signup_admin():
     form = SignupFormAdmin()
 
     if request.method == "POST":
