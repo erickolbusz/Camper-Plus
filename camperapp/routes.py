@@ -8,6 +8,11 @@ from flask import request
 from camperapp.forms import SignupFormAdmin, LoginForm, ChildEnrollmentForm
 
 
+@app.route('/test')
+def test_feature():
+    return render_template('manage.html')
+
+
 @app.route('/', methods=['GET'])
 def index():
     """View displays the homepage"""
