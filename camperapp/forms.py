@@ -16,6 +16,20 @@ class SignupFormAdmin(FlaskForm):
     submit = SubmitField('Sign up')
 
 
+class CreateParentForm(FlaskForm):
+    first_name = StringField('First name')
+    last_name = StringField('Last name')
+    birth_date = DateField("Birthday")
+    gender = SelectField(label='Gender', choices=[('M', 'Male'), ('F', 'Female')])
+    email = StringField("Email Address")
+    phone = StringField("Phone Number")
+    street_address = StringField('Street Address')
+    city = StringField('City')
+    state = StringField('State')
+    zipcode = IntegerField('Zip Code')
+    submit = SubmitField('SAVE')
+
+
 class ChildEnrollmentForm(FlaskForm):
     child_first_name = StringField('First name')
     child_last_name = StringField('Last name')

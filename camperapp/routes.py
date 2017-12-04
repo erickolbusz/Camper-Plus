@@ -5,12 +5,13 @@ from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Admin
 from flask import render_template, session, redirect, url_for
 from flask import jsonify
 from flask import request
-from camperapp.forms import SignupFormAdmin, LoginForm, ChildEnrollmentForm
+from camperapp.forms import SignupFormAdmin, LoginForm, ChildEnrollmentForm, CreateParentForm
 
 
 @app.route('/test')
 def test_feature():
-    return render_template('manage.html')
+    parent_form = CreateParentForm()
+    return render_template('manage.html', parent_form=parent_form)
 
 
 @app.route('/', methods=['GET'])
