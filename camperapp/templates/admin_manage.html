@@ -82,14 +82,16 @@
         </thead>
 
         <tbody>
+          {% for parent in parents %}
           <tr>
-            <td>Jayme Dienstag</td>
-            <td>jaime.dienstag@camper-plus.org</td>
-            <td>(646) 432 - 9909</td>
+            <td>{{ parent.last_name }}, {{ parent.first_name }}</td>
+            <td>{{ parent.email }}</td>
+            <td>{{ parent.phone }}</td>
             <td>
               <ul>
-                <li>John Redcorn</li>
-                <li>Tony Pecan</li>
+                 {% for camper in parent.campers %}
+                    <li>{{ camper.first_name }} {{ camper.last_name }}</li>
+                 {% endfor %}
               </ul>
             </td>
             <td>
@@ -97,6 +99,7 @@
                 <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

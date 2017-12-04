@@ -1,7 +1,7 @@
 """Routes for Camper+ app."""
 
 from camperapp import app
-from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Admin, Camper
+from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Admin, Camper, Parent
 from flask import render_template, session, redirect, url_for
 from flask import jsonify
 from flask import request
@@ -84,7 +84,9 @@ def campers():
 
     # Get all Campers
     all_campers = Camper.query.order_by(Camper.last_name).all()
-    return render_template('admin_manage.html', campers=all_campers, parent_form=parent_form, child_form=child_form)
+    all_parents = Parent.query.order_by(Parent.last_name).all()
+    all_groups = CampGroup.query.order_by(CampGroup.name).all()
+    return render_template('admin_manage.html', groups=all_groups, parents=all_parents, campers=all_campers, parent_form=parent_form, child_form=child_form)
 
 
 @app.route('/manage/parent', methods=['GET', 'POST', 'PUT', 'DELETE'])
