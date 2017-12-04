@@ -1,8 +1,9 @@
 """Models in Camper APP"""
 # from camperapp import app
-from camperapp import db
+from marshmallow import Schema, fields
 from datetime import datetime
-# from werkzeug import generate_password_hash, check_password_hash
+from camperapp import db
+from werkzeug import generate_password_hash, check_password_hash
 
 
 class CampEvent(db.Model):
@@ -18,15 +19,50 @@ class CampEvent(db.Model):
         self.title = title
         self.start = start
         self.end = end
+        self.color = None
 
+    def add_color_attr(self):
+        if self.group_id is None:
+            return
+        self.color = self.campgroup.color
+
+    @classmethod
+    def convert_calevent_to_campevent(cls, calevent):
+        """Converts a Full Calendar calendar event to a CampEvent"""
+        title = calevent['title']
+        start_time =\
+            CampEvent.convert_ISO_datetime_to_py_datetime(calevent['start'])
+        end_time =\
+            CampEvent.convert_ISO_datetime_to_py_datetime(calevent['end'])
+        group_id = int(calevent['group_id'])
+
+        camp_event = CampEvent(title, start_time, end_time)
+        camp_event.group_id = group_id
+
+        return camp_event
+
+    @classmethod
     def convert_ISO_datetime_to_py_datetime(cls, ISO_datetime):
+        """Converts the ISO datetime to a Python datetime"""
         return datetime.strptime(ISO_datetime, '%Y-%m-%dT%H:%M:%S')
 
+    @classmethod
     def convert_py_datetime_to_ISO_datetime(cls, py_datetime):
         return py_datetime.strftime('%Y-%m-%dT%H:%M:%S')
 
     def __repr__(self):
         return '<CampEvent {}>'.format(self.title)
+
+
+class CampEventSchema(Schema):
+    """Schema for camp event"""
+    id = fields.Int()
+    title = fields.Str()
+    start = fields.DateTime()
+    end = fields.DateTime()
+    group_id = fields.Str()
+    # this doesn't original exist in db, should be appended before serialization
+    color = fields.Str()
 
 
 class Camper(db.Model):
@@ -61,12 +97,78 @@ class CampGroup(db.Model):
     def __repr__(self):
         return '<Group {}>'.format(self.name)
 
+
+class Manager(db.Model):
+    __tablename__ = 'manager'
+    id = db.Column(db.Integer(),primary_key=True, autoincrement=True)
+    name = db.Column(db.String())
+    email = db.Column(db.String(120), unique=True)
+    pwdhash = db.Column(db.String(54))
+
+    def __init__(self, name, email, password):
+        self.name = name
+        self.email = email.lower()
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.pwdhash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.pwdhash, password)
+
     """
-    To add a camper to a group, we can do either of the following
+    To add a new item to database
+    event = CampEvent(params)
+    db.session.add(event)
+    db.session.commit()
+
+    To add a camper to a group, we can do either of the following/set secondary params
     camper.campgroup = Group
     CampGroup.campers.append(camper)
     camper.group_id = Group.id
+
+    To query events
+    User.query.all()  -> get all in the table
+    User.query.first()
+    User.query.get(3) -> get 3 elements
+
+    User.query.first_or_404() -> returns 404 if not found
+    User.query.limit(5) -> returns a query object that that we can use
+    limits all our queries to 5 events
+
+    User.query.order_by(User.username.desc()).limit(5).all()
+    User.query.filter_by(username='alex', password="something").first()
+    User.query.filter_by(username='alex', password="something").update({'password': 'different'})
+    db.session.commit() to save our update changes
+
+    db.session.delete(some_object)
+    db.session.commit()
+
+    QUERY ONE-TO-MANY RELATIONSHIPS
+    #adding a relationship
+    post.user_id = something.id
+    user.posts.append(post)
+    post.user = user
+
+    group.campers.all() -> get all campers in the group
+    user.posts.all()
+    user.posts.limit(10).all()
+
+    //iteration through
+    for i in users.posts:
+        print(i)
+
+    Recommendations:
+    1. webpack is kind of like Make that transforms you code to be used in production
+    2. Gcc is replaced by Babel - transpiles your code to es6, react, etc. to stuff that will
+    run on any browser
+    3. React, React DOM or Vue
+    4. ESlint
     """
+
+
+#db.create_all()
+#db.session.commit()
 
 # class Group(db.Model):
 #     __tablename__='group'

@@ -1,0 +1,83 @@
+.brand-logo {
+    margin-left: 2%;
+}
+
+.nav-wrapper {
+    background-color: #0268A6;
+}
+
+.page-body {
+    margin-top: 50%;
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+nav {
+    height: 60px;
+    line-height: 60px;
+}
+
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+    height: 60px;
+    line-height: 60px;
+}
+
+nav .button-collapse i {
+    font-size: 30px;
+    height: 60px;
+    line-height: 60px;
+}
+
+nav .brand-logo {
+    font-size: 1.6rem;
+}
+
+nav a.dropdown-button, nav a.dropdown-button i{
+    font-size: 40px;
+    height: 60px;
+    line-height: 60px;
+    margin-right: 10px;
+}
+
+nav ul.dropdown-content li a{
+    color: #0268A6 !important; /* no need for !important :) */
+}
+
+.card-panel {
+    background-color: #EA0599;
+    font-size: 20px;
+    color: white;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-floating {
+    background-color: #EA0599;
+}
+
+.btn-floating:hover {
+    background-color: #0268A6;
+}
+
+.card-action {
+    text-align: right;
+}
+
+.card-action a {
+   color: #EA0599 !important;
+}
+
+.card-action a:hover {
+   color: rgba(234, 5, 153, 0.5) !important;
+}
+
+.theme-text {
+    color: #0268A6;
+}
+
+.tap-target-content {
+    color: #f8f8f8;
+}
+

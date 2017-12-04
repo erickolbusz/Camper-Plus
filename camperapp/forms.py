@@ -1,47 +1,40 @@
-from flask_wtf import Form
-from wtforms import StringField, PasswordField, SubmitField
-from flask_wtf import Form
-from wtforms import TextAreaField, TextField, StringField
-from wtforms import validators
-"""   this is not final """
-
-class ParentLoginForm(Form):
-    username = TextField(
-        'Username',
-        validators=[validators.DataRequired()]
-    )
-    password = PasswordField(
-        'Password',
-        validators=[validators.DataRequired()]
-    )
-
-    def validate(self):
-        check_validate = super(LoginForm, self).validate()
-        if not check_validate:
-            return False
-
-        user = User.query.filter_by(email=self.email.data).first()
-        if not user:
-            self.email.errors.append('Invalid email')
-            return False
-
-        if not user.check_password(self.password.data):
-            self.password.errors.append('Invalid password')
-            return False
-
-        return True
-"""
-class ParentSignupForm(Form):
-    """
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, DateField, IntegerField, SelectField, TextAreaField
+from wtforms.validators import DataRequired, Email, Length
 
 
-'''class group(Form):
-    group_name = StringField('Group name')
-    group_color = StringField('Last name')
-    group_Quantity = IntegerField('Number of campers')
-    camper1_name = StringField('Camper Name')
-    camper2_name = StringField('Camper Name')
-    camper3_name = StringField('Camper Name')
-    camper4_name = StringField('Camper Name')
-    camper5_name = StringField('Camper Name')
-    submit = SubmitField('Greate a group')'''
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired("Please enter your email address."), Email("Please enter your email address.")])
+    password = PasswordField('Password', validators=[DataRequired("Please enter a password.")])
+    submit = SubmitField("Sign in")
+
+
+class SignupFormManager(FlaskForm):
+    name = StringField('First name', validators=[DataRequired("Please enter your first name.")])
+    email = StringField('Email', validators=[DataRequired("Please enter your email address."), Email("Please enter your email address.")])
+    password = PasswordField('Password', validators=[DataRequired("Please enter a password."), Length(min=6, message="Passwords must be 6 characters or more.")])
+    submit = SubmitField('Sign up')
+
+
+class ChildEnrollmentForm(FlaskForm):
+    child_first_name = StringField('First name')
+    child_last_name = StringField('Last name')
+    child_birth_date = DateField('Birthday')
+    child_grade = IntegerField('Grade')
+    child_gender = SelectField(label='Gender', choices=[('M', 'Male'), ('F', 'Female')])
+    medical_notes = TextAreaField('Medical Notes')
+    street_address = StringField('Street Address')
+    city = StringField('City')
+    state = StringField('State')
+    zipcode = IntegerField('Zip Code')
+    mother_name = StringField("Mom's Name (or other Primary legal guardian)")
+    mother_birth_date = DateField("Mom's Birthday")
+    mother_email = StringField("Mom's Email")
+    mother_cell = StringField("Mom's Cell Phone")
+    father_name = StringField("Dad's Name (or other Primary legal guardian)")
+    father_birth_date = DateField("Dad's Birthday")
+    father_email = StringField("Dad's Email")
+    father_cell = StringField("Dad's Cell Phone")
+    consent = SelectField('', choices=[('y', "Yes, I consent")])
+    submit = SubmitField('NEXT')
+
