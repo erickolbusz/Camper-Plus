@@ -126,7 +126,7 @@
     </div>
   </div>
 
-  <!-- Modal Content to Add a new Parent -->
+<!-- Modal Content to Add a new Parent -->
 <form id="parents_form" action="">
   <div class="modal modal-fixed-footer" id="parents_modal">
       {{ parent_form.hidden_tag() }}
@@ -187,9 +187,90 @@
       </div>
 
     </div>
-
     <div class="modal-footer">
       {{ parent_form.submit(class="waves-effect waves-light modal-action btn") }}
+      <!--<button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>-->
+      <button class="btn waves-effect waves-light modal-action modal-close red" type="reset" value="Cancel">Cancel</button>
+    </div>
+  </div>
+</form>
+
+<!-- Modal Content to Add a new Child-->
+<form id="campers_form" action="">
+  <div class="modal modal-fixed-footer" id="campers_modal">
+      {{ parent_form.hidden_tag() }}
+    <div class=" col s12 modal-content">
+      <h4>Add Camper</h4>
+
+      <div class="row">
+        <div class="input-field col s6">
+            {{ child_form.first_name }}
+            {{ child_form.first_name.label }}
+        </div>
+        <div class="input-field col s6">
+            {{ child_form.last_name }}
+            {{ child_form.last_name.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s4">
+            {{ parent_form.birth_date(class="datepicker") }}
+            {{ parent_form.birth_date.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.grade }}
+            {{ child_form.grade.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.gender }}
+            {{ child_form.gender.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          {{ child_form.medical_notes(class="materialize-textarea") }}
+          {{ child_form.medical_notes.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <h5>Address</h5>
+        <div class="input-field col s12">
+            {{ child_form.street_address }}
+            {{ child_form.street_address.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.city }}
+            {{ child_form.city.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.state }}
+            {{ child_form.state.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.zipcode }}
+            {{ child_form.zipcode.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <h5>Parent Information</h5>
+        <div class="input-field col s6">
+            {{ child_form.parent_first_name }}
+            {{ child_form.parent_first_name.label }}
+        </div>
+        <div class="input-field col s6">
+            {{ child_form.parent_last_name }}
+            {{ child_form.parent_last_name.label }}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      {{ child_form.submit(class="waves-effect waves-light modal-action btn") }}
       <!--<button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>-->
       <button class="btn waves-effect waves-light modal-action modal-close red" type="reset" value="Cancel">Cancel</button>
     </div>
