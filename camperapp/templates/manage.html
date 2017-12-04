@@ -15,9 +15,9 @@
 
   <div class="segment-control">
     <ul class="buttonGroup">
-      <li class="selected" id="campers">Campers</li>
-      <li id="parents">Parents</li>
-      <li id="groups">Groups</li>
+      <li class="selected" id="campers" data-modal="campers_modal">Campers</li>
+      <li id="parents" data-modal="parents_modal">Parents</li>
+      <li id="groups" data-modal="groups_modal">Groups</li>
     </ul>
   </div>
 
@@ -126,6 +126,45 @@
     </div>
   </div>
 
+  <!-- Modal Content to Add a new Parent -->
+  <form id="parents_form" action="">
+  <div class="modal modal-fixed-footer" id="parents_modal">
+    <div class="modal-content">
+      <h4>Add Parent</h4>
+
+      <input type="text" id="eventTitle" placeholder="Event Title" required/>
+
+      <div class="row">
+        <div class="col s2 "><p>Start Time: </p></div>
+        <div class="col s5 "><input id="eventStartDate" type="date" required/></div>
+        <div class="col s5 "><input id="eventStartTime" type="time" required/></div>
+      </div>
+      <div class="row">
+        <div class="col s2 "><p>End Time: </p></div>
+        <div class="col s5 "><input id="eventEndDate" type="date" required/></div>
+        <div class="col s5 "><input id="eventEndTime" type="time" required/></div>
+      </div>
+
+      <div class="row">
+
+        <div class="input-field col s6">
+          <select id="sched-groups" required>
+            <option value="" disabled selected>Select Group</option>
+            {% for group in groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>
+      <button class="btn waves-effect waves-light modal-action modal-close" type="reset" value="Cancel">Cancel</button>
+    </div>
+  </div>
+</form>
+
   <div class="tap-target" data-activates="menu">
     <div class="tap-target-content">
       <h5>Please Enroll a Student</h5>
@@ -134,7 +173,7 @@
   </div>
 
   <div class="fixed-action-btn horizontal">
-    <a class="btn-floating btn-large waves-effect waves-light" id="menu" href="{{ url_for('parent_register') }}"><i class="material-icons">add</i></a>
+    <a class="btn-floating btn-large waves-effect waves-light modal-trigger" id="menu" href="#campers_modal"><i class="material-icons">add</i></a>
   </div>
 
 {% endblock bodycontent %}
@@ -144,17 +183,21 @@
     $(document).ready(function () {
         //$('.tap-target').tapTarget('open');
         $("ul.buttonGroup").click(function (event) {
+            //Select the selected segment
+            $("li", this)
+            .removeClass("selected")
+            .filter(event.target)
+            .addClass("selected");
+
             //Hide Everything
             $('#campers_data').addClass('hide');
             $('#groups_data').addClass('hide');
             $('#parents_data').addClass('hide');
             //Show the selected one
             $("#" + event.target.id + "_data").removeClass('hide');
-            //Select the selected segment
-            $("li", this)
-            .removeClass("selected")
-            .filter(event.target)
-            .addClass("selected");
+
+            //Set the href attribute to bring up the correct Modal
+            $('#menu').attr('href', '#' + $(event.target).attr('data-modal'));
         });
     });
     </script>
@@ -162,6 +205,7 @@
     <script>
     $(document).ready(function () {
         $('.collapsible').collapsible();
+        $('.modal').modal();
         $("#enrollments_drop").addClass("active");
         $("#enrollments_bar").addClass("active");
         $('.dropdown-button').dropdown({
