@@ -8,13 +8,6 @@ from flask import request
 from camperapp.forms import SignupFormAdmin, LoginForm, ChildEnrollmentForm, CreateParentForm, CreateChildForm
 
 
-@app.route('/test')
-def test_feature():
-    parent_form = CreateParentForm()
-    child_form = CreateChildForm()
-    return render_template('manage.html', parent_form=parent_form, child_form=child_form)
-
-
 @app.route('/', methods=['GET'])
 def index():
     """View displays the homepage"""
@@ -86,7 +79,9 @@ def parent_forms():
 @app.route('/campers', methods=['GET'])
 def campers():
     """View displays the camper organization page"""
-    return render_template("campers.html")
+    parent_form = CreateParentForm()
+    child_form = CreateChildForm()
+    return render_template('admin_manage.html', parent_form=parent_form, child_form=child_form)
 
 
 @app.route('/saveEvent', methods=['POST', 'PUT', 'DELETE'])
