@@ -83,9 +83,7 @@ def campers():
     child_form = CreateChildForm()
 
     # Get all Campers
-
     all_campers = Camper.query.order_by(Camper.last_name).all()
-    print(all_campers[0].birth_date)
     return render_template('admin_manage.html', campers=all_campers, parent_form=parent_form, child_form=child_form)
 
 

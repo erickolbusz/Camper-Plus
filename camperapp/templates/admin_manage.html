@@ -42,14 +42,18 @@
           {% for camper in campers %}
           <tr>
             <td>{{ camper.last_name }}, {{ camper.first_name }}</td>
-            <td>12</td>
-            <td>10</td>
-            <td>Falcons</td>
-            <td>Jayme Dienstag</td>
+            <td>{{ camper.age() }}</td>
+            <td>{{ camper.grade }}</td>
+            <td>{{ camper.campgroup.name }}</td>
+            <td>{{ camper.parent.last_name }}, {{ camper.parent.first_name }}</td>
             <td>
               <div class="switch">
                 <label>
+                  {% if camper.is_active %}
+                  <input type="checkbox" checked="checked" disabled="disabled">
+                  {% else %}
                   <input type="checkbox">
+                  {% endif %}
                   <span class="lever"></span>
                 </label>
               </div>

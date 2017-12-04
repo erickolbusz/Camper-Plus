@@ -110,7 +110,6 @@ class Camper(db.Model):
 
     def age(self):
         from datetime import date
-        print(self.birth_date)
         born = self.birth_date
         today = date.today()
         try:
