@@ -1,30 +1,35 @@
-{% extends "base.html" %}
+{% extends "new_base.html" %}
 
 {% block headcontent %}
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin_schedule.css')}}" />
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.print.min.css') }}" media='print' />
     <link rel="stylesheet" type="text/css" href='https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css' />
 {% endblock headcontent %}
 
-{% block navbar_right %}
-	{% include "schedule_link_active.html" %}
-	{% include "campers_link.html" %}
-{% endblock navbar_right %}
+{% block title %}
+  <title>Schedule</title>
+{% endblock title %}
+
+{% block sidenav_sandwich %}
+ <a href="#" data-activates="slide-out" class="button-collapse show-on-medium"><i class="large material-icons">menu</i></a>
+{% endblock sidenav_sandwich %}
+
+{% block sidenav %}
+<ul id="slide-out" class="side-nav fixed">
+    <li><i class="large material-icons">people_outline</i></li>
+    <li>
+      <div style="text-align: center" id="groups" class="groups">
+        {% for group in groups %}
+          <button class="group" id="group{{ group.id }}" style="background-color:{{ group.color }};">{{ group.name }}</button><br>
+        {% endfor %}
+      </div>
+    </li>
+</ul>
+{% endblock sidenav%}
 
 {% block bodycontent %}
-	<div class="sched-nav z-depth-5">
-		<div class="container center-align">
-		    <h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
-          <div id="groups" class="groups">
-            {% for group in groups %}
-              <button class="group" id="group{{ group.id }}" style="background-color:{{ group.color }};">{{ group.name }}</button><br>
-            {% endfor %}
-          </div>
-		</div>
-	</div>
-
-
   <!-- Modal Content to Add New Event, edit event or Delete Event -->
   <form id="event-form" action="javascript:submitEvent()">
   <div class="modal modal-fixed-footer" id="eventModal">
@@ -67,7 +72,6 @@
 
 <!--Full Calendar calendar-->
 <div id="calendar" class="sched-div"></div>
-
 {% endblock bodycontent %}
 
 {% block scripts %}

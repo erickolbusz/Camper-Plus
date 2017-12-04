@@ -26,7 +26,7 @@ def index():
 def schedule():
     """View displays the schedule-making page"""
     groups = CampGroup.query.all()
-    return render_template("schedule.html", groups=groups)
+    return render_template("admin_schedule.html", groups=groups)
 
 
 @app.route('/parent/schedule', methods=['GET'])
