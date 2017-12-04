@@ -65,13 +65,43 @@ class CampEventSchema(Schema):
     color = fields.Str()
 
 
+class Parent(db.Model):
+    """Parent class representing a Parent of Camper(s)"""
+    __tablename__ = 'parent'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.String())
+    last_name = db.Column(db.String())
+    birth_date = db.Column(db.Date())
+    gender = db.Column(db.String())
+    email = db.Column(db.String())
+    phone = db.Column(db.String())
+    street_address = db.Column(db.String())
+    city = db.Column(db.String())
+    state = db.Column(db.String())
+    zip_code = db.Column(db.Integer())
+    campers = db.relationship('Camper', backref='parent', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Parent {}>'.format(self.name)
+
+
 class Camper(db.Model):
     """Camper class representing a Camper"""
     __tablename__ = 'camper'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String())
-    age = db.Column(db.Integer())
+    first_name = db.Column(db.String())
+    last_name = db.Column(db.String())
+    birth_date = db.Column(db.Date())
+    grade = db.Column(db.Integer())
+    gender = db.Column(db.String())
+    medical_notes = db.Column(db.String())
+    phone = db.Column(db.String())
+    street_address = db.Column(db.String())
+    city = db.Column(db.String())
+    state = db.Column(db.String())
+    zip_code = db.Column(db.Integer())
     group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
+    parent_id = db.Column(db.Integer(), db.ForeignKey('parent.id'))
 
     def __init__(self, name, age):
         self.name = name

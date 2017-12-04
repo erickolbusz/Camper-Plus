@@ -267,6 +267,17 @@
             {{ child_form.parent_last_name.label }}
         </div>
       </div>
+      <div class="row">
+        <h5>Group</h5>
+        <div class="input-field col s6">
+          <select id="sched-groups" required>
+            <option value="" disabled selected>Select Group</option>
+            {% for group in groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
 
     </div>
 
