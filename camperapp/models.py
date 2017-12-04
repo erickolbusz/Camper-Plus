@@ -4,11 +4,8 @@ from marshmallow import Schema, fields
 from datetime import datetime
 from camperapp import db
 from werkzeug import generate_password_hash, check_password_hash
-<<<<<<< HEAD
 
 # from werkzeug import generate_password_hash, check_password_hash
-=======
->>>>>>> 3e956219e03aa18f70d76a37d44310d581b03107
 
 
 class CampEvent(db.Model):
@@ -102,16 +99,9 @@ class CampGroup(db.Model):
     def __repr__(self):
         return '<Group {}>'.format(self.name)
 
-<<<<<<< HEAD
 class Admin(db.Model):
     __tablename__ = 'admin'
     id = db.Column(db.Integer(),primary_key=True,autoincrement=True)
-=======
-
-class Manager(db.Model):
-    __tablename__ = 'manager'
-    id = db.Column(db.Integer(),primary_key=True, autoincrement=True)
->>>>>>> 3e956219e03aa18f70d76a37d44310d581b03107
     name = db.Column(db.String())
     email = db.Column(db.String(), unique=True)
     pwdhash = db.Column(db.String())
@@ -126,8 +116,31 @@ class Manager(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.pwdhash, password)
+"""class Parent(db.Model):
+     __tablename__='parent'
+     id = db.Column(db.Integer, primary_key = True)
+     name = db.Column(db.String())
+     email = db.Column(db.String())
+     password = db.Column(db.String())
+     phone_number = db.Column(db.String())
+     camper_id = db.Column(db.Integer, db.ForeignKey('camper.id'), nullable=False)
+     campers = db.relationship('Camper',backref = 'parent',lazy = 'dynamic')
 
-    """
+     def set_password(self, password):
+         self.password = generate_password_hash(password)
+     def check_password(self, value):
+         return check_password_hash(self.password, value)
+
+     def is_active(self):
+         return self.active is None or self.active
+
+     def get_id(self):
+         return self.id
+
+     def __repr__(self):
+         return '<Parent {}>'.format(self.name)
+"""
+""" cscdsc
     To add a new item to database
     event = CampEvent(params)
     db.session.add(event)
@@ -175,7 +188,7 @@ class Manager(db.Model):
     run on any browser
     3. React, React DOM or Vue
     4. ESlint
-    """
+"""
 
 
 #db.create_all()
