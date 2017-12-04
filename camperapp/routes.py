@@ -5,6 +5,7 @@ from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Admin, C
 from flask import render_template, session, redirect, url_for
 from flask import jsonify
 from flask import request
+from datetime import datetime
 from camperapp.forms import SignupFormAdmin, LoginForm, ChildEnrollmentForm, CreateParentForm, CreateChildForm
 
 
@@ -96,16 +97,21 @@ def submit_parent_management():
     parent_form = CreateParentForm(request.form)
     child_form = CreateChildForm()
 
-    first_name = parent_form.first_name.data
-    last_name = parent_form.last_name.data
-    birth_day = parent_form.birth_date._value()
-    gender = parent_form.gender.data
-    email = parent_form.email.data
-    phone = parent_form.phone.data
-    street_address = parent_form.street_address.data
-    city = parent_form.city.data
-    state = parent_form.state.data
-    zip_code = parent_form.zipcode.data
+    # Add Validation Later
+    parent = Parent()
+    parent.first_name = parent_form.first_name.data
+    parent.last_name = parent_form.last_name.data
+    parent.birth_date = datetime.strptime(parent_form.birth_date._value(), "%d %B, %Y")
+    parent.gender = parent_form.gender.data
+    parent.email = parent_form.email.data
+    parent.phone = parent_form.phone.data
+    parent.street_address = parent_form.street_address.data
+    parent.city = parent_form.city.data
+    parent.state = parent_form.state.data
+    parent.zip_code = parent_form.zipcode.data
+
+    db.session.add(parent)
+    db.session.commit()
 
     return redirect(url_for('campers'))
 
