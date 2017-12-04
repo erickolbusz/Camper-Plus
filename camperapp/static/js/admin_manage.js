@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('.collapsible').collapsible();
     $('.modal').modal();
     $("#enrollments_drop").addClass("active");
@@ -42,4 +43,5 @@ $(document).ready(function () {
         //Set the href attribute to bring up the correct Modal
         $('#menu').attr('href', '#' + $(event.target).attr('data-modal'));
     });
+
 });

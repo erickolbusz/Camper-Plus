@@ -84,6 +84,27 @@ def campers():
     return render_template('admin_manage.html', parent_form=parent_form, child_form=child_form)
 
 
+@app.route('/manage/parent', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def submit_parent_management():
+    """EndPoint for Adding, Editing and Deleting a Camper"""
+    # a = request.get_json(force=True)
+    parent_form = CreateParentForm(request.form)
+    child_form = CreateChildForm()
+
+    first_name = parent_form.first_name.data
+    last_name = parent_form.last_name.data
+    birth_day = parent_form.birth_date._value()
+    gender = parent_form.gender.data
+    email = parent_form.email.data
+    phone = parent_form.phone.data
+    street_address = parent_form.street_address.data
+    city = parent_form.city.data
+    state = parent_form.state.data
+    zip_code = parent_form.zipcode.data
+
+    return redirect(url_for('campers'))
+
+
 @app.route('/saveEvent', methods=['POST', 'PUT', 'DELETE'])
 def submit_handler():
     """EndPoint for creating, updating and deleting Calendar Events"""
