@@ -38,8 +38,10 @@
         </thead>
 
         <tbody>
+
+          {% for camper in campers %}
           <tr>
-            <td>John Redcorn</td>
+            <td>{{ camper.last_name }}, {{ camper.first_name }}</td>
             <td>12</td>
             <td>10</td>
             <td>Falcons</td>
@@ -57,6 +59,8 @@
                 <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
             </td>
           </tr>
+          {% endfor %}
+
         </tbody>
       </table>
     </div>

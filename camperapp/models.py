@@ -100,6 +100,7 @@ class Camper(db.Model):
     city = db.Column(db.String())
     state = db.Column(db.String())
     zip_code = db.Column(db.Integer())
+    is_active = db.Column(db.Boolean())
     group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
     parent_id = db.Column(db.Integer(), db.ForeignKey('parent.id'))
 
@@ -107,8 +108,22 @@ class Camper(db.Model):
         self.name = name
         self.age = age
 
+    def age(self):
+        from datetime import date
+        print(self.birth_date)
+        born = self.birth_date
+        today = date.today()
+        try:
+            birthday = born.replace(year=today.year)
+        except ValueError:  # raised when birth date is February 29 and the current year is not a leap year
+            birthday = born.replace(year=today.year, day=born.day - 1)
+        if birthday > today:
+            return today.year - born.year - 1
+        else:
+            return today.year - born.year
+
     def __repr__(self):
-        return '<Camper {}>'.format(self.name)
+        return '<Camper {}, {}>'.format(self.last_name, self.first_name)
 
 
 class CampGroup(db.Model):
