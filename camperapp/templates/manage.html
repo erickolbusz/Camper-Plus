@@ -15,14 +15,14 @@
 
   <div class="segment-control">
     <ul class="buttonGroup">
-        <li class="selected">Campers</li>
-      <li>Parents</li>
-      <li>Groups</li>
+      <li class="selected" id="campers">Campers</li>
+      <li id="parents">Parents</li>
+      <li id="groups">Groups</li>
     </ul>
   </div>
 
   <div class="content">
-    <div id="campers">
+    <div id="campers_data">
       <table class="striped responsive-table">
         <thead>
           <tr>
@@ -60,7 +60,7 @@
       </table>
     </div>
 
-    <div id="parents">
+    <div id="parents_data" class="hide">
       <table class="striped responsive-table">
         <thead>
           <tr>
@@ -92,7 +92,7 @@
       </table>
     </div>
 
-    <div id="groups">
+    <div id="groups_data" class="hide">
       <table class="striped responsive-table">
         <thead>
           <tr>
@@ -144,6 +144,13 @@
     $(document).ready(function () {
         //$('.tap-target').tapTarget('open');
         $("ul.buttonGroup").click(function (event) {
+            //Hide Everything
+            $('#campers_data').addClass('hide');
+            $('#groups_data').addClass('hide');
+            $('#parents_data').addClass('hide');
+            //Show the selected one
+            $("#" + event.target.id + "_data").removeClass('hide');
+            //Select the selected segment
             $("li", this)
             .removeClass("selected")
             .filter(event.target)
