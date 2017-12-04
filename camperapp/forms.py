@@ -2,9 +2,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, DateField, IntegerField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length
 
-"""   this is not final """
-
-
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired("Please enter your email address."), Email("Please enter your email address.")])
@@ -17,6 +14,36 @@ class SignupFormAdmin(FlaskForm):
     email = StringField('Email', validators=[DataRequired("Please enter your email address."), Email("Please enter your email address.")])
     password = PasswordField('Password', validators=[DataRequired("Please enter a password."), Length(min=6, message="Passwords must be 6 characters or more.")])
     submit = SubmitField('Sign up')
+
+
+class CreateParentForm(FlaskForm):
+    first_name = StringField('First name')
+    last_name = StringField('Last name')
+    birth_date = DateField("Birthday")
+    gender = SelectField(label='Gender', choices=[('M', 'Male'), ('F', 'Female')])
+    email = StringField('Email Address')
+    phone = StringField('Phone Number')
+    street_address = StringField('Street Address')
+    city = StringField('City')
+    state = StringField('State')
+    zipcode = IntegerField('Zip Code')
+    submit = SubmitField('SAVE')
+
+
+class CreateChildForm(FlaskForm):
+    first_name = StringField('First name')
+    last_name = StringField('Last name')
+    birth_date = DateField('Birthday')
+    grade = IntegerField('Grade')
+    gender = SelectField(label='Gender', choices=[('M', 'Male'), ('F', 'Female')])
+    medical_notes = TextAreaField('Medical Notes')
+    street_address = StringField('Street Address')
+    city = StringField('City')
+    state = StringField('State')
+    zipcode = IntegerField('Zip Code')
+    parent_first_name = StringField("Parent's first name")
+    parent_last_name = StringField("Parent's last name")
+    submit = SubmitField('SAVE')
 
 
 class ChildEnrollmentForm(FlaskForm):

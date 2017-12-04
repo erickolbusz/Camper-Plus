@@ -2,10 +2,12 @@
 
 from camperapp import app
 from camperapp.models import db, CampEvent, CampGroup, CampEventSchema, Admin
-from flask import render_template, Blueprint, flash, session, redirect, url_for
+
+from flask import render_template, session, redirect, url_for
 from flask import jsonify
 from flask import request
-from camperapp.forms import SignupFormAdmin, LoginForm, ChildEnrollmentForm
+from camperapp.forms import SignupFormAdmin, LoginForm, ChildEnrollmentForm, CreateParentForm, CreateChildForm
+
 
 
 @app.route('/', methods=['GET'])
@@ -19,7 +21,7 @@ def index():
 def schedule():
     """View displays the schedule-making page"""
     groups = CampGroup.query.all()
-    return render_template("schedule.html", groups=groups)
+    return render_template("admin_schedule.html", groups=groups)
 
 
 @app.route('/parent/schedule', methods=['GET'])
@@ -79,7 +81,30 @@ def parent_forms():
 @app.route('/campers', methods=['GET'])
 def campers():
     """View displays the camper organization page"""
-    return render_template("campers.html")
+    parent_form = CreateParentForm()
+    child_form = CreateChildForm()
+    return render_template('admin_manage.html', parent_form=parent_form, child_form=child_form)
+
+
+@app.route('/manage/parent', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def submit_parent_management():
+    """EndPoint for Adding, Editing and Deleting a Camper"""
+    # a = request.get_json(force=True)
+    parent_form = CreateParentForm(request.form)
+    child_form = CreateChildForm()
+
+    first_name = parent_form.first_name.data
+    last_name = parent_form.last_name.data
+    birth_day = parent_form.birth_date._value()
+    gender = parent_form.gender.data
+    email = parent_form.email.data
+    phone = parent_form.phone.data
+    street_address = parent_form.street_address.data
+    city = parent_form.city.data
+    state = parent_form.state.data
+    zip_code = parent_form.zipcode.data
+
+    return redirect(url_for('campers'))
 
 
 @app.route('/saveEvent', methods=['POST', 'PUT', 'DELETE'])
@@ -161,6 +186,7 @@ def login():
             email = form.email.data
             password = form.password.data
 
+
             useradmin = Admin.query.filter_by(email=email).first()
             if useradmin is not None and useradmin.check_password(password):
                 session['email'] = form.email.data
@@ -181,6 +207,7 @@ def login():
         return render_template('login.html', form=form)
 
 
+
 @app.route('/signupAdmin', methods=['GET', 'POST'])
 def signupAdmin():
     if 'email' in session:
@@ -194,7 +221,6 @@ def signupAdmin():
             email = form.email.data
             user = Admin.query.filter_by(email=email).first()
             if user is not None:
-                flash("You already have an account, please login.", category="success")
                 return redirect(url_for('login'))
             else:
                 newuser = Admin(form.name.data, form.email.data, form.password.data)
