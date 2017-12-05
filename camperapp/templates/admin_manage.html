@@ -300,17 +300,18 @@
 
 <!-- MODAL TO ADD A NEW GROUP-->
 <div id="groups_modal" class="modal">
-  <form>
+  <form id="groups_form" method="POST" action="/manage/campgroup">
   <div class="modal-content">
     <h4 style="display: inline;">Create Group</h4>
-    <a href="#!" style="display: inline; float: right;" class="modal-action modal-close btn">Create</a>
+    <button style="display: inline; float: right;" class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Create</button>
+    <!--<a href="#!" style="display: inline; float: right;" class="modal-action modal-close btn">Create</a>-->
     <div class="row" style="margin-top: 1em">
       <div class="input-field col s4">
-        <input placeholder="Group1" id="groupName" type="text">
+        <input placeholder="Group1" name="groupName" id="groupName" type="text" required>
         <label for="groupName">Group Name</label>
       </div>
       <div style="text-align: center" class="input-field col s3">
-        <input type='text' id="custom" />
+        <input type='text' name="color" id="custom" required/>
       </div>
       <div class="input-field col s5">
         <input placeholder="Search" id="search" type="text">
@@ -340,7 +341,6 @@ $(document).ready(function () {
     //$('.tap-target').tapTarget('open');
 });
 </script>
-
-<script src="{{ url_for('static', filename='js/admin_manage.js') }}" ></script>
 <script src="{{ url_for('static', filename='js/spectrum.js') }}" ></script>
+<script src="{{ url_for('static', filename='js/admin_manage.js') }}" ></script>
 {% endblock scripts %}

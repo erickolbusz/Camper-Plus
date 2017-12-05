@@ -6,7 +6,9 @@ $(document).ready(function () {
     $("#enrollments_bar").addClass("active");
     $('select').material_select();
     $("#custom").spectrum({
-      color: "#f00"
+      color: "#00f",
+      preferredFormat: "hex",
+      showInput: true,
     });
     $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month

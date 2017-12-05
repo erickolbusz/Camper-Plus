@@ -155,6 +155,21 @@ def submit_camper_management():
     return redirect(url_for('campers'))
 
 
+@app.route('/manage/campgroup', methods=['POST'])
+def submit_camper_group_management():
+    """EndPoint for Adding, Editing and Deleting a Camper"""
+    # a = request.get_json(force=True)
+    form = request.form
+    name = form["groupName"]
+    color = form["color"]
+
+    group = CampGroup(name=name, color=color)
+    db.session.add(group)
+    db.session.commit()
+
+    return redirect(url_for('campers'))
+
+
 @app.route('/saveEvent', methods=['POST', 'PUT', 'DELETE'])
 def submit_handler():
     """EndPoint for creating, updating and deleting Calendar Events"""
