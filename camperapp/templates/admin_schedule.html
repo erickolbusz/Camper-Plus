@@ -1,31 +1,37 @@
-{% extends "base.html" %}
+{% extends "new_base.html" %}
 
 {% block headcontent %}
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sched-style.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin_schedule.css')}}" />
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fullcalendar3.6.2/fullcalendar.print.min.css') }}" media='print' />
-    <link rel="stylesheet" type="text/css" href='https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css' />
+    <link rel="stylesheet" type="text/css" href='https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css' />
 {% endblock headcontent %}
 
-{% block navbar_right %}
-	{% include "schedule_link_active.html" %}
-	{% include "campers_link.html" %}
-{% endblock navbar_right %}
+{% block title %}
+  <title>Schedule</title>
+{% endblock title %}
 
-{% block bodycontent %}
-	<div class="sched-nav z-depth-5">
-		<div class="container center-align">
-			<h4 style="margin-bottom: 0;">Groups</h4><hr style="border: 1px solid black;">
-      <div id="groups">
+{% block sidenav_sandwich %}
+ <a href="#" data-activates="slide-out" class="button-collapse show-on-medium"><i class="large material-icons">menu</i></a>
+{% endblock sidenav_sandwich %}
+
+{% block sidenav %}
+<ul id="slide-out" class="side-nav fixed">
+    <li><i class="large material-icons">group</i></li>
+    <li>
+      <div style="text-align: center" id="groups" class="groups">
         {% for group in groups %}
-          <button class="group" id="group{{ group["groupid"] }}" style="background-color: {{ group["color"] }};">{{ group["name"] }}</button><br>
+          <button class="group" id="group{{ group.id }}" style="background-color:{{ group.color }};">{{ group.name }}</button><br>
         {% endfor %}
       </div>
-		</div>
-	</div>
+    </li>
+</ul>
+{% endblock sidenav%}
 
+{% block bodycontent %}
   <!-- Modal Content to Add New Event, edit event or Delete Event -->
-  <form id="event-form" action="javascript:submitScheduleForm()">
+  <form id="event-form" action="javascript:submitEvent()">
   <div class="modal modal-fixed-footer" id="eventModal">
     <div class="modal-content">
       <h4>Event</h4>
@@ -49,7 +55,7 @@
           <select id="sched-groups" required>
             <option value="" disabled selected>Select Group</option>
             {% for group in groups %}
-                <option value="{{group["groupid"]}}">{{ group["name"] }}</option>
+                <option value="{{ group.id }}">{{ group.name }}</option>
             {% endfor %}
           </select>
         </div>
@@ -57,22 +63,19 @@
     </div>
 
     <div class="modal-footer">
-      <button class="btn waves-effect red waves-light modal-action modal-close" id="deleteEvent">Delete Event</button>
+      <button class="btn waves-effect red waves-light modal-action" type="reset" value="Cancel" id="deleteEvent">Delete Event</button>
       <button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>
       <button class="btn waves-effect waves-light modal-action modal-close" type="reset" value="Cancel">Cancel</button>
     </div>
   </div>
 </form>
 
-
 <!--Full Calendar calendar-->
 <div id="calendar" class="sched-div"></div>
-
 {% endblock bodycontent %}
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/moment.min.js') }}" ></script>
     <script src="{{ url_for('static', filename='js/fullcalendar3.6.2/fullcalendar.min.js') }}" ></script>
-    <script src="{{ url_for('static', filename='js/calendar.js') }}" ></script>
-    <script src="{{ url_for('static', filename='js/schedule.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/admin_schedule.js') }}" ></script>
 {% endblock scripts %}

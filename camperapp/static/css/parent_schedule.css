@@ -1,0 +1,110 @@
+.brand-logo {
+    margin-left: 2%;
+}
+
+.nav-wrapper {
+    background-color: #0268A6;
+}
+
+.page-body {
+    margin-top: 50%;
+}
+
+.page-footer {
+    background-color: #C0B283;
+}
+
+.footer-copyright {
+    background-color: darkslateblue;
+}
+.side-nav {
+    width: 250px;
+    margin-top: 60px;
+}
+
+#slide-out i{
+    font-size: 70px;
+    height: 60px;
+    line-height: 60px;
+    margin: 10px auto 0 90px;
+    color: #0268A6;
+}
+
+#slide-out {
+    background-color: #D7E1EB;
+}
+
+nav {
+    height: 60px;
+    line-height: 60px;
+}
+
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+    height: 60px;
+    line-height: 60px;
+}
+
+nav .button-collapse i {
+    font-size: 30px;
+    height: 60px;
+    line-height: 60px;
+}
+
+nav .brand-logo {
+    font-size: 1.6rem;
+}
+
+nav a.dropdown-button, nav a.dropdown-button i{
+    font-size: 40px;
+    height: 60px;
+    line-height: 60px;
+    margin-right: 10px;
+}
+
+nav ul.dropdown-content li a{
+    color: #0268A6 !important; /* no need for !important :) */
+}
+
+.child {
+	color: #D7E1EB;
+	border: 0;
+	border-radius: 2em;
+	font-size: 1.9em;
+	/*font-weight: bold;*/
+    font-family: 'Barlow Condensed', sans-serif;
+	padding: 0.2em 1em 0.2em 1em;
+	margin: 0.4em auto auto 0.25em;
+	position: relative;
+	top: -0.25em;
+}
+
+@media only screen and (min-width: 601px){
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 60px;
+        line-height: 60px;
+    }
+}
+
+@media only screen and (max-width: 992px){
+    #calendar {
+        margin-left: 5px !important;
+        margin-right: 5px;
+        font-size: 12px;
+    }
+}
+
+footer {
+    margin-left: 250px;
+}
+
+.sched-div {
+    margin-left: 255px !important;
+    margin-right: 5px;
+	font-size: 12px;
+}
+
+#calendar h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 30px !important;
+}
+
