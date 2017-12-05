@@ -116,7 +116,7 @@ def submit_parent_management():
     return redirect(url_for('campers'))
 
 
-@app.route('/manage/camper', methods=['POST', 'PUT', 'DELETE'])
+@app.route('/manage/camper', methods=['POST'])
 def submit_camper_management():
     """EndPoint for Adding, Editing and Deleting a Camper"""
     # a = request.get_json(force=True)
@@ -130,18 +130,27 @@ def submit_camper_management():
     camper.grade = child_form.grade.data
     camper.gender = child_form.gender.data
     camper.medical_notes = child_form.medical_notes.data
-    camper.phone = child_form.phone.data
     camper.street_address = child_form.street_address.data
     camper.city = child_form.city.data
     camper.state = child_form.state.data
     camper.zip_code = child_form.zipcode.data
 
     camper.is_active = False
-    # group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
-    # parent_id = db.Column(db.Integer(), db.ForeignKey('parent.id'))
+    camper.group_id = int(child_form.group.data)
+
+    # Search for Parent and Populate field
+    parent = Parent.query.filter_by(first_name=child_form.parent_first_name.data,
+                                    last_name=child_form.parent_last_name.data).first()
+    if not parent:
+        return "<h1>Error</h1>"
+
+    camper.parent = parent
 
     db.session.add(camper)
     db.session.commit()
+
+    # group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
+    # parent_id = db.Column(db.Integer(), db.ForeignKey('parent.id'))
 
     return redirect(url_for('campers'))
 
