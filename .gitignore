@@ -102,3 +102,6 @@ ENV/
 
 #Apple
 .DS_Store
+
+#Nametag Testing
+test.png
