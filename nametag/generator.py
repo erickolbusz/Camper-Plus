@@ -20,13 +20,21 @@ directions = [
               ((0,200), "hello this is a test", (0,0,0), 2, 20)
              ]
 
-def create_nametag(w, h):
+def create_nametag(w, h, filename="test.png"):
+    '''
+    creates a nametag of dimensions wxh to save as filename
+    follows the directions specified in directions
+    '''
     img = Image.new("RGBA", (w,h), (255,255,255))
     for direction in directions:
         add_text(img, direction)
-    img.save(img_dir+"/test.png")
+    img.save(img_dir+"/"+filename)
 
 def add_text(img, direction):
+    '''
+    adds one direction to img as specified in the format
+    (x,y), text, (r,g,b), font_number, font_size
+    '''
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype(fonts_dir+FONTS[direction[3]], direction[4])
     draw.text(direction[0], direction[1], direction[2], font=font)
