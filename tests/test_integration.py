@@ -31,11 +31,18 @@ class LoginTests(TestCase):
         self.assertRedirects(response, '/')
         message = list(response.context['messages'])
         self.assertEqual("Hi test, you have successfully logged in.", str(message[0]))
-        
+
 class RegisterTests(TestCase):
     def setUp(self):
         self.client = Client()
         User.objects.create_user(username='testuser', password='pass', email="test@123.com")
+        
+    def test_register_redirect(self):
+        response = self.client.post("/registration-submission/",
+                                    {'username' : 'test',
+                                     'password': 'test',
+                                     'email' : 'test123@123.com'})
+        self.assertEqual(response.status_code, 302)
 
 
 class TestUrls(unittest.TestCase):
