@@ -19,6 +19,7 @@ class LoginTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_auth_view_invalid_user(self):
+        """Test if invalid User"""
         response = self.client.post('/auth/', {'username': 'sam123', 'password': 'abc123'},
                                     follow=True)
         message = list(response.context['messages'])
@@ -26,6 +27,7 @@ class LoginTests(TestCase):
                          str(message[0]))
 
     def test_auth_view_valid_user(self):
+        """Test if it is a valid user"""
         response = self.client.post('/auth/', {'username':'testuser', 'password':'testpass'},
                                     follow=True)
         self.assertRedirects(response, '/')
@@ -38,6 +40,7 @@ class RegisterTests(TestCase):
         User.objects.create_user(username='testuser', password='pass', email="test@123.com")
 
     def test_register_redirect(self):
+        """Test if it redirects Login"""
         response = self.client.post("/registration-submission/",
                                     {'username' : 'test',
                                      'password': 'test',
@@ -45,16 +48,19 @@ class RegisterTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_duplicate_user(self):
+        """Test if username is alreayd taken"""
         response = self.client.post("/registration-submission/", {'username': 'testuser'})
         self.assertEqual(response.context['message'],
                          "Try again, the username testuser is already taken.")
 
     def test_duplicate_email(self):
+        """test if a email already exists"""
         response = self.client.post("/registration-submission/", {'email': 'test@123.com'})
         self.assertEqual(response.context['message'],
                          "Try again, there is already an account with that email test@123.com.")
 
     def test_register_auto_login(self):
+        """Test for Auto Login"""
         self.client.post("/registration-submission/",
                          {'username' : 'test',
                           'password': 'test',
@@ -76,7 +82,8 @@ class LogoutTests(TestCase):
         self.user = User.objects.create_user(username='testuser', password='pass')
         self.client.login(username='testuser', password='pass')
 
-    def test_logout(self):
+    def test_logout(self): 
+        """Test to see if you can log out"""
         response = self.client.get('/logout/', follow=True)
         self.assertRedirects(response, '/')
         message = list(response.context['messages'])
