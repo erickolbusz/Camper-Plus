@@ -62,6 +62,14 @@ class RegisterTests(TestCase):
                          follow=True)
         self.assertIn('_auth_user_id', self.client.session)
 
+     def test_user_added_to_db(self):
+        self.client.post("/registration-submission/", {'username' : 'test', 'password' : 'test'})
+        try:
+            User.objects.get(username="test")
+        except ObjectDoesNotExist:
+            self.fail('Retrieving brand new registered user from database failed.' \
+                      'ObjectDoesNotExist exception raised.')
+
 class TestUrls(unittest.TestCase):
     def setUp(self):
         self.app = camperapp.app.test_client()
