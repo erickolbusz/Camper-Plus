@@ -6,6 +6,27 @@ from camperapp.models import db, CampEvent, CampGroup
 import json
 from datetime import datetime
 
+class LoginTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='testuser',
+                                             password='testpass',
+                                             last_name="test")
+
+    def test_auth_view_redirect(self):
+        response = self.client.post('/auth/',
+                                    {'username': 'sam123', 'password': 'abc123'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_auth_view_invalid_user(self):
+        response = self.client.post('/auth/', {'username': 'sam123', 'password': 'abc123'},
+                                    follow=True)
+        message = list(response.context['messages'])
+        self.assertEqual("The account you entered is invalid, please try again!",
+                         str(message[0]))
+
+
+   
 
 class TestUrls(unittest.TestCase):
     def setUp(self):
