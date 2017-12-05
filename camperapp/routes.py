@@ -90,7 +90,7 @@ def campers():
     return render_template('admin_manage.html', groups=all_groups, parents=all_parents, campers=all_campers, parent_form=parent_form, child_form=child_form)
 
 
-@app.route('/manage/parent', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/manage/parent', methods=['POST', 'PUT', 'DELETE'])
 def submit_parent_management():
     """EndPoint for Adding, Editing and Deleting a Camper"""
     # a = request.get_json(force=True)
@@ -111,6 +111,36 @@ def submit_parent_management():
     parent.zip_code = parent_form.zipcode.data
 
     db.session.add(parent)
+    db.session.commit()
+
+    return redirect(url_for('campers'))
+
+
+@app.route('/manage/camper', methods=['POST', 'PUT', 'DELETE'])
+def submit_camper_management():
+    """EndPoint for Adding, Editing and Deleting a Camper"""
+    # a = request.get_json(force=True)
+    child_form = CreateChildForm(request.form)
+
+    # Add Validation Later
+    camper = Camper()
+    camper.first_name = child_form.first_name.data
+    camper.last_name = child_form.last_name.data
+    camper.birth_date = datetime.strptime(child_form.birth_date._value(), "%d %B, %Y")
+    camper.grade = child_form.grade.data
+    camper.gender = child_form.gender.data
+    camper.medical_notes = child_form.medical_notes.data
+    camper.phone = child_form.phone.data
+    camper.street_address = child_form.street_address.data
+    camper.city = child_form.city.data
+    camper.state = child_form.state.data
+    camper.zip_code = child_form.zipcode.data
+
+    camper.is_active = False
+    # group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
+    # parent_id = db.Column(db.Integer(), db.ForeignKey('parent.id'))
+
+    db.session.add(camper)
     db.session.commit()
 
     return redirect(url_for('campers'))

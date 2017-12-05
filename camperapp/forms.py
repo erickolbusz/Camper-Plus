@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, DateField, IntegerField, SelectField, TextAreaField
+from camperapp.models import CampGroup
 from wtforms.validators import DataRequired, Email, Length
 
 
@@ -31,6 +32,9 @@ class CreateParentForm(FlaskForm):
 
 
 class CreateChildForm(FlaskForm):
+    _groups = CampGroup.query.order_by(CampGroup.name).all()
+    _group_choices = [(group.id, group.name) for group in _groups]
+
     first_name = StringField('First name')
     last_name = StringField('Last name')
     birth_date = DateField('Birthday')
@@ -43,6 +47,7 @@ class CreateChildForm(FlaskForm):
     zipcode = IntegerField('Zip Code')
     parent_first_name = StringField("Parent's first name")
     parent_last_name = StringField("Parent's last name")
+    group = SelectField(label='Group', choices=_group_choices)
     submit = SubmitField('SAVE')
 
 

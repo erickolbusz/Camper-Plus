@@ -104,10 +104,6 @@ class Camper(db.Model):
     group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
     parent_id = db.Column(db.Integer(), db.ForeignKey('parent.id'))
 
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
     def age(self):
         from datetime import date
         born = self.birth_date
