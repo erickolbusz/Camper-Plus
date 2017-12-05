@@ -31,6 +31,11 @@ class LoginTests(TestCase):
         self.assertRedirects(response, '/')
         message = list(response.context['messages'])
         self.assertEqual("Hi test, you have successfully logged in.", str(message[0]))
+        
+class RegisterTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        User.objects.create_user(username='testuser', password='pass', email="test@123.com")
 
 
 class TestUrls(unittest.TestCase):
