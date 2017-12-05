@@ -54,6 +54,14 @@ class RegisterTests(TestCase):
         self.assertEqual(response.context['message'],
                          "Try again, there is already an account with that email test@123.com.")
 
+    def test_register_auto_login(self):
+        self.client.post("/registration-submission/",
+                         {'username' : 'test',
+                          'password': 'test',
+                          'email' : 'test123@123.com'},
+                         follow=True)
+        self.assertIn('_auth_user_id', self.client.session)
+
 class TestUrls(unittest.TestCase):
     def setUp(self):
         self.app = camperapp.app.test_client()
