@@ -5,8 +5,28 @@ from PIL import Image
 from PIL import ImageDraw
 cwd = os.path.dirname(os.path.realpath(__file__))
 
-font = ImageFont.truetype(cwd+"/OpenSans-Regular.ttf", 25)
-img = Image.new("RGBA", (200,200), (120,20,20))
-draw = ImageDraw.Draw(img)
-draw.text((0,0), "abcdefghijklmnopQRSTUVWXYZ", (255,255,0), font=font)
-img.save(cwd+"/test.png")
+#FONT_NUMBERS:
+#    0: normal
+#    1: light
+#    2: bold
+FONTS = [
+         ImageFont.truetype(cwd+"/OpenSans-Regular.ttf", 25),
+         ImageFont.truetype(cwd+"/OpenSans-Light.ttf", 25),
+         ImageFont.truetype(cwd+"/OpenSans-Bold.ttf", 25)
+        ]
+
+#list of ((x,y), text, (r,g,b), font_number)
+directions = [
+              ((0,0), "abcdefghijklmnopQRSTUVWXYZ", (0,0,0), 0)
+             ]
+
+def create_nametag(w, h):
+    img = Image.new("RGBA", (w,h), (255,255,255))
+    font_n = ImageFont.truetype(cwd+"/OpenSans-Regular.ttf", 25)
+    for direction in directions:
+        add_text(img, direction)
+    img.save(cwd+"/test.png")
+
+def add_text(img, direction):
+    draw = ImageDraw.Draw(img)
+    draw.text(direction[0], direction[1], direction[2], FONTS[direction[3]])
