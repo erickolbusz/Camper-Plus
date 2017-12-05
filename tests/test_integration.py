@@ -69,6 +69,12 @@ class RegisterTests(TestCase):
         except ObjectDoesNotExist:
             self.fail('Retrieving brand new registered user from database failed.' \
                       'ObjectDoesNotExist exception raised.')
+            
+class LogoutTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='testuser', password='pass')
+        self.client.login(username='testuser', password='pass')
 
 class TestUrls(unittest.TestCase):
     def setUp(self):
