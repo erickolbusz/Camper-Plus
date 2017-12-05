@@ -25,8 +25,13 @@ class LoginTests(TestCase):
         self.assertEqual("The account you entered is invalid, please try again!",
                          str(message[0]))
 
+    def test_auth_view_valid_user(self):
+        response = self.client.post('/auth/', {'username':'testuser', 'password':'testpass'},
+                                    follow=True)
+        self.assertRedirects(response, '/')
+        message = list(response.context['messages'])
+        self.assertEqual("Hi test, you have successfully logged in.", str(message[0]))
 
-   
 
 class TestUrls(unittest.TestCase):
     def setUp(self):
