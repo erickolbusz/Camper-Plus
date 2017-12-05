@@ -43,12 +43,16 @@ class RegisterTests(TestCase):
                                      'password': 'test',
                                      'email' : 'test123@123.com'})
         self.assertEqual(response.status_code, 302)
-        
+
     def test_duplicate_user(self):
         response = self.client.post("/registration-submission/", {'username': 'testuser'})
         self.assertEqual(response.context['message'],
                          "Try again, the username testuser is already taken.")
 
+    def test_duplicate_email(self):
+        response = self.client.post("/registration-submission/", {'email': 'test@123.com'})
+        self.assertEqual(response.context['message'],
+                         "Try again, there is already an account with that email test@123.com.")
 
 class TestUrls(unittest.TestCase):
     def setUp(self):
