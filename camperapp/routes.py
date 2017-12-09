@@ -87,6 +87,7 @@ def campers():
     all_campers = Camper.query.order_by(Camper.last_name).all()
     all_parents = Parent.query.order_by(Parent.last_name).all()
     all_groups = CampGroup.query.order_by(CampGroup.name).all()
+
     return render_template('admin_manage.html', groups=all_groups, parents=all_parents, campers=all_campers, parent_form=parent_form, child_form=child_form)
 
 
@@ -234,10 +235,11 @@ def get_camp_events():
 
     return jsonify(result)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Camp Admin and Parent login endpoint"""
+    """Camp Admin and Parent login endpoint
+    if 'email' in session:
+        return redirect(url_for('campers'))"""
     form = LoginForm()
 
     if request.method == 'POST':
@@ -247,37 +249,56 @@ def login():
             email = form.email.data
             password = form.password.data
 
-            user = Admin.query.filter_by(email=email).first()
-            if user is not None and user.check_password(password):
+
+            useradmin = Admin.query.filter_by(email=email).first()
+            if useradmin is not None and useradmin.check_password(password):
                 session['email'] = form.email.data
                 return redirect(url_for('campers'))
             else:
                 return redirect(url_for('login'))
 
+            userparent = Parent.query.filter_by(email=email).first()
+            if userparent is not None and userparent.check_password(password):
+                session['email'] = form.email.data
+                return redirect(url_for('parent_enrollments'))
+            else:
+                return redirect(url_for('login'))
+
+
+
+
+
+
     elif request.method == 'GET':
         return render_template('login.html', form=form)
 
 
-@app.route("/signupAdmin", methods=['GET', 'POST'])
-def signup_admin():
+
+@app.route('/signupAdmin', methods=['GET', 'POST'])
+def signupAdmin():
+
     form = SignupFormAdmin()
 
-    if request.method == "POST":
-        if not form.validate():
-            return render_template("signupAdmin.html", form=form)
+    if request.method == 'POST':
+        if form.validate() == False:
+          return render_template('signupAdmin.html', form=form)
         else:
-            newuser = Admin(form.name.data, form.email.data, form.password.data)
-            db.session.add(newuser)
-            db.session.commit()
+            email = form.email.data
+            user = Admin.query.filter_by(email=email).first()
+            if user is not None:
+                return redirect(url_for('login'))
+            else:
+                newuser = Admin(form.name.data, form.email.data, form.password.data)
+                db.session.add(newuser)
+                db.session.commit()
 
-            session['email'] = newuser.email
-            return redirect(url_for('home'))
+                session['email'] = newuser.email
+                return redirect(url_for('index'))
 
-    elif request.method == "GET":
+    elif request.method == 'GET':
         return render_template('signupAdmin.html', form=form)
-
 
 @app.route("/logout")
 def logout():
-    session.pop('email', None)
-    return redirect(url_for('home'))
+  session.pop('email', None)
+  return redirect(url_for('index'))

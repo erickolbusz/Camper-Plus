@@ -154,61 +154,52 @@ class Admin(db.Model):
         self.pwdhash = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.pwdhash, password)
-
-    """
+       return check_password_hash(self.pwdhash, password)
+#db.create_all()
+#db.session.commit()
+"""
     To add a new item to database
     event = CampEvent(params)
     db.session.add(event)
     db.session.commit()
-
     To add a camper to a group, we can do either of the following/set secondary params
     camper.campgroup = Group
     CampGroup.campers.append(camper)
     camper.group_id = Group.id
-
     To query events
     User.query.all()  -> get all in the table
     User.query.first()
     User.query.get(3) -> get 3 elements
-
     User.query.first_or_404() -> returns 404 if not found
     User.query.limit(5) -> returns a query object that that we can use
     limits all our queries to 5 events
-
     User.query.order_by(User.username.desc()).limit(5).all()
     User.query.filter_by(username='alex', password="something").first()
     User.query.filter_by(username='alex', password="something").update({'password': 'different'})
     db.session.commit() to save our update changes
-
     db.session.delete(some_object)
     db.session.commit()
-
     QUERY ONE-TO-MANY RELATIONSHIPS
     #adding a relationship
     post.user_id = something.id
     user.posts.append(post)
     post.user = user
-
     group.campers.all() -> get all campers in the group
     user.posts.all()
     user.posts.limit(10).all()
-
     //iteration through
     for i in users.posts:
         print(i)
-
     Recommendations:
     1. webpack is kind of like Make that transforms you code to be used in production
     2. Gcc is replaced by Babel - transpiles your code to es6, react, etc. to stuff that will
     run on any browser
     3. React, React DOM or Vue
     4. ESlint
-    """
+"""
 
 
-db.create_all()
-db.session.commit()
+
 
 # class Group(db.Model):
 #     __tablename__='group'
