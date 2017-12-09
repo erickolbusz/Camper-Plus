@@ -38,16 +38,22 @@
         </thead>
 
         <tbody>
+
+          {% for camper in campers %}
           <tr>
-            <td>John Redcorn</td>
-            <td>12</td>
-            <td>10</td>
-            <td>Falcons</td>
-            <td>Jayme Dienstag</td>
+            <td>{{ camper.last_name }}, {{ camper.first_name }}</td>
+            <td>{{ camper.age() }}</td>
+            <td>{{ camper.grade }}</td>
+            <td>{{ camper.campgroup.name }}</td>
+            <td>{{ camper.parent.last_name }}, {{ camper.parent.first_name }}</td>
             <td>
               <div class="switch">
                 <label>
+                  {% if camper.is_active %}
+                  <input type="checkbox" checked="checked" disabled="disabled">
+                  {% else %}
                   <input type="checkbox">
+                  {% endif %}
                   <span class="lever"></span>
                 </label>
               </div>
@@ -57,6 +63,8 @@
                 <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
             </td>
           </tr>
+          {% endfor %}
+
         </tbody>
       </table>
     </div>
@@ -74,14 +82,16 @@
         </thead>
 
         <tbody>
+          {% for parent in parents %}
           <tr>
-            <td>Jayme Dienstag</td>
-            <td>jaime.dienstag@camper-plus.org</td>
-            <td>(646) 432 - 9909</td>
+            <td>{{ parent.last_name }}, {{ parent.first_name }}</td>
+            <td>{{ parent.email }}</td>
+            <td>{{ parent.phone }}</td>
             <td>
               <ul>
-                <li>John Redcorn</li>
-                <li>Tony Pecan</li>
+                 {% for camper in parent.campers %}
+                    <li>{{ camper.first_name }} {{ camper.last_name }}</li>
+                 {% endfor %}
               </ul>
             </td>
             <td>
@@ -89,6 +99,7 @@
                 <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -105,15 +116,17 @@
         </thead>
 
         <tbody>
+         {% for group in groups %}
           <tr>
-            <td>Falcons</td>
-            <td class="color-patch"><div style="background-color: red; width: 100px; height: 30px" ></div></td>
+            <td>{{ group.name }}</td>
+            <td class="color-patch"><div style="background-color: {{ group.color }}; width: 30px; height: 30px" ></div></td>
             <td>
               <details class="browser-default">
                 <summary class="browser-default">Click to Expand/Collapse</summary>
                 <ul>
-                  <li>Billy Joe</li>
-                  <li>Jackie Poo</li>
+                  {% for camper in group.campers %}
+                  <li>{{ camper.first_name }} {{ camper.last_name }}</li>
+                  {% endfor %}
                 </ul>
               </details>
             </td>
@@ -122,6 +135,7 @@
                 <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -197,7 +211,7 @@
 </form>
 
 <!-- Modal Content to Add a new Camper-->
-<form id="campers_form" action="">
+<form id="campers_form" method='POST' action="/manage/camper">
   <div class="modal modal-fixed-footer" id="campers_modal">
       {{ parent_form.hidden_tag() }}
     <div class=" col s12 modal-content">
@@ -270,12 +284,7 @@
       <div class="row">
         <h5>Group</h5>
         <div class="input-field col s6">
-          <select id="sched-groups" required>
-            <option value="" disabled selected>Select Group</option>
-            {% for group in groups %}
-                <option value="{{ group.id }}">{{ group.name }}</option>
-            {% endfor %}
-          </select>
+          {{ child_form.group }}
         </div>
       </div>
 
@@ -291,17 +300,18 @@
 
 <!-- MODAL TO ADD A NEW GROUP-->
 <div id="groups_modal" class="modal">
-  <form>
+  <form id="groups_form" method="POST" action="/manage/campgroup">
   <div class="modal-content">
     <h4 style="display: inline;">Create Group</h4>
-    <a href="#!" style="display: inline; float: right;" class="modal-action modal-close btn">Create</a>
+    <button style="display: inline; float: right;" class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Create</button>
+    <!--<a href="#!" style="display: inline; float: right;" class="modal-action modal-close btn">Create</a>-->
     <div class="row" style="margin-top: 1em">
       <div class="input-field col s4">
-        <input placeholder="Group1" id="groupName" type="text">
+        <input placeholder="Group1" name="groupName" id="groupName" type="text" required>
         <label for="groupName">Group Name</label>
       </div>
       <div style="text-align: center" class="input-field col s3">
-        <input type='text' id="custom" />
+        <input type='text' name="color" id="custom" required/>
       </div>
       <div class="input-field col s5">
         <input placeholder="Search" id="search" type="text">
@@ -331,7 +341,6 @@ $(document).ready(function () {
     //$('.tap-target').tapTarget('open');
 });
 </script>
-
-<script src="{{ url_for('static', filename='js/admin_manage.js') }}" ></script>
 <script src="{{ url_for('static', filename='js/spectrum.js') }}" ></script>
+<script src="{{ url_for('static', filename='js/admin_manage.js') }}" ></script>
 {% endblock scripts %}
