@@ -1,0 +1,346 @@
+{% extends "new_base.html" %}
+
+{% block headcontent %}
+  <link rel='stylesheet' href="{{ url_for('static', filename='css/spectrum.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/manage.css') }}">
+{% endblock headcontent %}
+
+{% block title %}
+  <title>Manage</title>
+{% endblock title %}
+
+{% block sidenav_sandwich %}
+{% endblock sidenav_sandwich %}
+
+{% block bodycontent %}
+
+  <div class="segment-control">
+    <ul class="buttonGroup">
+      <li class="selected" id="campers" data-modal="campers_modal">Campers</li>
+      <li id="parents" data-modal="parents_modal">Parents</li>
+      <li id="groups" data-modal="groups_modal">Groups</li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <div id="campers_data">
+      <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Grade</th>
+              <th>Group</th>
+              <th>Parent</th>
+              <th>Status</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {% for camper in campers %}
+          <tr>
+            <td>{{ camper.last_name }}, {{ camper.first_name }}</td>
+            <td>{{ camper.age() }}</td>
+            <td>{{ camper.grade }}</td>
+            <td>{{ camper.campgroup.name }}</td>
+            <td>{{ camper.parent.last_name }}, {{ camper.parent.first_name }}</td>
+            <td>
+              <div class="switch">
+                <label>
+                  {% if camper.is_active %}
+                  <input type="checkbox" checked="checked" disabled="disabled">
+                  {% else %}
+                  <input type="checkbox">
+                  {% endif %}
+                  <span class="lever"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">edit</i></a>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
+            </td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+
+    <div id="parents_data" class="hide">
+      <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Enrollments</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for parent in parents %}
+          <tr>
+            <td>{{ parent.last_name }}, {{ parent.first_name }}</td>
+            <td>{{ parent.email }}</td>
+            <td>{{ parent.phone }}</td>
+            <td>
+              <ul>
+                 {% for camper in parent.campers %}
+                    <li>{{ camper.first_name }} {{ camper.last_name }}</li>
+                 {% endfor %}
+              </ul>
+            </td>
+            <td>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">edit</i></a>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div id="groups_data" class="hide">
+      <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Color</th>
+              <th>Campers</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         {% for group in groups %}
+          <tr>
+            <td>{{ group.name }}</td>
+            <td class="color-patch"><div style="background-color: {{ group.color }}; width: 30px; height: 30px" ></div></td>
+            <td>
+              <details class="browser-default">
+                <summary class="browser-default">Click to Expand/Collapse</summary>
+                <ul>
+                  {% for camper in group.campers %}
+                  <li>{{ camper.first_name }} {{ camper.last_name }}</li>
+                  {% endfor %}
+                </ul>
+              </details>
+            </td>
+            <td>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">edit</i></a>
+                <a class="waves-effect waves-light btn-floating"><i class="material-icons">delete</i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<!-- Modal Content to Add a new Parent -->
+<form id="parents_form" method="POST" action="/manage/parent">
+  <div class="modal modal-fixed-footer" id="parents_modal">
+      {{ parent_form.hidden_tag() }}
+    <div class=" col s12 modal-content">
+      <h4>Add Parent</h4>
+
+      <div class="row">
+        <div class="input-field col s6">
+            {{ parent_form.first_name }}
+            {{ parent_form.first_name.label }}
+        </div>
+        <div class="input-field col s6">
+            {{ parent_form.last_name }}
+            {{ parent_form.last_name.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+            {{ parent_form.birth_date(class="datepicker") }}
+            {{ parent_form.birth_date.label }}
+        </div>
+        <div class="input-field col s6">
+            {{ parent_form.gender }}
+            {{ parent_form.gender.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+            {{ parent_form.email(type="email") }}
+            {{ parent_form.email.label }}
+        </div>
+        <div class="input-field col s6">
+            {{ parent_form.phone(type="tel") }}
+            {{ parent_form.phone.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <h5>Address</h5>
+        <div class="input-field col s12">
+            {{ parent_form.street_address }}
+            {{ parent_form.street_address.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ parent_form.city }}
+            {{ parent_form.city.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ parent_form.state }}
+            {{ parent_form.state.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ parent_form.zipcode }}
+            {{ parent_form.zipcode.label }}
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      {{ parent_form.submit(class="waves-effect waves-light btn") }}
+      <!--<button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>-->
+      <button class="btn waves-effect waves-light modal-action modal-close red" type="reset" value="Cancel">Cancel</button>
+    </div>
+  </div>
+</form>
+
+<!-- Modal Content to Add a new Camper-->
+<form id="campers_form" method='POST' action="/manage/camper">
+  <div class="modal modal-fixed-footer" id="campers_modal">
+      {{ parent_form.hidden_tag() }}
+    <div class=" col s12 modal-content">
+      <h4>Add Camper</h4>
+
+      <div class="row">
+        <div class="input-field col s6">
+            {{ child_form.first_name }}
+            {{ child_form.first_name.label }}
+        </div>
+        <div class="input-field col s6">
+            {{ child_form.last_name }}
+            {{ child_form.last_name.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s4">
+            {{ parent_form.birth_date(class="datepicker") }}
+            {{ parent_form.birth_date.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.grade }}
+            {{ child_form.grade.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.gender }}
+            {{ child_form.gender.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          {{ child_form.medical_notes(class="materialize-textarea") }}
+          {{ child_form.medical_notes.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <h5>Address</h5>
+        <div class="input-field col s12">
+            {{ child_form.street_address }}
+            {{ child_form.street_address.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.city }}
+            {{ child_form.city.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.state }}
+            {{ child_form.state.label }}
+        </div>
+        <div class="input-field col s4">
+            {{ child_form.zipcode }}
+            {{ child_form.zipcode.label }}
+        </div>
+      </div>
+
+      <div class="row">
+        <h5>Parent Information</h5>
+        <div class="input-field col s6">
+            {{ child_form.parent_first_name }}
+            {{ child_form.parent_first_name.label }}
+        </div>
+        <div class="input-field col s6">
+            {{ child_form.parent_last_name }}
+            {{ child_form.parent_last_name.label }}
+        </div>
+      </div>
+      <div class="row">
+        <h5>Group</h5>
+        <div class="input-field col s6">
+          {{ child_form.group }}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      {{ child_form.submit(class="waves-effect waves-light modal-action btn") }}
+      <!--<button class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Save</button>-->
+      <button class="btn waves-effect waves-light modal-action modal-close red" type="reset" value="Cancel">Cancel</button>
+    </div>
+  </div>
+</form>
+
+<!-- MODAL TO ADD A NEW GROUP-->
+<div id="groups_modal" class="modal">
+  <form id="groups_form" method="POST" action="/manage/campgroup">
+  <div class="modal-content">
+    <h4 style="display: inline;">Create Group</h4>
+    <button style="display: inline; float: right;" class="btn waves-effect waves-light modal-action" type="submit" id="saveEvent">Create</button>
+    <!--<a href="#!" style="display: inline; float: right;" class="modal-action modal-close btn">Create</a>-->
+    <div class="row" style="margin-top: 1em">
+      <div class="input-field col s4">
+        <input placeholder="Group1" name="groupName" id="groupName" type="text" required>
+        <label for="groupName">Group Name</label>
+      </div>
+      <div style="text-align: center" class="input-field col s3">
+        <input type='text' name="color" id="custom" required/>
+      </div>
+      <div class="input-field col s5">
+        <input placeholder="Search" id="search" type="text">
+        <label for="search">Add Campers</label>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+
+  <div class="tap-target" data-activates="menu">
+    <div class="tap-target-content">
+      <h5>Please Enroll a Student</h5>
+      <p>Click Here</p>
+    </div>
+  </div>
+
+  <div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large waves-effect waves-light modal-trigger" id="menu" href="#campers_modal"><i class="material-icons">add</i></a>
+  </div>
+
+{% endblock bodycontent %}
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+    //$('.tap-target').tapTarget('open');
+});
+</script>
+<script src="{{ url_for('static', filename='js/spectrum.js') }}" ></script>
+<script src="{{ url_for('static', filename='js/admin_manage.js') }}" ></script>
+{% endblock scripts %}

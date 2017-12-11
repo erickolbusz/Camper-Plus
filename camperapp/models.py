@@ -1,5 +1,5 @@
 """Models in Camper APP"""
-# from camperapp import app
+from camperapp import app
 from marshmallow import Schema, fields
 from datetime import datetime
 from camperapp import db
@@ -65,20 +65,60 @@ class CampEventSchema(Schema):
     color = fields.Str()
 
 
+class Parent(db.Model):
+    """Parent class representing a Parent of Camper(s)"""
+    __tablename__ = 'parent'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    first_name = db.Column(db.String())
+    last_name = db.Column(db.String())
+    birth_date = db.Column(db.Date())
+    gender = db.Column(db.String())
+    email = db.Column(db.String())
+    phone = db.Column(db.String())
+    street_address = db.Column(db.String())
+    city = db.Column(db.String())
+    state = db.Column(db.String())
+    zip_code = db.Column(db.Integer())
+    campers = db.relationship('Camper', backref='parent', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Parent {}>'.format(self.name)
+
+
 class Camper(db.Model):
     """Camper class representing a Camper"""
     __tablename__ = 'camper'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String())
-    age = db.Column(db.Integer())
+    first_name = db.Column(db.String())
+    last_name = db.Column(db.String())
+    birth_date = db.Column(db.Date())
+    grade = db.Column(db.Integer())
+    gender = db.Column(db.String())
+    medical_notes = db.Column(db.String())
+    phone = db.Column(db.String())
+    street_address = db.Column(db.String())
+    city = db.Column(db.String())
+    state = db.Column(db.String())
+    zip_code = db.Column(db.Integer())
+    is_active = db.Column(db.Boolean())
     group_id = db.Column(db.Integer(), db.ForeignKey('campgroup.id'))
+    parent_id = db.Column(db.Integer(), db.ForeignKey('parent.id'))
 
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+    def age(self):
+        from datetime import date
+        born = self.birth_date
+        today = date.today()
+        try:
+            birthday = born.replace(year=today.year)
+        except ValueError:  # raised when birth date is February 29 and the current year is not a leap year
+            birthday = born.replace(year=today.year, day=born.day - 1)
+        if birthday > today:
+            return today.year - born.year - 1
+        else:
+            return today.year - born.year
 
     def __repr__(self):
-        return '<Camper {}>'.format(self.name)
+        return '<Camper {}, {}>'.format(self.last_name, self.first_name)
 
 
 class CampGroup(db.Model):
@@ -98,12 +138,12 @@ class CampGroup(db.Model):
         return '<Group {}>'.format(self.name)
 
 
-class Manager(db.Model):
-    __tablename__ = 'manager'
-    id = db.Column(db.Integer(),primary_key=True, autoincrement=True)
+class Admin(db.Model):
+    __tablename__ = 'admin'
+    id = db.Column(db.Integer(),primary_key=True,autoincrement=True)
     name = db.Column(db.String())
-    email = db.Column(db.String(120), unique=True)
-    pwdhash = db.Column(db.String(54))
+    email = db.Column(db.String(), unique=True)
+    pwdhash = db.Column(db.String())
 
     def __init__(self, name, email, password):
         self.name = name
@@ -114,61 +154,52 @@ class Manager(db.Model):
         self.pwdhash = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.pwdhash, password)
-
-    """
+       return check_password_hash(self.pwdhash, password)
+#db.create_all()
+#db.session.commit()
+"""
     To add a new item to database
     event = CampEvent(params)
     db.session.add(event)
     db.session.commit()
-
     To add a camper to a group, we can do either of the following/set secondary params
     camper.campgroup = Group
     CampGroup.campers.append(camper)
     camper.group_id = Group.id
-
     To query events
     User.query.all()  -> get all in the table
     User.query.first()
     User.query.get(3) -> get 3 elements
-
     User.query.first_or_404() -> returns 404 if not found
     User.query.limit(5) -> returns a query object that that we can use
     limits all our queries to 5 events
-
     User.query.order_by(User.username.desc()).limit(5).all()
     User.query.filter_by(username='alex', password="something").first()
     User.query.filter_by(username='alex', password="something").update({'password': 'different'})
     db.session.commit() to save our update changes
-
     db.session.delete(some_object)
     db.session.commit()
-
     QUERY ONE-TO-MANY RELATIONSHIPS
     #adding a relationship
     post.user_id = something.id
     user.posts.append(post)
     post.user = user
-
     group.campers.all() -> get all campers in the group
     user.posts.all()
     user.posts.limit(10).all()
-
     //iteration through
     for i in users.posts:
         print(i)
-
     Recommendations:
     1. webpack is kind of like Make that transforms you code to be used in production
     2. Gcc is replaced by Babel - transpiles your code to es6, react, etc. to stuff that will
     run on any browser
     3. React, React DOM or Vue
     4. ESlint
-    """
+"""
 
 
-#db.create_all()
-#db.session.commit()
+
 
 # class Group(db.Model):
 #     __tablename__='group'
