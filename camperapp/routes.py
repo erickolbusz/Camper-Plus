@@ -196,8 +196,8 @@ def submit_handler():
 
         event_id = int(event_data['id'])
         new_title = event_data['title']
-        new_start = CampEvent.convert_ISO_datetime_to_py_datetime(event_data['start'])
-        new_end = CampEvent.convert_ISO_datetime_to_py_datetime(event_data['end'])
+        new_start = CampEvent.convert_iso_datetime_to_py_datetime(event_data['start'])
+        new_end = CampEvent.convert_iso_datetime_to_py_datetime(event_data['end'])
         new_group_id = int(event_data['group_id'])
 
         CampEvent.query.filter_by(id=event_id).update({'title': new_title, 'start': new_start,
