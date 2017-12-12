@@ -11,6 +11,8 @@ Welcome to Camper-Plus's documentation!
    :caption: Contents:
 
    forms
+   dbmodels
+   routes
 
 Indices and tables
 ==================
